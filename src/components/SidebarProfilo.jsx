@@ -1,67 +1,68 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 const SidebarProfilo = () => {
-  const [isEditingLanguage, setIsEditingLanguage] = useState(false)
-  const [isEditingUrl, setIsEditingUrl] = useState(false)
-  const [language, setLanguage] = useState('Italiano')
+  const [isEditingLanguage, setIsEditingLanguage] = useState(false);
+  const [isEditingUrl, setIsEditingUrl] = useState(false);
+  const [language, setLanguage] = useState("Italiano");
   const [profileUrl, setProfileUrl] = useState(
-    'www.linkedin.com/in/cristina-mastellaro-72156a213'
-  )
-  const [showAllProfiles, setShowAllProfiles] = useState(false)
+    "www.linkedin.com/in/cristina-mastellaro-72156a213"
+  );
+  const [showAllProfiles, setShowAllProfiles] = useState(false);
 
-  const languages = ['Italiano', 'English', 'Français', 'Deutsch', 'Español']
+  const languages = ["Italiano", "English", "Français", "Deutsch", "Español"];
 
   const additionalProfiles = [
     {
       id: 1,
-      name: 'Marco Rossi',
-      role: 'Senior Software Engineer presso TechCorp',
-      initials: 'MR',
-      color: '#007bb6',
+      name: "Marco Rossi",
+      role: "Senior Software Engineer presso TechCorp",
+      initials: "MR",
+      color: "#007bb6",
     },
     {
       id: 2,
-      name: 'Sofia Bianchi',
-      role: 'Marketing Manager presso Digital Agency',
-      initials: 'SB',
-      color: '#dc3545',
+      name: "Sofia Bianchi",
+      role: "Marketing Manager presso Digital Agency",
+      initials: "SB",
+      color: "#dc3545",
     },
     {
       id: 3,
-      name: 'Alessandro Verdi',
-      role: 'Data Scientist presso Analytics Pro',
-      initials: 'AV',
-      color: '#6f42c1',
+      name: "Alessandro Verdi",
+      role: "Data Scientist presso Analytics Pro",
+      initials: "AV",
+      color: "#6f42c1",
     },
     {
       id: 4,
-      name: 'Giulia Neri',
-      role: 'UX Designer presso Creative Studio',
-      initials: 'GN',
-      color: '#fd7e14',
+      name: "Giulia Neri",
+      role: "UX Designer presso Creative Studio",
+      initials: "GN",
+      color: "#fd7e14",
     },
-  ]
+  ];
 
   const handleLanguageSubmit = (e) => {
-    e.preventDefault()
-    setIsEditingLanguage(false)
-  }
+    e.preventDefault();
+    setIsEditingLanguage(false);
+  };
 
   const handleUrlSubmit = (e) => {
-    e.preventDefault()
-    setIsEditingUrl(false)
-  }
+    e.preventDefault();
+    setIsEditingUrl(false);
+  };
 
   const handleLanguageCancel = () => {
-    setIsEditingLanguage(false)
-  }
+    setIsEditingLanguage(false);
+  };
 
   const handleUrlCancel = () => {
-    setIsEditingUrl(false)
-  }
+    setIsEditingUrl(false);
+  };
 
   return (
-    <div className="col-12 col-md-12 col-lg-3">
+    // <div className="col-12 col-md-12 col-lg-3">
+    <div className="mt-4">
       <div className="card mb-3 shadow-sm">
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center mb-3">
@@ -104,7 +105,7 @@ const SidebarProfilo = () => {
             {!isEditingLanguage && (
               <i
                 className="bi bi-pencil"
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
                 onClick={() => setIsEditingLanguage(true)}
               ></i>
             )}
@@ -148,7 +149,7 @@ const SidebarProfilo = () => {
             {!isEditingUrl && (
               <i
                 className="bi bi-pencil ms-2"
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
                 onClick={() => setIsEditingUrl(true)}
               ></i>
             )}
@@ -169,7 +170,7 @@ const SidebarProfilo = () => {
               <img
                 src="/linkedin-icon.jpg"
                 alt="icona-linkedin"
-                style={{ width: '8rem' }}
+                style={{ width: "8rem" }}
               />
             </div>
           </div>
@@ -194,7 +195,7 @@ const SidebarProfilo = () => {
             <div className="d-flex align-items-center">
               <div
                 className="rounded-circle me-3 bg-secondary"
-                style={{ width: '50px', height: '50px' }}
+                style={{ width: "50px", height: "50px" }}
               ></div>
               <div>
                 <h6 className="mb-0 fw-semibold">Qualcuno presso</h6>
@@ -212,7 +213,7 @@ const SidebarProfilo = () => {
             <div className="d-flex align-items-center">
               <div
                 className="rounded-circle me-3 bg-warning"
-                style={{ width: '50px', height: '50px' }}
+                style={{ width: "50px", height: "50px" }}
               ></div>
               <div>
                 <h6 className="mb-0 fw-semibold">
@@ -240,7 +241,7 @@ const SidebarProfilo = () => {
               src="/profile-icon.png"
               alt="Leonardo Genesin"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-semibold">Leonardo Genesin</h6>
@@ -262,7 +263,7 @@ const SidebarProfilo = () => {
               src="profile-icon.png"
               alt="Marta Ferrari"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-semibold">Marta Ferrari</h6>
@@ -284,14 +285,14 @@ const SidebarProfilo = () => {
               src="profile-icon.png"
               alt="Chiara Baldan"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-semibold">
                 Chiara Baldan
                 <i
                   className="fas fa-check-circle text-primary ms-1"
-                  style={{ fontSize: '12px' }}
+                  style={{ fontSize: "12px" }}
                 ></i>
               </h6>
               <small className="text-muted">Research Fellow</small>
@@ -311,7 +312,7 @@ const SidebarProfilo = () => {
               src="profile-icon.png"
               alt="Diego Redi"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="text-start">
               <h6 className="mb-0 fw-bold">Diego Redi</h6>
@@ -331,10 +332,10 @@ const SidebarProfilo = () => {
                   <hr />
                   <div className="d-flex align-items-center mb-3">
                     <img
-                      src={'profile-icon.png'}
+                      src={"profile-icon.png"}
                       alt={profile.name}
                       className="rounded-circle me-3"
-                      style={{ width: '50px', height: '50px' }}
+                      style={{ width: "50px", height: "50px" }}
                     />
                     <div className="text-start">
                       <h6 className="mb-0 fw-bold">{profile.name}</h6>
@@ -352,15 +353,15 @@ const SidebarProfilo = () => {
           <hr />
           <p
             className="text-primary mb-0 fw-semibold"
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
             onClick={() => setShowAllProfiles(!showAllProfiles)}
           >
-            {showAllProfiles ? 'Mostra meno' : 'Mostra tutto'}
+            {showAllProfiles ? "Mostra meno" : "Mostra tutto"}
           </p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SidebarProfilo
+export default SidebarProfilo;

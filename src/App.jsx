@@ -6,6 +6,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Attivita from "./components/Attivita";
 import Education from "./components/Education";
 import { useEffect } from "react";
+import Main from "./components/Main";
+import SidebarProfilo from "./components/SidebarProfilo";
+import { Container, Row, Col } from "react-bootstrap";
 
 function App() {
   useEffect(() => {
@@ -16,13 +19,16 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Hero />
-      <ConsigliatoPerTe />
-      <Analisi />
-      <Attivita />
-      <Education />
-    </>
+    <Container>
+      <Row>
+        <Col xs={9}>
+          <Main />
+        </Col>
+        <Col xs={3}>
+          <SidebarProfilo />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
