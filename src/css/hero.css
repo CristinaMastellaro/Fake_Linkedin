@@ -55,11 +55,16 @@
 .badge-info {
   border: 2px solid var(--myBlue);
   text-align: center;
-  padding: 0.5em 1em;
+  padding: 0.2em 1em;
   border-radius: 20px;
   width: max-content;
   font-weight: 600;
   cursor: pointer;
+}
+
+.badge-info:hover {
+  background-color: rgba(128, 128, 128, 0.23);
+  /* font-weight: bold; */
 }
 
 .badge-active {
@@ -97,4 +102,32 @@
 .carousel-img-info {
   height: 12em;
   opacity: 0%;
+}
+
+@keyframes mini-hero-anim {
+  0% {
+    transform: translateY(-5em);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes mini-hero-anim-out {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-5em);
+  }
+}
+
+.mini-hero {
+  animation: 0.7s linear mini-hero-anim;
+}
+
+.mini-hero-out {
+  animation: 0.7s linear mini-hero-anim-out forwards;
 }

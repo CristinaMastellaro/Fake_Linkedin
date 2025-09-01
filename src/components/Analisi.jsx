@@ -1,4 +1,4 @@
-import { Card, Row, Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { FaEye } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { BiLineChart, BiRightArrowAlt } from "react-icons/bi";
