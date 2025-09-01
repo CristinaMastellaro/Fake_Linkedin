@@ -1,10 +1,10 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import CustomNavbar from "./components/Navbar";
 import "./App.css";
 
-function App() {
-  return <></>;
+export default function App() {
+  return (
+    <div className="col-12 d-flex flex-column min-vh-100 bg-light">
+      <CustomNavbar />
+    </div>
+  );
 }
-
-export default App;
