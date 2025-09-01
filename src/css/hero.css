@@ -9,6 +9,8 @@
 
 .picture-profile {
   background-image: url("https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg");
+  background-position: center;
+  background-size: cover;
   width: 120px;
   height: 120px;
   border-radius: 100%;
@@ -17,7 +19,7 @@
   top: 80px;
 }
 
-.picture-photo {
+.picture-photocamera {
   border-radius: 100%;
   width: 30px;
   height: 30px;
@@ -86,4 +88,13 @@
 
 .img-carousel:hover {
   cursor: pointer;
+}
+
+.carousel-info {
+  height: 9.5em;
+}
+
+.carousel-img-info {
+  height: 12em;
+  opacity: 0%;
 }

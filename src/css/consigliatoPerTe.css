@@ -1,4 +1,23 @@
 .carousel-img {
-  height: 100px;
+  height: 230px;
+  /* height: fit-content; */
   opacity: 0%;
 }
+
+.img-consigliato {
+  /* width: 90%; */
+  /* max-height: 70px; */
+  width: auto;
+}
+
+.carousel-caption {
+  width: 75% !important;
+  text-align: start !important;
+  /* border: 1px solid rgb(71, 71, 71) !important; */
+}
+
+/* @media screen and (min-width: 992px) {
+  .carousel-item {
+    width: 49% !important;
+  } 
+}*/

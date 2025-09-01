@@ -11,7 +11,7 @@ const Hero = () => {
         className="hero-img"
       />
       <div className="picture-profile"></div>
-      <div className="picture-photo">
+      <div className="picture-photocamera">
         <BiSolidCamera />
       </div>
       <Card.Body className="container-fluid mt-5">
@@ -53,15 +53,15 @@ const Hero = () => {
           <div className="badge-info myBlue">Migliora profilo</div>
           <div className="badge-info border-black">Risorse</div>
         </div>
-        {/* <Carousel data-bs-theme="dark">
-          <Carousel.Item>
+        <Carousel data-bs-theme="dark" className="d-sm-none">
+          <Carousel.Item interval={120000}>
             <img
-              className="d-block w-100"
-              src="https://toppng.com/uploads/preview/clear-png-11553956443wphht5truk.png"
+              className="d-block w-100 carousel-img-info"
+              src="https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg"
               alt="First slide"
             />
-            <Carousel.Caption>
-              <div className="container">
+            <Carousel.Caption className="container border p-3 rounded-3 border-opacity-25 first-item-carousel carousel-info">
+              <div>
                 <Row>
                   <Col xs={11}>
                     <p className="mb-0 fw-semibold">Disponibile a lavorare</p>
@@ -77,32 +77,32 @@ const Hero = () => {
               </div>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item>
+          <Carousel.Item interval={120000}>
             <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=Second slide&bg=eee"
+              className="d-block w-100 carousel-img-info"
+              src="https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg"
               alt="Second slide"
             />
-            <Carousel.Caption>
-              <h5>Second slide label</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <Carousel.Caption className="container border p-3 rounded-3 border-opacity-25 carousel-info">
+              <Row>
+                <Col xs={11}>
+                  <div>
+                    <span className="fw-semibold">
+                      Metti in risalto i tuoi servizi
+                    </span>{" "}
+                    in un'apposita sezione sul tuo profilo, così sarà più facile
+                    trovarti.
+                  </div>
+                  <p className="myBlue mb-0">Inizia</p>
+                </Col>
+                <Col xs={1}>
+                  <BiX className="img-carousel" />
+                </Col>
+              </Row>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=Third slide&bg=e5e5e5"
-              alt="Third slide"
-            />
-            <Carousel.Caption>
-              <h5>Third slide label</h5>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel> */}
-        <Row className="mt-3 d-none d-md-flex">
+        </Carousel>
+        <Row className="mt-3 d-none d-sm-flex">
           <Col className="myCarousel first-item-carousel small border border-opacity-10">
             <div>
               <Row>
