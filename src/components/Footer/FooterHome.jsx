@@ -1,15 +1,6 @@
 import { Col, Container, Row } from 'react-bootstrap';
 
 function FooterHome() {
-  /*   const text = [
-      'Informazioni',
-      'Accessibilità',
-      'Privacy e condizioni',
-      'Opzioni per gli annunci pubblicitari',
-      'Pubblicità',
-      'Servizi alle aziende',
-      "Scarica l'app LinkedIn",
-    ]; */
   return (
     <>
       <Container className='text-center mt-4'>
@@ -28,7 +19,7 @@ function FooterHome() {
         </Row>
         <Row className='mb-2'>
           <Col>
-            <span className='footer-link'>Privacy e condizioni &#9660;</span>
+            <span className='footer-link'>Privacy e condizioni</span>
           </Col>
         </Row>
         <Row className='mb-2'>
@@ -43,7 +34,7 @@ function FooterHome() {
             <span className='footer-link'>Pubblicità</span>
           </Col>
           <Col>
-            <span className='footer-link'>Servizi alle aziende &#9660;</span>
+            <span className='footer-link'>Servizi alle aziende</span>
           </Col>
         </Row>
         <Row className='mb-2'>
@@ -57,18 +48,10 @@ function FooterHome() {
         <Row className='mt-3'>
           <Col>
             <span style={{ color: '#0a66c2', fontWeight: 'bold' }}>Linked</span>
-            <span
-              style={{
-                background: '#0a66c2',
-                color: '#fff',
-                borderRadius: '3px',
-                padding: '0 4px',
-                marginLeft: '2px',
-                fontWeight: 'bold',
-              }}
-            >
-              in
-            </span>
+            <i
+              class='bi bi-linkedin'
+              style={{ color: '#0a66c2', fontWeight: 'bold' }}
+            ></i>
             &nbsp;LinkedIn Corporation &copy; {new Date().getFullYear()}
           </Col>
         </Row>
