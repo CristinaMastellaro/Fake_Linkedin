@@ -47,7 +47,7 @@ const Hero = () => {
             </span>
           </Col>
         </Row>
-        <div className="mt-3 d-flex flex-wrap gap-1">
+        <div className="mt-3 d-flex flex-wrap gap-2">
           <div className="badge-info badge-active">Disponibile per</div>
           <div className="badge-info myBlue">Aggiungi sezione del profilo</div>
           <div className="badge-info myBlue">Migliora profilo</div>
