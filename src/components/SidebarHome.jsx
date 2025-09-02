@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import FooterHome from './Footer/FooterHome';
+import { Button, Card } from 'react-bootstrap';
 
 function SidebarHome() {
   const [showAllNews, setShowAllNews] = useState(false);
@@ -40,7 +41,7 @@ function SidebarHome() {
   return (
     <>
       <div className='col-12 col-md-12 col-lg-3'>
-        <div className='card mb-3 shadow-sm'>
+        <div className='card mb-2 shadow-sm'>
           <div className='card-body'>
             <div>
               <h5 className='fw-bold'>LinkedIn Notizie</h5>
@@ -50,27 +51,27 @@ function SidebarHome() {
             </div>
             <div>
               <p className='mb-0 fw-bold'>Venezia 82: racconti dal Lido</p>
-              <p className='fw-6 text-muted'>
+              <p className='fs-6 text-muted'>
                 4 giorni fa &bull; 1.869 lettori
               </p>
             </div>
             <div>
               <p className='mb-0 fw-bold'>Greenpeace Italia cambia guida</p>
-              <p className='fw-6 text-muted'>3 ore fa</p>
+              <p className='fs-6 text-muted'>3 ore fa</p>
             </div>
             <div>
               <p className='mb-0 fw-bold'>Si (ri)parla di caro scuola</p>
-              <p className='fw-6 text-muted'>25 minuti fa</p>
+              <p className='fs-6 text-muted'>25 minuti fa</p>
             </div>
             <div>
               <p className='mb-0 fw-bold'>Smart working e lavoro femminile</p>
-              <p className='fw-6 text-muted'>
+              <p className='fs-6 text-muted'>
                 3 giorni fa &bull; 1.394 lettori
               </p>
             </div>
             <div>
               <p className='mb-0 fw-bold'>Fame di data center</p>
-              <p className='fw-6 text-muted'>5 giorni fa &bull; 698 lettori</p>
+              <p className='fs-6 text-muted'>5 giorni fa &bull; 698 lettori</p>
             </div>
 
             {showAllNews && (
@@ -78,7 +79,7 @@ function SidebarHome() {
                 {news.map((text) => (
                   <div key={text.id}>
                     <p className='mb-0 fw-bold'>{text.title}</p>
-                    <p className='fw-6 text-muted'>
+                    <p className='fs-6 text-muted'>
                       {text.published} &bull; {text.readers}
                     </p>
                   </div>
@@ -100,6 +101,33 @@ function SidebarHome() {
                 </>
               )}
             </p>
+          </div>
+        </div>
+        <div className='card mb-3 shadow-sm'>
+          <div className='card-body'>
+            <div className='d-flex flex-column position-relative'>
+              <Card.Img
+                variant='top'
+                src='https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg'
+                className='position-absolute'
+                style={{ height: '60px' }}
+              />
+              <Card.Img
+                variant='top'
+                src='https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg'
+                className='position-relative'
+                style={{ width: '100px', height: '100px' }}
+              />
+              <span class='position-absolute top-0 start-100 translate-middle badge bg-secondary'>
+                Promosso
+              </span>
+              <p className='fw-bold fs-5'>Azienda</p>
+              <p>Descrizione Azienda</p>
+              <p>Testo</p>
+              <button className='btn btn-outline-primary rounded-pill fw-bold'>
+                Segui
+              </button>
+            </div>
           </div>
         </div>
         <FooterHome />
