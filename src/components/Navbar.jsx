@@ -1,4 +1,4 @@
-import { Navbar, Nav, NavDropdown, Form, FormControl, Container } from "react-bootstrap";
+import { Navbar, Nav, Form, FormControl, Container } from "react-bootstrap";
 import { HouseFill, PeopleFill, BriefcaseFill, ChatDotsFill, BellFill, PersonCircle, CaretDownFill, Grid3x3GapFill, StarFill } from "react-bootstrap-icons";
 import "./Navbar.css";
 
@@ -25,7 +25,6 @@ export default function CustomNavbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto text-center d-flex flex-column flex-sm-row align-items-sm-center gap-4">
             
-            {/* Link normali */}
             <Nav.Link href="#" className="d-flex flex-column align-items-center active">
               <HouseFill size={24} />
               <span>Home</span>
@@ -55,7 +54,6 @@ export default function CustomNavbar() {
             <div className="dropdown">
               <button className="btn d-flex flex-column align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <PersonCircle size={24} />
-
                 <div className="d-flex align-items-center">
                   <span className="me-1">Tu</span>
                   <CaretDownFill size={12} />
@@ -92,99 +90,76 @@ export default function CustomNavbar() {
             </div>
 
             {/* Linea di separazione tra dropdown */}
-            <div className="border-end border mx-2" style={{ height: '10vh' }}></div>
+            <div className="border-end border mx-2" style={{ height: '100%' }}></div>
 
             {/* Dropdown "Aziende" */}
             <div className="dropdown">
               <button className="btn d-flex flex-column align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <Grid3x3GapFill size={24} />
-
                 <div className="d-flex align-items-center">
                   <span className="me-1">Per le aziende</span>
                   <CaretDownFill size={12} />
                 </div>
               </button>
 
-              <ul className="dropdown-menu aziende dropdown-menu-end d-flex justify-content-between">
-                <div className="app px-5 py-4">
-                  <li><h6 className="dropdown-header">Le mie app</h6></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-compass"></i> Trova lead</a></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-chat-dots"></i> Gruppi</a></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-receipt"></i> Gestisci fatturazione</a></li>
+              <ul className="dropdown-menu aziende d-flex dropdown-menu-end justify-content-between">
+                <li className="app px-5 py-4">
+                  <h6 className="dropdown-header">Le mie app</h6>
+                  <a className="dropdown-item" href="#"><i className="bi bi-compass"></i> Trova lead</a>
+                  <a className="dropdown-item" href="#"><i className="bi bi-chat-dots"></i> Gruppi</a>
+                  <a className="dropdown-item" href="#"><i className="bi bi-receipt"></i> Gestisci fatturazione</a>
 
-                  <li><h6 className="dropdown-header">Talent</h6></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-graph-up"></i> Talents insight</a></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-broadcast"></i> Pubblica un'offerta di lavoro</a></li>
+                  <h6 className="dropdown-header">Talent</h6>
+                  <a className="dropdown-item" href="#"><i className="bi bi-graph-up"></i> Talents insight</a>
+                  <a className="dropdown-item" href="#"><i className="bi bi-broadcast"></i> Pubblica un'offerta di lavoro</a>
 
-                  <li><h6 className="dropdown-header">Vendite</h6></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-check"></i> Marketplace dei servizi</a></li>
+                  <h6 className="dropdown-header">Vendite</h6>
+                  <a className="dropdown-item" href="#"><i className="bi bi-check"></i> Marketplace dei servizi</a>
 
-                  <li><h6 className="dropdown-header">Marketing</h6></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-bullseye"></i> Pubblicizza</a></li>
+                  <h6 className="dropdown-header">Marketing</h6>
+                  <a className="dropdown-item" href="#"><i className="bi bi-bullseye"></i> Pubblicizza</a>
 
-                  <li><h6 className="dropdown-header">Learning</h6></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-film"></i> Learning</a></li>
-                </div>
+                  <h6 className="dropdown-header">Learning</h6>
+                  <a className="dropdown-item" href="#"><i className="bi bi-film"></i> Learning</a>
+                </li>
 
-                <div className="border-end border mx-2" style={{ height: '85vh' }}></div>
+                <li className="border-end border mx-2" style={{ height: '85vh' }}></li>
 
-                <div className="business px-5 py-4">
-                  <li><h6 className="dropdown-header">Scopri altro per il business</h6></li>
-                  <li>
-                    <h6 className="dropdown-item" href="#">
-                      <span>Assumi su LinkedIn</span>
-                      <br /> Trova, attrai e assumi
-                    </h6>
-                  </li>
-
-                  <li>
-                    <h6 className="dropdown-item" href="#">
-                      <span>Vendi con LinkedIn</span>
-                      <br /> Sblocca nuove opportunità di vendita
-                    </h6>
-                  </li>
-
-                  <li>
-                    <h6 className="dropdown-item" href="#">
-                      <span>Offerta di lavoro gratuita</span>
-                      <br /> Ottieni rapidamente candidati qualificati
-                    </h6>
-                  </li>
-
-                  <li>
-                    <h6 className="dropdown-item" href="#">
-                      <span>Fai pubblicità su LinkedIn</span>
-                      <br /> Acquisisci clienti e fai crescere la tua azienda
-                    </h6>
-                  </li>
-
-                  <li>
-                    <h6 className="dropdown-item">
-                      <span>Inizia con Premium</span>
-                      <br /> Amplia e sfrutta la tua rete
-                    </h6>
-                  </li>
-
-                  <li>
-                    <h6 className="dropdown-item">
-                      <span>Impara con LinkedIn</span>
-                      <br /> Corsi per formare i tuoi dipendenti
-                    </h6>
-                  </li>
-
-                  <li>
-                    <h6 className="dropdown-item" href="#">
-                      <span>Centro per amministratori</span>
-                      <br /> Gestisci i dettagli di fatturazione e account
-                    </h6>
-                  </li>
-
-                  <li><a className="dropdown-item" href="#">Crea una pagina aziendale</a></li>
-                </div>
+                <li className="business px-5 py-4">
+                  <h6 className="dropdown-header">Scopri altro per il business</h6>
+                  <a className="dropdown-item" href="#">
+                    <span>Assumi su LinkedIn</span>
+                    <br /> Trova, attrai e assumi
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    <span>Vendi con LinkedIn</span>
+                    <br /> Sblocca nuove opportunità di vendita
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    <span>Offerta di lavoro gratuita</span>
+                    <br /> Ottieni rapidamente candidati qualificati
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    <span>Fai pubblicità su LinkedIn</span>
+                    <br /> Acquisisci clienti e fai crescere la tua azienda
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    <span>Inizia con Premium</span>
+                    <br /> Amplia e sfrutta la tua rete
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    <span>Impara con LinkedIn</span>
+                    <br /> Corsi per formare i tuoi dipendenti
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    <span>Centro per amministratori</span>
+                    <br /> Gestisci i dettagli di fatturazione e account
+                  </a>
+                  <a className="dropdown-item" href="#">Crea una pagina aziendale</a>
+                </li>
               </ul>
             </div>
 
-            {/* Ultimo link */}
             <Nav.Link href="#" className="d-flex flex-column align-items-center">
               <StarFill size={24} />
               <span>Torna a premium</span>
