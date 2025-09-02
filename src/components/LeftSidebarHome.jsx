@@ -1,34 +1,35 @@
 import { Card } from "react-bootstrap";
 import "../css/leftSidebarHome.css";
-import { BiSolidBookmark, BiNews, BiCalendar } from "react-icons/bi";
+import { BiSolidBookmark, BiNews, BiCalendar, BiPlus } from "react-icons/bi";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const LeftSidebarHome = () => {
   return (
     <>
-      <section className="section-sidebar position-relative p-0">
+      <section className="section-sidebar position-relative p-0 mt-md-5">
         <img
           src="https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg"
           className="side-img"
         />
         <div className="picture-profile-side"></div>
-
-        <div className="mt-4 p-2">
+        <div style={{ padding: "1em" }}>
           <Link
             to="/profile"
             className="fs-5 text-dark text-decoration-none fw-semibold"
           >
             Nome Cognome
           </Link>
-
-          <Card.Text className="mb-0">Lavoro description</Card.Text>
-
+          <Card.Text className="mb-0 mt-2">Lavoro description</Card.Text>
           <div className="d-flex gap-1 my-1 flex-wrap">
             <p className="my-0 opacity-75 small">Padova, Veneto, Italia</p>
           </div>
-
-          {/* <Button variant="primary">Go somewhere</Button> */}
+          <div className="bg-secondary-subtle p-1 rounded-2 mt-3">
+            <div className="small d-flex align-items-center justify-content-start py-1 experiences-side ps-2">
+              <BiPlus className="fs-5 me-1" />
+              Esperienze
+            </div>
+          </div>
         </div>
       </section>
       <section className="section-sidebar d-flex justify-content-between connections">

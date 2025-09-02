@@ -1,18 +1,19 @@
 .section-sidebar {
-  border: 1px solid grey;
+  border: 1px solid rgba(128, 128, 128, 0.477);
   border-radius: 0.5em;
   margin: 0.5em 0;
-  padding: 0.8em;
+  padding: 1em;
   font-size: 0.8em;
   line-height: 1.1em;
 }
 
 .side-img {
   padding: 0;
-  height: 20%;
+  height: 80px;
   width: 100%;
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
+  margin-bottom: 1em;
 }
 
 .picture-profile-side {
@@ -20,11 +21,37 @@
   background-position: center;
   background-size: cover;
   position: absolute;
-  top: 12%;
+  top: 4.5em;
   left: 1em;
   height: 40px;
   width: 40px;
   border-radius: 100%;
+}
+
+@media screen and (min-width: 992px) {
+  .side-img {
+    height: 60px;
+  }
+
+  .picture-profile-side {
+    top: 2.5em;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+  }
+}
+
+.experiences-side {
+  border: 1px dashed grey;
+  border-radius: 0.5em;
+  cursor: pointer;
+  opacity: 75%;
+}
+
+.experiences-side:hover {
+  cursor: pointer;
+  opacity: 100%;
+  border-style: double;
 }
 
 .connections:hover {
