@@ -1,17 +1,17 @@
-import CustomNavbar from './components/Navbar';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import { useEffect, useState } from 'react';
-import Main from './components/Main';
-import SidebarProfilo from './components/SidebarProfilo';
-import { Container, Row, Col } from 'react-bootstrap';
-import MiniHero from './components/MiniHero';
-import SidebarHome from './components/SidebarHome';
-import FooterProfile from './components/Footer/FooterProfile';
+import CustomNavbar from './components/Navbar'
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import { useEffect, useState } from 'react'
+import Main from './components/Main'
+import SidebarProfilo from './components/SidebarProfilo'
+import { Container, Row, Col } from 'react-bootstrap'
+import MiniHero from './components/MiniHero'
+import SidebarHome from './components/SidebarHome'
+import FooterProfile from './components/Footer/FooterProfile'
 
 function App() {
-  const [showMiniHero, setShow] = useState(false);
+  const [showMiniHero, setShow] = useState(false)
 
   useEffect(() => {
     fetch('https://striveschool-api.herokuapp.com/api/profile/me', {
@@ -22,29 +22,29 @@ function App() {
     })
       .then((data) => {
         if (data.ok) {
-          return data.json();
+          return data.json()
         } else {
-          throw new Error('Erroreeee');
+          throw new Error('Erroreeee')
         }
       })
       .then((data) => {
-        console.log('data', data);
-      });
-  }, []);
+        console.log('data', data)
+      })
+  }, [])
 
   window.addEventListener('scroll', () => {
-    const positionY = window.scrollY;
+    const positionY = window.scrollY
     if (positionY > 300) {
-      setShow(true);
+      setShow(true)
     } else {
-      setShow(false);
+      setShow(false)
     }
-  });
+  })
 
   return (
     <>
       <Container>
-        <div className='col-12 d-flex flex-column bg-light mb-5'>
+        <div className="col-12 d-flex flex-column bg-light mb-5">
           <CustomNavbar />
         </div>
         {<MiniHero showMiniHero={showMiniHero} />}
@@ -57,10 +57,10 @@ function App() {
             <SidebarProfilo />
           </Col>
         </Row>
+        <FooterProfile />
       </Container>
-      <FooterProfile />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
