@@ -1,19 +1,19 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 const HomeMain = () => {
-  const [isLiked1, setIsLiked1] = useState(false)
-  const [isLiked2, setIsLiked2] = useState(false)
-  const [isLiked3, setIsLiked3] = useState(false)
+  const [isLiked1, setIsLiked1] = useState(false);
+  const [isLiked2, setIsLiked2] = useState(false);
+  const [isLiked3, setIsLiked3] = useState(false);
 
   const handleLikeClick1 = () => {
-    setIsLiked1(!isLiked1)
-  }
+    setIsLiked1(!isLiked1);
+  };
   const handleLikeClick2 = () => {
-    setIsLiked2(!isLiked2)
-  }
+    setIsLiked2(!isLiked2);
+  };
   const handleLikeClick3 = () => {
-    setIsLiked3(!isLiked3)
-  }
+    setIsLiked3(!isLiked3);
+  };
 
   return (
     <div className="home-main">
@@ -24,13 +24,13 @@ const HomeMain = () => {
               src="/profile-icon.png"
               alt="Profile"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <input
               type="text"
               className="form-control rounded-pill"
               placeholder="Crea un post"
-              style={{ backgroundColor: '#f3f2ef', border: 'none' }}
+              style={{ backgroundColor: "#f3f2ef", border: "none" }}
             />
           </div>
           <div className="d-flex justify-content-around">
@@ -57,7 +57,7 @@ const HomeMain = () => {
               src="https://avatar.iran.liara.run/public/boy"
               alt="Profile"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-bold">Marco Bianchi</h6>
@@ -100,10 +100,10 @@ const HomeMain = () => {
             >
               <i
                 className={`bi bi-hand-thumbs-up-fill me-2 ${
-                  isLiked1 ? 'text-primary' : ''
+                  isLiked1 ? "text-primary" : ""
                 }`}
               ></i>
-              <span className={isLiked1 ? 'text-primary' : ''}>Mi piace</span>
+              <span className={isLiked1 ? "text-primary" : ""}>Mi piace</span>
             </button>
             <button className="btn btn-light flex-fill me-1">
               <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
@@ -120,7 +120,7 @@ const HomeMain = () => {
               src="/profile-icon.png"
               alt="Profile"
               className="rounded-circle me-2"
-              style={{ width: '32px', height: '32px' }}
+              style={{ width: "32px", height: "32px" }}
             />
             <div className="flex-fill position-relative">
               <input
@@ -128,14 +128,14 @@ const HomeMain = () => {
                 className="form-control rounded-pill"
                 placeholder="Aggiungi un commento..."
                 style={{
-                  paddingRight: '40px',
-                  backgroundColor: '#f0f2f5',
-                  border: 'none',
+                  paddingRight: "40px",
+                  backgroundColor: "#f0f2f5",
+                  border: "none",
                 }}
               />
               <button
                 className="btn position-absolute end-0 top-50 translate-middle-y me-2"
-                style={{ border: 'none', background: 'transparent' }}
+                style={{ border: "none", background: "transparent" }}
               >
                 <i className="bi bi-emoji-smile text-muted me-3"></i>
                 <i className="bi bi-card-image"></i>
@@ -152,7 +152,7 @@ const HomeMain = () => {
               src="https://avatar.iran.liara.run/public/girl"
               alt="Profile"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-bold">Giulia Rossi</h6>
@@ -189,10 +189,10 @@ const HomeMain = () => {
             >
               <i
                 className={`bi bi-hand-thumbs-up-fill me-2 ${
-                  isLiked2 ? 'text-primary' : ''
+                  isLiked2 ? "text-primary" : ""
                 }`}
               ></i>
-              <span className={isLiked2 ? 'text-primary' : ''}>Mi piace</span>
+              <span className={isLiked2 ? "text-primary" : ""}>Mi piace</span>
             </button>
             <button className="btn btn-light flex-fill me-1">
               <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
@@ -209,7 +209,7 @@ const HomeMain = () => {
               src="/profile-icon.png"
               alt="Profile"
               className="rounded-circle me-2"
-              style={{ width: '32px', height: '32px' }}
+              style={{ width: "32px", height: "32px" }}
             />
             <div className="flex-fill position-relative">
               <input
@@ -217,14 +217,14 @@ const HomeMain = () => {
                 className="form-control rounded-pill"
                 placeholder="Aggiungi un commento..."
                 style={{
-                  paddingRight: '40px',
-                  backgroundColor: '#f0f2f5',
-                  border: 'none',
+                  paddingRight: "40px",
+                  backgroundColor: "#f0f2f5",
+                  border: "none",
                 }}
               />
               <button
                 className="btn position-absolute end-0 top-50 translate-middle-y me-2"
-                style={{ border: 'none', background: 'transparent' }}
+                style={{ border: "none", background: "transparent" }}
               >
                 <i className="bi bi-emoji-smile text-muted me-3"></i>
                 <i className="bi bi-card-image"></i>
@@ -241,7 +241,7 @@ const HomeMain = () => {
               src="https://avatar.iran.liara.run/public/boy"
               alt="Profile"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-bold">Alessandro Verdi</h6>
@@ -265,7 +265,7 @@ const HomeMain = () => {
             <div className="d-flex align-items-center">
               <i
                 className="bi bi-newspaper text-primary me-3"
-                style={{ fontSize: '2rem' }}
+                style={{ fontSize: "2rem" }}
               ></i>
               <div>
                 <h6 className="mb-1">
@@ -292,10 +292,10 @@ const HomeMain = () => {
             >
               <i
                 className={`bi bi-hand-thumbs-up-fill me-2 ${
-                  isLiked3 ? 'text-primary' : ''
+                  isLiked3 ? "text-primary" : ""
                 }`}
               ></i>
-              <span className={isLiked3 ? 'text-primary' : ''}>Mi piace</span>
+              <span className={isLiked3 ? "text-primary" : ""}>Mi piace</span>
             </button>
             <button className="btn btn-light flex-fill me-1">
               <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
@@ -312,7 +312,7 @@ const HomeMain = () => {
               src="/profile-icon.png"
               alt="Profile"
               className="rounded-circle me-2"
-              style={{ width: '32px', height: '32px' }}
+              style={{ width: "32px", height: "32px" }}
             />
             <div className="flex-fill position-relative">
               <input
@@ -320,14 +320,14 @@ const HomeMain = () => {
                 className="form-control rounded-pill"
                 placeholder="Aggiungi un commento..."
                 style={{
-                  paddingRight: '40px',
-                  backgroundColor: '#f0f2f5',
-                  border: 'none',
+                  paddingRight: "40px",
+                  backgroundColor: "#f0f2f5",
+                  border: "none",
                 }}
               />
               <button
                 className="btn position-absolute end-0 top-50 translate-middle-y me-2"
-                style={{ border: 'none', background: 'transparent' }}
+                style={{ border: "none", background: "transparent" }}
               >
                 <i className="bi bi-emoji-smile text-muted me-3"></i>
                 <i className="bi bi-card-image"></i>
@@ -337,7 +337,7 @@ const HomeMain = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HomeMain
+export default HomeMain;

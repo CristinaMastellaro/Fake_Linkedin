@@ -124,6 +124,11 @@
   }
 }
 
+.start-mini-hero {
+  top: -5em;
+  transition: all 0.7s linear;
+}
+
 .mini-hero {
   animation: 0.7s linear mini-hero-anim;
   top: 3.8em;

@@ -1,14 +1,32 @@
-import { Container, Row, Col } from 'react-bootstrap'
-import '../css/hero.css'
+import { Container, Row, Col } from "react-bootstrap";
+import "../css/hero.css";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
-const MiniHero = ({ showMiniHero }) => {
+const MiniHero = () => {
+  const [showMiniHero, setShow] = useState("");
+  const myInfo = useSelector((state) => {
+    console.log("state", state.saveProfileMe.myProfile);
+    return state.saveProfileMe.myProfile;
+  });
+
+  window.addEventListener("scroll", () => {
+    const positionY = window.scrollY;
+    if (positionY === 0) {
+      setShow("");
+    } else if (positionY > 300) {
+      setShow("mini-hero");
+    } else {
+      setShow("mini-hero-out");
+    }
+  });
+
   return (
     <Container
       fluid
       className={
+        "position-fixed end-0 start-0 z-2 bg-light px-4 py-2 d-none d-lg-block start-mini-hero " +
         showMiniHero
-          ? 'position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero d-none d-lg-block'
-          : 'position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero-out d-none d-lg-block'
       }
     >
       <Row className="align-items-center">
@@ -17,12 +35,14 @@ const MiniHero = ({ showMiniHero }) => {
             <img
               src="https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg"
               alt="Profile picture"
-              style={{ height: '25px', width: '25px' }}
+              style={{ height: "25px", width: "25px" }}
               className="mt-1 me-1 rounded-circle"
             />
             <div>
-              <p className="mb-0 fw-semibold small">Nome Cognome</p>
-              <p className="small mb-0">Studente presso Epicode</p>
+              <p className="mb-0 fw-semibold small">
+                {myInfo && myInfo.name + " " + myInfo.surname}
+              </p>
+              <p className="small mb-0">{myInfo && myInfo.title}</p>
             </div>
           </div>
         </Col>
@@ -39,7 +59,7 @@ const MiniHero = ({ showMiniHero }) => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default MiniHero
+export default MiniHero;

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 const Hero = () => {
   const myInfo = useSelector((state) => {
-    console.log('state', state.saveProfileMe.myProfile)
+    // console.log("state", state.saveProfileMe.myProfile);
     return state.saveProfileMe.myProfile
   })
 

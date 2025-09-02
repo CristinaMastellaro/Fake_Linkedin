@@ -1,10 +1,15 @@
-import { Card } from 'react-bootstrap'
-import '../css/leftSidebarHome.css'
-import { BiSolidBookmark, BiNews, BiCalendar, BiPlus } from 'react-icons/bi'
-import { FaPeopleGroup } from 'react-icons/fa6'
-import { Link } from 'react-router-dom'
+import { Card } from "react-bootstrap";
+import "../css/leftSidebarHome.css";
+import { BiSolidBookmark, BiNews, BiCalendar, BiPlus } from "react-icons/bi";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LeftSidebarHome = () => {
+  const myInfo = useSelector((state) => {
+    return state.saveProfileMe.myProfile;
+  });
+
   return (
     <>
       <section className="section-sidebar-top position-relative p-0">
@@ -13,16 +18,16 @@ const LeftSidebarHome = () => {
           className="side-img"
         />
         <div className="picture-profile-side"></div>
-        <div style={{ padding: '1em' }}>
+        <div style={{ padding: "1em" }}>
           <Link
             to="/profile"
             className="fs-5 text-dark text-decoration-none fw-semibold"
           >
-            Nome Cognome
+            {myInfo && myInfo.name + " " + myInfo.surname}
           </Link>
-          <Card.Text className="mb-0 mt-2">Lavoro description</Card.Text>
+          <Card.Text className="mb-0 mt-2">{myInfo && myInfo.title}</Card.Text>
           <div className="d-flex gap-1 my-1 flex-wrap">
-            <p className="my-0 opacity-75 small">Padova, Veneto, Italia</p>
+            <p className="my-0 opacity-75 small">{myInfo && myInfo.area}</p>
           </div>
           <div className="bg-secondary-subtle p-1 rounded-2 mt-3">
             <div className="small d-flex align-items-center justify-content-start py-1 experiences-side ps-2">
@@ -67,7 +72,7 @@ const LeftSidebarHome = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default LeftSidebarHome
+export default LeftSidebarHome;
