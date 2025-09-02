@@ -10,6 +10,9 @@ import MiniHero from './components/MiniHero';
 import SidebarHome from './components/SidebarHome';
 import FooterProfile from './components/Footer/FooterProfile';
 import Messaggistica from './components/Messaggistica';
+import Homepage from './components/Homepage';
+import ProfilePage from './components/ProfilePage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [showMiniHero, setShow] = useState(false);
@@ -43,25 +46,18 @@ function App() {
   });
 
   return (
-    <>
+    <BrowserRouter>
       <Container>
         <div className='col-12 d-flex flex-column bg-light mb-5'>
           <CustomNavbar />
         </div>
-        {<MiniHero showMiniHero={showMiniHero} />}
-        {/* <MiniHero /> */}
-        <Row>
-          <Col xs={12} lg={9}>
-            <Main />
-          </Col>
-          <Col xs={12} lg={3}>
-            <SidebarProfilo />
-          </Col>
-        </Row>
-        <FooterProfile />
+        <Routes>
+          <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/' element={<Homepage />} />
+        </Routes>
       </Container>
       <Messaggistica />
-    </>
+    </BrowserRouter>
   );
 }
 
