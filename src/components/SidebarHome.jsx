@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import FooterHome from './Footer/FooterHome'
 
 function SidebarHome() {
   const [showAllNews, setShowAllNews] = useState(false)
