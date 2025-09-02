@@ -2,17 +2,18 @@
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .search-input {
-  width: 100%;
+  width: 80%;
   transition: width 0.3s ease;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .search-input:focus {
-  width: 65vh;
-  box-shadow: none !important;
-  outline: none !important;
+  width: 100%;
   border-color: #000 !important;
 }
 
@@ -21,6 +22,11 @@
   left: 0.75rem;
   pointer-events: none;
   color: #6c757d;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .nav-link span {

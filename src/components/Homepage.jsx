@@ -1,16 +1,16 @@
 import { Container, Row, Col } from "react-bootstrap";
-import LeftSidebarHome from "./LeftSidebarHome";
-import Hero from "./Hero";
+import HomeMain from "./HomeMain";
+import SidebarHome from "./SidebarHome";
 
 const Homepage = () => {
   return (
-    <Container>
-      <Row>
-        <Col className="pt-5 mt-5 d-none d-lg-flex flex-column" md={2}>
-          <LeftSidebarHome />
+    <Container className="homepage bg-light min-vh-100 py-4">
+      <Row className="justify-content-center">
+        <Col xs={12} lg={6}>
+          <HomeMain />
         </Col>
-        <Col xs={8}>
-          <Hero />
+        <Col xs={12} lg={3}>
+          <SidebarHome />
         </Col>
       </Row>
     </Container>
