@@ -47,7 +47,7 @@ function App() {
       </div>
       {<MiniHero showMiniHero={showMiniHero} />}
       {/* <MiniHero /> */}
-      <Row>
+      <Row className="pt-4">
         <Col xs={12} lg={9}>
           <Main />
         </Col>
