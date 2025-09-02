@@ -41,7 +41,7 @@ function App() {
 
   return (
     <Container>
-      <div className="col-12 d-flex flex-column min-vh-100 bg-light">
+      <div className="col-12 d-flex flex-column bg-light mb-5">
         <CustomNavbar />
       </div>
       {<MiniHero showMiniHero={showMiniHero} />}

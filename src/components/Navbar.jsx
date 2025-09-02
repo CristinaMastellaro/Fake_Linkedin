@@ -1,8 +1,11 @@
 import { Navbar, Nav, Form, FormControl, Container } from "react-bootstrap";
 import { HouseFill, PeopleFill, BriefcaseFill, ChatDotsFill, BellFill, PersonCircle, CaretDownFill, Grid3x3GapFill, StarFill } from "react-bootstrap-icons";
-import "./Navbar.css";
+import "../css/Navbar.css";
+import { useState } from "react";
 
 export default function CustomNavbar() {
+  const [addFlex, setAddFlex] = useState(false);
+  
   return (
     <Navbar bg="light" expand="sm" className="border-bottom fixed-top px-3 py-0" style={{ height: "10vh" }}>
       <Container fluid className="d-flex align-items-center px-5">
@@ -94,7 +97,7 @@ export default function CustomNavbar() {
 
             {/* Dropdown "Aziende" */}
             <div className="dropdown">
-              <button className="btn d-flex flex-column align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button className="btn d-flex flex-column align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={() => setAddFlex(!addFlex)}>
                 <Grid3x3GapFill size={24} />
                 <div className="d-flex align-items-center">
                   <span className="me-1">Per le aziende</span>
@@ -102,7 +105,7 @@ export default function CustomNavbar() {
                 </div>
               </button>
 
-              <ul className="dropdown-menu aziende d-flex dropdown-menu-end justify-content-between">
+              <ul className={addFlex ? "dropdown-menu d-flex aziende dropdown-menu-end justify-content-between" : "dropdown-menu aziende dropdown-menu-end justify-content-between"}>
                 <li className="app px-5 py-4">
                   <h6 className="dropdown-header">Le mie app</h6>
                   <a className="dropdown-item" href="#"><i className="bi bi-compass"></i> Trova lead</a>
