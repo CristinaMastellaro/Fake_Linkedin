@@ -43,8 +43,9 @@ function SidebarHome() {
       <div className='col-12 col-md-12 col-lg-3'>
         <div className='card mb-2 shadow-sm'>
           <div className='card-body'>
-            <div>
+            <div className='d-flex justify-content-between'>
               <h5 className='fw-bold'>LinkedIn Notizie</h5>
+              <i class='bi bi-info-square-fill'></i>
             </div>
             <div>
               <h6 className='text-muted fw-bold'>Storie Principali</h6>
