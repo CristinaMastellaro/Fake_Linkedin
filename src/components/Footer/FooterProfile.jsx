@@ -70,9 +70,10 @@ function FooterProfile() {
           <Form.Label className='mb-0 me-2'>Seleziona Lingua</Form.Label>
           <Form.Select size='sm'>
             <option>Italiano (Italiano)</option>
-            <option value='1'>One</option>
-            <option value='2'>Two</option>
-            <option value='3'>Three</option>
+            <option value='1'>English (Inglese)</option>
+            <option value='2'>Français (Francese)</option>
+            <option value='3'>Español (Spagnolo)</option>
+            <option value='3'>Deutsch (Tedesco)</option>
           </Form.Select>
         </Col>
       </Row>
