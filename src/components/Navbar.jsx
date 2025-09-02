@@ -19,13 +19,66 @@ import {
   Grid3x3GapFill,
   StarFill,
 } from 'react-bootstrap-icons'
-import '../css/Navbar.css'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useLocation, Link } from 'react-router-dom'
+import SearchModal from './SearchModal'
+import '../css/Navbar.css'
 
 export default function CustomNavbar() {
   const [addFlex, setAddFlex] = useState(false)
   const location = useLocation()
+
+  // stati per la ricerca
+  const [searchTerm, setSearchTerm] = useState('')
+  const [results, setResults] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const searchRef = useRef(null)
+
+  useEffect(() => {
+    if (searchTerm.trim().length === 0) {
+      setResults([])
+      setShowModal(false)
+      return
+    }
+
+    const TOKEN =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw'
+
+    const fetchProfiles = async () => {
+      setLoading(true)
+      try {
+        const res = await fetch(
+          'https://striveschool-api.herokuapp.com/api/profile/',
+          {
+            headers: { Authorization: `Bearer ${TOKEN}` },
+          }
+        )
+
+        if (!res.ok) {
+          throw new Error('Errore nella fetch: ' + res.status)
+        }
+
+        const data = await res.json()
+
+        const filtered = data.filter((p) =>
+          (p.name + ' ' + p.surname)
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        )
+
+        setResults(filtered)
+        setShowModal(true)
+      } catch (err) {
+        console.error('Errore fetch profili:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    const timeout = setTimeout(fetchProfiles, 400)
+    return () => clearTimeout(timeout)
+  }, [searchTerm])
 
   return (
     <Navbar
@@ -37,8 +90,8 @@ export default function CustomNavbar() {
         fluid
         className="d-flex align-items-center justify-content-between px-5"
       >
-        {/* Logo + Search sempre visibili */}
-        <div className="d-flex align-items-center gap-3">
+        {/* Logo + Search */}
+        <div className="d-flex align-items-center gap-3 position-relative">
           {/* Logo */}
           <Link to="/">
             <img
@@ -49,14 +102,49 @@ export default function CustomNavbar() {
           </Link>
 
           {/* Barra di ricerca */}
-          <Form className="search-form">
+          <Form
+            className="search-form"
+            ref={searchRef}
+            onSubmit={(e) => e.preventDefault()}
+          >
             <i className="bi bi-search search-icon"></i>
             <FormControl
               type="search"
               placeholder="Cerca"
               className="px-5 search-input rounded-5"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onFocus={() => searchTerm.trim() && setShowModal(true)}
+              onBlur={() => setTimeout(() => setShowModal(false), 200)}
             />
           </Form>
+
+          {/* Modale a tendina */}
+          {showModal && searchRef.current && (
+            <div
+              className="scrollbar-hidden"
+              style={{
+                position: 'absolute',
+                top:
+                  searchRef.current.getBoundingClientRect().bottom +
+                  window.scrollY,
+                left:
+                  searchRef.current.getBoundingClientRect().left +
+                  window.scrollX,
+                width: searchRef.current.offsetWidth,
+                zIndex: 1050,
+                maxHeight: '70vh',
+                overflowY: 'auto',
+              }}
+            >
+              <SearchModal
+                results={results}
+                searchTerm={searchTerm}
+                loading={loading}
+                onClose={() => setShowModal(false)}
+              />
+            </div>
+          )}
         </div>
 
         {/* Toggle menu */}
@@ -165,6 +253,7 @@ export default function CustomNavbar() {
                         <span className="user-job">Posizione</span>
                       </div>
                     </div>
+
                     <div className="user-actions px-2">
                       <Link to="/profile">
                         <button className="btn border border-primary text-primary rounded-pill me-1">
@@ -354,13 +443,10 @@ export default function CustomNavbar() {
               </Nav.Link>
             </Col>
 
+            {/* Dropdown "Tu" per xs */}
             <Col xs={4} className="d-block d-sm-none text-center">
               <PersonCircle size={24} />
-              <NavDropdown
-                id="nav-dropdown-dark-example"
-                title="navbar"
-                align="end"
-              >
+              <NavDropdown id="nav-dropdown-dark-example" title="" align="end">
                 <NavDropdown.Item href="#" title="Not available">
                   Account
                 </NavDropdown.Item>
