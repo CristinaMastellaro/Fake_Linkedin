@@ -13,7 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <Container>
-        <div className="col-12 d-flex flex-column bg-light mb-5">
+        <div className="col-12 d-flex flex-column bg-light mb-5 py-1">
           <CustomNavbar />
         </div>
         <Routes>

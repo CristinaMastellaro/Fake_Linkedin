@@ -1,6 +1,7 @@
 import { Container, Row, Col, Collapse } from 'react-bootstrap';
 import HomeMain from './HomeMain';
 import SidebarHome from './SidebarHome';
+import LeftSidebarHome from './LeftSidebarHome';
 import { useState } from 'react';
 import '../css/FooterHome.css';
 import FooterProfile from './Footer/FooterProfile';
@@ -12,7 +13,10 @@ const Homepage = () => {
     <>
       <Container className='homepage bg-light min-vh-100 py-4'>
         <Row className='justify-content-center'>
-          <Col xs={12} lg={6}>
+          <Col xs={12} md={4} lg={3}>
+            <LeftSidebarHome />
+          </Col>
+          <Col xs={12} md={8} lg={6}>
             <HomeMain />
           </Col>
           <Col xs={12} lg={3}>
