@@ -42,13 +42,13 @@ const Messaggistica = () => {
               </button>
             </div>
           </div>
-          <div className="messages-search">
+          <div className="messages-search mb-4">
             <input type="text" placeholder="Cerca messaggi" />
             <button className="icon-button" title="Filtra">
               &#x1F50D;
             </button>
           </div>
-          <div className="messages-content">
+          <div className="messages-content mt-5">
             <img
               src="https://static.licdn.com/aero-v1/sc/h/eeol4w9o9de2j4gq699mzx79d"
               alt="No messages illustration"
