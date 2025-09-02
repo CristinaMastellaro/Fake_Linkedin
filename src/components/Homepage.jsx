@@ -1,24 +1,50 @@
-import { Container, Row, Col } from "react-bootstrap";
-import HomeMain from "./HomeMain";
-import SidebarHome from "./SidebarHome";
-import LeftSidebarHome from "./LeftSidebarHome";
+import { Container, Row, Col, Collapse } from 'react-bootstrap'
+import HomeMain from './HomeMain'
+import SidebarHome from './SidebarHome'
+import LeftSidebarHome from './LeftSidebarHome'
+import { useState } from 'react'
+import '../css/FooterHome.css'
+import FooterProfile from './Footer/FooterProfile'
 
 const Homepage = () => {
-  return (
-    <Container className="homepage bg-light min-vh-100 py-4">
-      <Row className="justify-content-center">
-        <Col xs={12} md={4} lg={3}>
-          <LeftSidebarHome />
-        </Col>
-        <Col xs={12} md={8} lg={6}>
-          <HomeMain />
-        </Col>
-        <Col xs={12} lg={3}>
-          <SidebarHome />
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+  const [showForm, setShowForm] = useState(false)
 
-export default Homepage;
+  return (
+    <>
+      <Container className="homepage bg-light min-vh-100 py-4">
+        <Row className="justify-content-center">
+          <Col xs={12} md={4} lg={3}>
+            <LeftSidebarHome />
+          </Col>
+          <Col xs={12} md={8} lg={6}>
+            <HomeMain />
+          </Col>
+          <Col xs={12} lg={3}>
+            <SidebarHome />
+            <Container>
+              <p>Informazioni</p>
+              <p
+                style={{ cursor: 'pointer', color: '#0a66c2' }}
+                onClick={() => setShowForm(!showForm)}
+              >
+                Altro
+              </p>
+            </Container>
+          </Col>
+        </Row>
+        {/* <Collapse in={showForm}>
+        <div className='footer-dropup' style={{ width: '100%' }}>
+          <FooterProfile />
+        </div>
+      </Collapse> */}
+      </Container>
+      <Collapse in={showForm}>
+        <div className="footer-dropup">
+          <FooterProfile />
+        </div>
+      </Collapse>
+    </>
+  )
+}
+
+export default Homepage
