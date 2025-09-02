@@ -51,20 +51,7 @@ const Homepage = () => {
           </Col>
         </Row>
       </Container>
-      {showFooter && (
-        <div
-          className='overlay-footer'
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            background: 'rgba(0,0,0,0.5)',
-            zIndex: 1049,
-          }}
-        />
-      )}
+      {showFooter && <div className='overlay-footer' />}
       <Collapse in={showFooter}>
         <div className='footer-dropup'>
           <div className='d-flex justify-content-end'>
