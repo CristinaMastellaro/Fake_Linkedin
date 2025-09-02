@@ -1,7 +1,7 @@
-import { Container, Row, Col } from "react-bootstrap";
-import HomeMain from "./HomeMain";
-import SidebarHome from "./SidebarHome";
-import LeftSidebarHome from "./LeftSidebarHome";
+import { Container, Row, Col } from 'react-bootstrap'
+import HomeMain from './HomeMain'
+import SidebarHome from './SidebarHome'
+import LeftSidebarHome from './LeftSidebarHome'
 
 const Homepage = () => {
   return (
@@ -18,7 +18,7 @@ const Homepage = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default Homepage;
+export default Homepage

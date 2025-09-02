@@ -1,6 +1,6 @@
-import { Card, Row, Col, Carousel } from "react-bootstrap";
-import "../css/hero.css";
-import { BiCheckShield, BiPencil, BiX, BiSolidCamera } from "react-icons/bi";
+import { Card, Row, Col, Carousel } from 'react-bootstrap'
+import '../css/hero.css'
+import { BiCheckShield, BiPencil, BiX, BiSolidCamera } from 'react-icons/bi'
 
 const Hero = () => {
   return (
@@ -89,7 +89,7 @@ const Hero = () => {
                   <div>
                     <span className="fw-semibold">
                       Metti in risalto i tuoi servizi
-                    </span>{" "}
+                    </span>{' '}
                     in un'apposita sezione sul tuo profilo, così sarà più facile
                     trovarti.
                   </div>
@@ -125,7 +125,7 @@ const Hero = () => {
                 <div>
                   <span className="fw-semibold">
                     Metti in risalto i tuoi servizi
-                  </span>{" "}
+                  </span>{' '}
                   in un'apposita sezione sul tuo profilo, così sarà più facile
                   trovarti.
                 </div>
@@ -140,7 +140,7 @@ const Hero = () => {
         {/* <Button variant="primary">Go somewhere</Button> */}
       </Card.Body>
     </Card>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

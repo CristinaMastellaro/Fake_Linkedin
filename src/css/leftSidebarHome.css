@@ -6,6 +6,13 @@
   font-size: 0.8em;
   line-height: 1.1em;
 }
+.section-sidebar-top {
+  border: 1px solid rgba(128, 128, 128, 0.477);
+  border-radius: 0.5em;
+  padding: 1em;
+  font-size: 0.8em;
+  line-height: 1.1em;
+}
 
 .side-img {
   padding: 0;
@@ -17,7 +24,7 @@
 }
 
 .picture-profile-side {
-  background-image: url("https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg");
+  background-image: url('https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg');
   background-position: center;
   background-size: cover;
   position: absolute;

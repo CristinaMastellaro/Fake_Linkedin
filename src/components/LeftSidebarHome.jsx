@@ -1,19 +1,19 @@
-import { Card } from "react-bootstrap";
-import "../css/leftSidebarHome.css";
-import { BiSolidBookmark, BiNews, BiCalendar, BiPlus } from "react-icons/bi";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Card } from 'react-bootstrap'
+import '../css/leftSidebarHome.css'
+import { BiSolidBookmark, BiNews, BiCalendar, BiPlus } from 'react-icons/bi'
+import { FaPeopleGroup } from 'react-icons/fa6'
+import { Link } from 'react-router-dom'
 
 const LeftSidebarHome = () => {
   return (
     <>
-      <section className="section-sidebar position-relative p-0 mt-md-5">
+      <section className="section-sidebar-top position-relative p-0">
         <img
           src="https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg"
           className="side-img"
         />
         <div className="picture-profile-side"></div>
-        <div style={{ padding: "1em" }}>
+        <div style={{ padding: '1em' }}>
           <Link
             to="/profile"
             className="fs-5 text-dark text-decoration-none fw-semibold"
@@ -67,7 +67,7 @@ const LeftSidebarHome = () => {
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default LeftSidebarHome;
+export default LeftSidebarHome
