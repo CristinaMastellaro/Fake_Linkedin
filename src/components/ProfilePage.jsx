@@ -38,7 +38,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      {<MiniHero showMiniHero={showMiniHero} />}
+      <MiniHero showMiniHero={showMiniHero} />
       <Row>
         <Col xs={12} lg={9}>
           <Main />

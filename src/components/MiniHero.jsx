@@ -1,5 +1,5 @@
-import { Container, Row, Col } from 'react-bootstrap'
-import '../css/hero.css'
+import { Container, Row, Col } from "react-bootstrap";
+import "../css/hero.css";
 
 const MiniHero = ({ showMiniHero }) => {
   return (
@@ -7,8 +7,8 @@ const MiniHero = ({ showMiniHero }) => {
       fluid
       className={
         showMiniHero
-          ? 'position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero'
-          : 'position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero-out'
+          ? "position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero d-none d-lg-block"
+          : "position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero-out d-none d-lg-block"
       }
     >
       <Row className="align-items-center">
@@ -17,7 +17,7 @@ const MiniHero = ({ showMiniHero }) => {
             <img
               src="https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg"
               alt="Profile picture"
-              style={{ height: '25px', width: '25px' }}
+              style={{ height: "25px", width: "25px" }}
               className="mt-1 me-1 rounded-circle"
             />
             <div>
@@ -39,7 +39,7 @@ const MiniHero = ({ showMiniHero }) => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default MiniHero
+export default MiniHero;
