@@ -1,4 +1,20 @@
+import { useState } from 'react'
+
 const HomeMain = () => {
+  const [isLiked1, setIsLiked1] = useState(false)
+  const [isLiked2, setIsLiked2] = useState(false)
+  const [isLiked3, setIsLiked3] = useState(false)
+
+  const handleLikeClick1 = () => {
+    setIsLiked1(!isLiked1)
+  }
+  const handleLikeClick2 = () => {
+    setIsLiked2(!isLiked2)
+  }
+  const handleLikeClick3 = () => {
+    setIsLiked3(!isLiked3)
+  }
+
   return (
     <div className="home-main mt-5">
       <div className="card mb-3 shadow-sm">
@@ -34,7 +50,6 @@ const HomeMain = () => {
         </div>
       </div>
 
-      {/* Post 1 */}
       <div className="card mb-3 shadow-sm">
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
@@ -65,12 +80,12 @@ const HomeMain = () => {
           </p>
 
           <img
-            src="https://via.placeholder.com/600x300"
+            src="https://blog.differentacademy.it/wp-content/uploads/sites/2/2021/12/team-working-lavoro-squadra-copertina.jpg"
             alt="Post content"
-            className="img-fluid rounded mb-3"
+            className="img-fluid mb-3"
           />
 
-          <div className="d-flex justify-content-between align-items-center border-top pt-2">
+          <div className="d-flex justify-content-between align-items-center pt-2">
             <small className="text-muted">
               <i className="bi bi-hand-thumbs-up-fill text-primary"></i> 45
               reazioni
@@ -79,8 +94,16 @@ const HomeMain = () => {
           </div>
 
           <div className="d-flex justify-content-around mt-2 pt-2 border-top">
-            <button className="btn btn-light flex-fill me-1">
-              <i className="bi bi-hand-thumbs-up me-2"></i>Mi piace
+            <button
+              className="btn btn-light flex-fill me-1"
+              onClick={handleLikeClick1}
+            >
+              <i
+                className={`bi bi-hand-thumbs-up-fill me-2 ${
+                  isLiked1 ? 'text-primary' : ''
+                }`}
+              ></i>
+              <span className={isLiked1 ? 'text-primary' : ''}>Mi piace</span>
             </button>
             <button className="btn btn-light flex-fill me-1">
               <i className="bi bi-chat me-2"></i>Commenta
@@ -95,7 +118,6 @@ const HomeMain = () => {
         </div>
       </div>
 
-      {/* Post 2 */}
       <div className="card mb-3 shadow-sm">
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
@@ -125,7 +147,7 @@ const HomeMain = () => {
             chiave nei commenti! #DigitalMarketing #ContentStrategy
           </p>
 
-          <div className="d-flex justify-content-between align-items-center border-top pt-2">
+          <div className="d-flex justify-content-between align-items-center pt-2">
             <small className="text-muted">
               <i className="bi bi-hand-thumbs-up-fill text-primary"></i>
               <i className="bi bi-heart-fill text-danger"></i> 87 reazioni
@@ -134,8 +156,16 @@ const HomeMain = () => {
           </div>
 
           <div className="d-flex justify-content-around mt-2 pt-2 border-top">
-            <button className="btn btn-light flex-fill me-1">
-              <i className="bi bi-hand-thumbs-up me-2"></i>Mi piace
+            <button
+              className="btn btn-light flex-fill me-1"
+              onClick={handleLikeClick2}
+            >
+              <i
+                className={`bi bi-hand-thumbs-up-fill me-2 ${
+                  isLiked2 ? 'text-primary' : ''
+                }`}
+              ></i>
+              <span className={isLiked2 ? 'text-primary' : ''}>Mi piace</span>
             </button>
             <button className="btn btn-light flex-fill me-1">
               <i className="bi bi-chat me-2"></i>Commenta
@@ -150,7 +180,6 @@ const HomeMain = () => {
         </div>
       </div>
 
-      {/* Post 3 */}
       <div className="card mb-3 shadow-sm">
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
@@ -193,7 +222,7 @@ const HomeMain = () => {
             </div>
           </div>
 
-          <div className="d-flex justify-content-between align-items-center border-top pt-2">
+          <div className="d-flex justify-content-between align-items-center pt-2">
             <small className="text-muted">
               <i className="bi bi-hand-thumbs-up-fill text-primary"></i>
               <i className="bi bi-hand-thumbs-up-fill text-success"></i> 156
@@ -203,8 +232,16 @@ const HomeMain = () => {
           </div>
 
           <div className="d-flex justify-content-around mt-2 pt-2 border-top">
-            <button className="btn btn-light flex-fill me-1">
-              <i className="bi bi-hand-thumbs-up me-2"></i>Mi piace
+            <button
+              className="btn btn-light flex-fill me-1"
+              onClick={handleLikeClick3}
+            >
+              <i
+                className={`bi bi-hand-thumbs-up-fill me-2 ${
+                  isLiked3 ? 'text-primary' : ''
+                }`}
+              ></i>
+              <span className={isLiked3 ? 'text-primary' : ''}>Mi piace</span>
             </button>
             <button className="btn btn-light flex-fill me-1">
               <i className="bi bi-chat me-2"></i>Commenta
