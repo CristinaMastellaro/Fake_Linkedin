@@ -1,20 +1,32 @@
 import { Container, Row, Col } from "react-bootstrap";
 import "../css/hero.css";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
-const MiniHero = ({ showMiniHero }) => {
+const MiniHero = () => {
+  const [showMiniHero, setShow] = useState("");
   const myInfo = useSelector((state) => {
     console.log("state", state.saveProfileMe.myProfile);
     return state.saveProfileMe.myProfile;
+  });
+
+  window.addEventListener("scroll", () => {
+    const positionY = window.scrollY;
+    if (positionY === 0) {
+      setShow("");
+    } else if (positionY > 300) {
+      setShow("mini-hero");
+    } else {
+      setShow("mini-hero-out");
+    }
   });
 
   return (
     <Container
       fluid
       className={
+        "position-fixed end-0 start-0 z-2 bg-light px-4 py-2 d-none d-lg-block start-mini-hero " +
         showMiniHero
-          ? "position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero d-none d-lg-block"
-          : "position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero-out d-none d-lg-block"
       }
     >
       <Row className="align-items-center">

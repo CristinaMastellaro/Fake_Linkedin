@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import Main from "../components/Main";
 import SidebarProfilo from "../components/SidebarProfilo";
 import { Row, Col } from "react-bootstrap";
@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { SAVE_ME_INFO } from "../redux/actions";
 
 const ProfilePage = () => {
-  const [showMiniHero, setShow] = useState(false);
   const bearer =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
 
@@ -32,18 +31,9 @@ const ProfilePage = () => {
     })
     .catch((err) => console.log("Errore!", err));
 
-  window.addEventListener("scroll", () => {
-    const positionY = window.scrollY;
-    if (positionY > 300) {
-      setShow(true);
-    } else {
-      setShow(false);
-    }
-  });
-
   return (
     <>
-      <MiniHero showMiniHero={showMiniHero} />
+      <MiniHero />
       <Row>
         <Col xs={12} lg={9}>
           <Main />
