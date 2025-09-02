@@ -7,7 +7,6 @@ import Main from "./components/Main";
 import SidebarProfilo from "./components/SidebarProfilo";
 import { Container, Row, Col } from "react-bootstrap";
 import MiniHero from "./components/MiniHero";
-import SidebarHome from "./components/SidebarHome";
 
 function App() {
   const [showMiniHero, setShow] = useState(false);
