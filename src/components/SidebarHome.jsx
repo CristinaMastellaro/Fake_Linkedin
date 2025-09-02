@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState } from 'react';
+// import FooterHome from './Footer/FooterHome';
 
 function SidebarHome() {
-  const [showAllNews, setShowAllNews] = useState(false)
+  const [showAllNews, setShowAllNews] = useState(false);
 
   const news = [
     {
@@ -34,45 +35,45 @@ function SidebarHome() {
       published: '3 giorni fa',
       readers: '174 lettori',
     },
-  ]
+  ];
 
   return (
     <>
-      <div className="card mb-3 shadow-sm mt-5">
-        <div className="card-body">
+      <div className='card mb-3 shadow-sm mt-5'>
+        <div className='card-body'>
           <div>
-            <h5 className="fw-bold">LinkedIn Notizie</h5>
+            <h5 className='fw-bold'>LinkedIn Notizie</h5>
           </div>
           <div>
-            <h6 className="text-muted fw-bold">Storie Principali</h6>
+            <h6 className='text-muted fw-bold'>Storie Principali</h6>
           </div>
           <div>
-            <p className="mb-0 fw-bold">Venezia 82: racconti dal Lido</p>
-            <p className="fw-6 text-muted">4 giorni fa &bull; 1.869 lettori</p>
+            <p className='mb-0 fw-bold'>Venezia 82: racconti dal Lido</p>
+            <p className='fw-6 text-muted'>4 giorni fa &bull; 1.869 lettori</p>
           </div>
           <div>
-            <p className="mb-0 fw-bold">Greenpeace Italia cambia guida</p>
-            <p className="fw-6 text-muted">3 ore fa</p>
+            <p className='mb-0 fw-bold'>Greenpeace Italia cambia guida</p>
+            <p className='fw-6 text-muted'>3 ore fa</p>
           </div>
           <div>
-            <p className="mb-0 fw-bold">Si (ri)parla di caro scuola</p>
-            <p className="fw-6 text-muted">25 minuti fa</p>
+            <p className='mb-0 fw-bold'>Si (ri)parla di caro scuola</p>
+            <p className='fw-6 text-muted'>25 minuti fa</p>
           </div>
           <div>
-            <p className="mb-0 fw-bold">Smart working e lavoro femminile</p>
-            <p className="fw-6 text-muted">3 giorni fa &bull; 1.394 lettori</p>
+            <p className='mb-0 fw-bold'>Smart working e lavoro femminile</p>
+            <p className='fw-6 text-muted'>3 giorni fa &bull; 1.394 lettori</p>
           </div>
           <div>
-            <p className="mb-0 fw-bold">Fame di data center</p>
-            <p className="fw-6 text-muted">5 giorni fa &bull; 698 lettori</p>
+            <p className='mb-0 fw-bold'>Fame di data center</p>
+            <p className='fw-6 text-muted'>5 giorni fa &bull; 698 lettori</p>
           </div>
 
           {showAllNews && (
             <>
               {news.map((text) => (
                 <div key={text.id}>
-                  <p className="mb-0 fw-bold">{text.title}</p>
-                  <p className="fw-6 text-muted">
+                  <p className='mb-0 fw-bold'>{text.title}</p>
+                  <p className='fw-6 text-muted'>
                     {text.published} &bull; {text.readers}
                   </p>
                 </div>
@@ -80,17 +81,17 @@ function SidebarHome() {
             </>
           )}
           <p
-            className="mb-0 fw-semibold"
+            className='mb-0 fw-semibold'
             style={{ cursor: 'pointer' }}
             onClick={() => setShowAllNews(!showAllNews)}
           >
             {showAllNews ? (
               <>
-                Mostra meno <i className="bi bi-chevron-compact-up"></i>
+                Mostra meno <i className='bi bi-chevron-compact-up'></i>
               </>
             ) : (
               <>
-                Mostra tutto <i className="bi bi-chevron-compact-down"></i>
+                Mostra tutto <i className='bi bi-chevron-compact-down'></i>
               </>
             )}
           </p>
@@ -98,7 +99,7 @@ function SidebarHome() {
       </div>
       {/* <FooterHome /> */}
     </>
-  )
+  );
 }
 
-export default SidebarHome
+export default SidebarHome;
