@@ -34,7 +34,6 @@ function App() {
 
   window.addEventListener('scroll', () => {
     const positionY = window.scrollY;
-    console.log('positionY', positionY);
     if (positionY > 300) {
       setShow(true);
     } else {

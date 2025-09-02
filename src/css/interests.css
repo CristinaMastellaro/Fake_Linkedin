@@ -4,7 +4,8 @@
 }
 
 .nav-link:focus,
-.nav-link:hover {
+.nav-link:hover,
+.nav.link.active {
   color: green !important;
   border: 0 !important;
   border-bottom: 2px solid green !important;
