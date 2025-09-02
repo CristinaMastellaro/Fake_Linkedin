@@ -1,12 +1,12 @@
-import { useState } from "react";
-import "../css/messaggistica.css";
+import { useState } from 'react'
+import '../css/messaggistica.css'
 
 const Messaggistica = () => {
-  const [isMessagesOpen, setIsMessagesOpen] = useState(false);
+  const [isMessagesOpen, setIsMessagesOpen] = useState(false)
 
   const toggleMessages = () => {
-    setIsMessagesOpen(!isMessagesOpen);
-  };
+    setIsMessagesOpen(!isMessagesOpen)
+  }
 
   return (
     <>
@@ -20,7 +20,7 @@ const Messaggistica = () => {
           <div className="messages-header">
             <div className="messages-title">
               <img
-                src="https://static-exp1.licdn.com/sc/h/1bt1uwq5akv756knzdj4l6cdc"
+                src="/profile-icon.png"
                 alt="User Avatar"
                 className="messages-avatar"
               />
@@ -64,7 +64,7 @@ const Messaggistica = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Messaggistica;
+export default Messaggistica
