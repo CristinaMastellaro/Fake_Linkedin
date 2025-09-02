@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Main from "../components/Main";
 import SidebarProfilo from "../components/SidebarProfilo";
 import { Row, Col } from "react-bootstrap";
 import MiniHero from "../components/MiniHero";
 import FooterProfile from "../components/Footer/FooterProfile";
 import { useDispatch } from "react-redux";
-import { SAVE_ME_INFO, saveMeInfoAction } from "../redux/actions";
+import { SAVE_ME_INFO } from "../redux/actions";
 
 const ProfilePage = () => {
   const [showMiniHero, setShow] = useState(false);
@@ -31,10 +31,6 @@ const ProfilePage = () => {
       dispatch({ type: SAVE_ME_INFO, payload: data });
     })
     .catch((err) => console.log("Errore!", err));
-
-  // useEffect(() => {
-  //   dispatch(saveMeInfoAction(bearer));
-  // }, []);
 
   window.addEventListener("scroll", () => {
     const positionY = window.scrollY;

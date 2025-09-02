@@ -1,7 +1,13 @@
 import { Container, Row, Col } from "react-bootstrap";
 import "../css/hero.css";
+import { useSelector } from "react-redux";
 
 const MiniHero = ({ showMiniHero }) => {
+  const myInfo = useSelector((state) => {
+    console.log("state", state.saveProfileMe.myProfile);
+    return state.saveProfileMe.myProfile;
+  });
+
   return (
     <Container
       fluid
@@ -21,8 +27,10 @@ const MiniHero = ({ showMiniHero }) => {
               className="mt-1 me-1 rounded-circle"
             />
             <div>
-              <p className="mb-0 fw-semibold small">Nome Cognome</p>
-              <p className="small mb-0">Studente presso Epicode</p>
+              <p className="mb-0 fw-semibold small">
+                {myInfo && myInfo.name + " " + myInfo.surname}
+              </p>
+              <p className="small mb-0">{myInfo && myInfo.title}</p>
             </div>
           </div>
         </Col>
