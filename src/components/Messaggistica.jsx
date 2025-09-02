@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../css/messaggistica.css";
 
 const Messaggistica = () => {
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
@@ -9,9 +10,11 @@ const Messaggistica = () => {
 
   return (
     <>
-      <button className="nav-button" onClick={toggleMessages}>
-        Messaggistica
-      </button>
+      {!isMessagesOpen && (
+        <button className="messaggistica-button" onClick={toggleMessages}>
+          Messaggistica
+        </button>
+      )}
       {isMessagesOpen && (
         <div className="messages-dropdown">
           <div className="messages-header">
