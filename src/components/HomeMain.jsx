@@ -54,7 +54,7 @@ const HomeMain = () => {
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
             <img
-              src="/profile-icon.png"
+              src="https://avatar.iran.liara.run/public"
               alt="Profile"
               className="rounded-circle me-3"
               style={{ width: '50px', height: '50px' }}
@@ -106,7 +106,7 @@ const HomeMain = () => {
               <span className={isLiked1 ? 'text-primary' : ''}>Mi piace</span>
             </button>
             <button className="btn btn-light flex-fill me-1">
-              <i class="bi bi-chat-square-text-fill me-2"></i>Commenta
+              <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
             </button>
             <button className="btn btn-light flex-fill me-1">
               <i className="bi bi-arrow-repeat me-2"></i>Condividi
@@ -138,7 +138,7 @@ const HomeMain = () => {
                 style={{ border: 'none', background: 'transparent' }}
               >
                 <i className="bi bi-emoji-smile text-muted me-3"></i>
-                <i class="bi bi-card-image"></i>
+                <i className="bi bi-card-image"></i>
               </button>
             </div>
           </div>
@@ -195,7 +195,7 @@ const HomeMain = () => {
               <span className={isLiked2 ? 'text-primary' : ''}>Mi piace</span>
             </button>
             <button className="btn btn-light flex-fill me-1">
-              <i class="bi bi-chat-square-text-fill me-2"></i>Commenta
+              <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
             </button>
             <button className="btn btn-light flex-fill me-1">
               <i className="bi bi-arrow-repeat me-2"></i>Condividi
@@ -227,7 +227,7 @@ const HomeMain = () => {
                 style={{ border: 'none', background: 'transparent' }}
               >
                 <i className="bi bi-emoji-smile text-muted me-3"></i>
-                <i class="bi bi-card-image"></i>
+                <i className="bi bi-card-image"></i>
               </button>
             </div>
           </div>
@@ -298,7 +298,7 @@ const HomeMain = () => {
               <span className={isLiked3 ? 'text-primary' : ''}>Mi piace</span>
             </button>
             <button className="btn btn-light flex-fill me-1">
-              <i class="bi bi-chat-square-text-fill me-2"></i>Commenta
+              <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
             </button>
             <button className="btn btn-light flex-fill me-1">
               <i className="bi bi-arrow-repeat me-2"></i>Condividi
@@ -330,7 +330,7 @@ const HomeMain = () => {
                 style={{ border: 'none', background: 'transparent' }}
               >
                 <i className="bi bi-emoji-smile text-muted me-3"></i>
-                <i class="bi bi-card-image"></i>
+                <i className="bi bi-card-image"></i>
               </button>
             </div>
           </div>
