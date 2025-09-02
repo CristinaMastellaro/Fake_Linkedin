@@ -40,18 +40,13 @@ export default function CustomNavbar() {
         {/* Logo + Search sempre visibili */}
         <div className="d-flex align-items-center gap-3">
           {/* Logo */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="35"
-            height="35"
-            viewBox="0 0 24 24"
-          >
-            <rect width="24" height="24" fill="#0A66C2" rx="2" />
-            <path
-              fill="#FFFFFF"
-              d="M6.94 19H3.28V9h3.66v10zM5.11 7.41c-1.18 0-2.13-.96-2.13-2.13S3.93 3.15 5.11 3.15s2.13.96 2.13 2.13-.95 2.13-2.13 2.13zm13.79 11.59h-3.66v-4.83c0-1.15-.41-1.94-1.44-1.94-.78 0-1.24.53-1.44 1.05-.07.17-.09.41-.09.64v5.08h-3.66s.05-8.24 0-9.09h3.66v1.29c.49-.76 1.37-1.84 3.33-1.84 2.43 0 4.26 1.59 4.26 5.01v4.63z"
+          <Link to="/">
+            <img
+              src="linkedin-icon.jpg"
+              alt="icona-linkedin"
+              style={{ width: 35, height: 35 }}
             />
-          </svg>
+          </Link>
 
           {/* Barra di ricerca */}
           <Form className="search-form">

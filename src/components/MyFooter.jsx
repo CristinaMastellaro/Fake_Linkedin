@@ -1,4 +1,5 @@
 import { Col, Container, Form, Row } from 'react-bootstrap'
+import { X } from 'react-bootstrap-icons'
 
 const text = [
   [
@@ -17,9 +18,12 @@ const text = [
   ['Talent Solutions', 'Pubblicità', 'Piccole Imprese'],
 ]
 
-function MyFooter() {
+function MyFooter({ onClose }) {
   return (
     <Container className="mt-4">
+      <div className="w-100 d-flex justify-content-end mb-3">
+        <X size={24} style={{ cursor: 'pointer' }} onClick={onClose} />
+      </div>
       <Row>
         {text.map((dati, i) => (
           <Col sm={12} md={6} xl={2} key={i}>
