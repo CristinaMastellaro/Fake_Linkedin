@@ -1,8 +1,14 @@
 import { Card, Row, Col, Carousel } from 'react-bootstrap'
 import '../css/hero.css'
 import { BiCheckShield, BiPencil, BiX, BiSolidCamera } from 'react-icons/bi'
+import { useSelector } from 'react-redux'
 
 const Hero = () => {
+  const myInfo = useSelector((state) => {
+    console.log('state', state.saveProfileMe.myProfile)
+    return state.saveProfileMe.myProfile
+  })
+
   return (
     <Card className="border border-1 rounded-4 m-4 position-relative">
       <Card.Img
@@ -10,23 +16,27 @@ const Hero = () => {
         src="https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg"
         className="hero-img"
       />
-      <div className="picture-profile"></div>
+      <div className="picture-profile">
+        <img src={myInfo && myInfo.image} alt="Picture profile" />
+      </div>
       <div className="picture-photocamera">
         <BiSolidCamera />
       </div>
       <Card.Body className="container-fluid mt-5">
         <Row>
           <Col xs={12} md={6}>
-            <Card.Title>Nome Cognome</Card.Title>
+            <Card.Title>
+              {myInfo && myInfo.name + ' ' + myInfo.surname}
+            </Card.Title>
             <div className="badge-verifica rounded-4 px-3 d-flex align-items-center">
               <BiCheckShield className="fs-5 me-1" /> Aggiungi badge di verifica
             </div>
-            <Card.Text className="mb-0">Lavoro description</Card.Text>
+            <Card.Text className="mb-0">{myInfo && myInfo.title}</Card.Text>
             <p className="d-md-none my-0 opacity-75 small">
               Università degli studi di Padova
             </p>
             <div className="d-flex gap-1 my-1 flex-wrap">
-              <p className="my-0 opacity-75 small">Padova, Veneto, Italia</p>
+              <p className="my-0 opacity-75 small">{myInfo && myInfo.area}</p>
               <p className="my-0 ">·</p>
               <p className="my-0 myBlue small">Informazioni di contatto</p>
             </div>
