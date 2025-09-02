@@ -7,6 +7,7 @@ import Messaggistica from './components/Messaggistica'
 import Homepage from './components/Homepage'
 import ProfilePage from './components/ProfilePage'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import NotFound from './components/NotFound'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/" element={<Homepage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
       <Messaggistica />
