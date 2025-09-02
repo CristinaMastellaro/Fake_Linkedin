@@ -8,6 +8,7 @@ import SidebarProfilo from './components/SidebarProfilo';
 import { Container, Row, Col } from 'react-bootstrap';
 import MiniHero from './components/MiniHero';
 import SidebarHome from './components/SidebarHome';
+import FooterProfile from './components/Footer/FooterProfile';
 
 function App() {
   const [showMiniHero, setShow] = useState(false);
@@ -42,21 +43,24 @@ function App() {
   });
 
   return (
-    <Container>
-      <div className='col-12 d-flex flex-column bg-light mb-5'>
-        <CustomNavbar />
-      </div>
-      {<MiniHero showMiniHero={showMiniHero} />}
-      {/* <MiniHero /> */}
-      <Row>
-        <Col xs={12} lg={9}>
-          <Main />
-        </Col>
-        <Col xs={12} lg={3}>
-          <SidebarProfilo />
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <Container>
+        <div className='col-12 d-flex flex-column bg-light mb-5'>
+          <CustomNavbar />
+        </div>
+        {<MiniHero showMiniHero={showMiniHero} />}
+        {/* <MiniHero /> */}
+        <Row>
+          <Col xs={12} lg={9}>
+            <Main />
+          </Col>
+          <Col xs={12} lg={3}>
+            <SidebarProfilo />
+          </Col>
+        </Row>
+      </Container>
+      <FooterProfile />
+    </>
   );
 }
 
