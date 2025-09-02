@@ -28,22 +28,26 @@ const Homepage = () => {
               className='mt-4'
               style={{ position: 'sticky', top: '384px', zIndex: 2 }}
             >
-              <div className='d-flex justify-content-around small'>
-                <p>Informazioni</p>
+              <div
+                className='d-flex justify-content-around small px-5'
+                style={{ cursor: 'pointer' }}
+              >
+                <p className='small footer-link'>Informazioni</p>
                 <span
                   style={{ cursor: 'pointer' }}
                   onClick={() => setShowFooter(!showFooter)}
+                  className='small footer-link'
                 >
                   Altro
                 </span>
               </div>
-              <div className='d-flex align-items-center'>
+              <div className='d-flex align-items-center px-2 small'>
                 <img
                   src='/logo-linkedin-scritto.png'
-                  width={70}
+                  width={65}
                   alt='LinkedIn Logo'
                 />
-                <p className='small mb-0 ms-2'>
+                <p className='small mb-0'>
                   Linkedin Corporation &copy; {new Date().getFullYear()}
                 </p>
               </div>
