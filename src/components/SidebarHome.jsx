@@ -105,29 +105,30 @@ function SidebarHome() {
           </p>
         </div>
       </div>
-
-      <section className='section-sidebar-top position-relative p-0'>
-        <p class='position-absolute top-0 end-0 badge rounded-pill bg-secondary-subtle mt-2 me-2 text-secondary'>
-          Promosso <i class='bi bi-three-dots'></i>
-        </p>
-        <img
-          src='https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg'
-          className='side-img'
-        />
-        <div className='company-profile-side'></div>
-        <div className='d-flex flex-column' style={{ padding: '1em' }}>
-          <h6 className='mb-3 mt-3 fw-bold'>Nome Azienda</h6>
-
-          <p className=''>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+      <section className='position-sticky' style={{ top: '75px', zIndex: 1 }}>
+        <div className='section-sidebar-top position-relative p-0 bg-white'>
+          <p class='position-absolute top-0 end-0 badge rounded-pill bg-secondary-subtle mt-2 me-2 text-secondary'>
+            Promosso <i class='bi bi-three-dots'></i>
           </p>
-          <p className='small'>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio
-            aspernatur vero cumque atque quibusdam
-          </p>
-          <button className='btn btn-outline-primary btn-sm rounded-pill'>
-            Segui
-          </button>
+          <img
+            src='https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg'
+            className='side-img'
+          />
+          <div className='company-profile-side'></div>
+          <div className='d-flex flex-column' style={{ padding: '1em' }}>
+            <h6 className='mb-3 mt-3 fw-bold'>Nome Azienda</h6>
+
+            <p className=''>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+            <p className='small'>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio
+              aspernatur vero cumque atque quibusdam
+            </p>
+            <button className='btn btn-outline-primary btn-sm rounded-pill'>
+              Segui
+            </button>
+          </div>
         </div>
       </section>
     </>

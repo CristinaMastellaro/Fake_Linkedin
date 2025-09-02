@@ -3,7 +3,7 @@ import HomeMain from './HomeMain';
 import SidebarHome from './SidebarHome';
 import LeftSidebarHome from './LeftSidebarHome';
 import { useState } from 'react';
-import '../css/FooterHome.css';
+import '../css/homePage.css';
 import MyFooter from './MyFooter';
 
 const Homepage = () => {
@@ -15,14 +15,19 @@ const Homepage = () => {
       <Container className='homepage bg-light min-vh-100 py-4'>
         <Row className='justify-content-center'>
           <Col xs={12} md={4} lg={3}>
-            <LeftSidebarHome />
+            <div className='position-fixed'>
+              <LeftSidebarHome />
+            </div>
           </Col>
           <Col xs={12} md={8} lg={6}>
             <HomeMain />
           </Col>
           <Col xs={12} lg={3}>
             <SidebarHome />
-            <Container className='mt-4'>
+            <Container
+              className='mt-4'
+              style={{ position: 'sticky', top: '384px', zIndex: 2 }}
+            >
               <div className='d-flex justify-content-around small'>
                 <p>Informazioni</p>
                 <span
@@ -46,6 +51,20 @@ const Homepage = () => {
           </Col>
         </Row>
       </Container>
+      {showFooter && (
+        <div
+          className='overlay-footer'
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 1049,
+          }}
+        />
+      )}
       <Collapse in={showFooter}>
         <div className='footer-dropup'>
           <div className='d-flex justify-content-end'>
