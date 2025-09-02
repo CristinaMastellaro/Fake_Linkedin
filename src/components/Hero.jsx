@@ -17,7 +17,10 @@ const Hero = () => {
         className="hero-img"
       />
       <div className="picture-profile">
-        <img src={myInfo && myInfo.image} alt="Picture profile" />
+         {' '}
+        {myInfo && myInfo.image && (
+          <img src={myInfo.image} alt="Picture profile" />
+        )}
       </div>
       <div className="picture-photocamera">
         <BiSolidCamera />

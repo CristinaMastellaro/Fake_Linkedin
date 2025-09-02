@@ -361,7 +361,11 @@ export default function CustomNavbar() {
 
             <Col xs={4} className="d-block d-sm-none text-center">
               <PersonCircle size={24} />
-              <NavDropdown id="nav-dropdown-dark-example" title="" align="end">
+              <NavDropdown
+                id="nav-dropdown-dark-example"
+                title="navbar"
+                align="end"
+              >
                 <NavDropdown.Item href="#" title="Not available">
                   Account
                 </NavDropdown.Item>

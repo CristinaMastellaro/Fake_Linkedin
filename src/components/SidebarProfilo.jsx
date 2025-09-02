@@ -188,9 +188,9 @@ const SidebarProfilo = () => {
         </div>
       </div>
 
-      <div className="card mb-3 shadow-sm">
+      <div className="card my-3 shadow-sm">
         <div className="card-header bg-white border-0 pb-0">
-          <h6 className="mb-1 fw-bold text-dark">Altri profili consultati</h6>
+          <h6 className="my-1 fw-bold text-dark">Altri profili consultati</h6>
           <small className="text-muted">
             <i className="bi bi-eye-fill"></i> Solo per te
           </small>
@@ -235,7 +235,7 @@ const SidebarProfilo = () => {
 
       <div className="card mb-3 shadow-sm">
         <div className="card-header bg-white border-0 pb-0">
-          <h6 className="mb-1 fw-bold text-dark">
+          <h6 className="my-1 fw-bold text-dark">
             Persone che potresti conoscere
           </h6>
           <small className="text-muted">Dalla tua scuola o università</small>
