@@ -54,7 +54,7 @@ export default function CustomNavbar() {
             </Col>
 
             <Col xs={4} md="auto">
-              <Nav.Link href="#" className="d-flex flex-column align-items-center">
+              <Nav.Link className={'nav-link' + (location.pathname === '/lavoro' ? ' active' : '') + " d-flex flex-column align-items-center"} to="/lavoro" as={Link}>
                 <ChatDotsFill size={22} />
                 <span className="small">Messaggi</span>
               </Nav.Link>
@@ -93,24 +93,26 @@ export default function CustomNavbar() {
                       </div>
                     </div>
                     <div className="user-actions px-2">
-                      <button className="btn border border-primary text-primary rounded-pill me-1">
-                        Visualizza profilo
-                      </button>
-                      <button className="btn bg-primary text-light rounded-pill">Verifica</button>
+                      <Link to="/profile">
+                        <button className="btn border border-primary text-primary rounded-pill me-1">
+                            Visualizza profilo
+                        </button>
+                      </Link>
+                      <button className="btn bg-primary text-light rounded-pill" title="Not available">Verifica</button>
                     </div>
                   </li>
                   <li><hr className="dropdown-divider" /></li>
                   <li><h6 className="dropdown-header">Account</h6></li>
-                  <li><a className="dropdown-item sale" href="#">50% di sconto su Sales Nav</a></li>
-                  <li><a className="dropdown-item" href="#">Impostazioni e privacy</a></li>
-                  <li><a className="dropdown-item" href="#">Guida</a></li>
-                  <li><a className="dropdown-item" href="#">Lingua</a></li>
+                  <li><a className="dropdown-item sale" href="#" title="Not available">50% di sconto su Sales Nav</a></li>
+                  <li><a className="dropdown-item" href="#" title="Not available">Impostazioni e privacy</a></li>
+                  <li><a className="dropdown-item" href="#" title="Not available">Guida</a></li>
+                  <li><a className="dropdown-item" href="#" title="Not available">Lingua</a></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li><h6 className="dropdown-header">Gestisci</h6></li>
-                  <li><a className="dropdown-item" href="#">Post e attività</a></li>
-                  <li><a className="dropdown-item" href="#">Account per la pubblicazione di off...</a></li>
+                  <li><a className="dropdown-item" href="#" title="Not available">Post e attività</a></li>
+                  <li><a className="dropdown-item" href="#" title="Not available">Account per la pubblicazione di off...</a></li>
                   <li><hr className="dropdown-divider" /></li>
-                  <li><a className="dropdown-item" href="#">Esci</a></li>
+                  <li><a className="dropdown-item" href="#" title="Not available">Esci</a></li>
                 </ul>
               </div>
             </Col>
@@ -141,57 +143,57 @@ export default function CustomNavbar() {
                 >
                   <li className="app px-5 py-4">
                     <h6 className="dropdown-header">Le mie app</h6>
-                    <a className="dropdown-item" href="#"><i className="bi bi-compass"></i> Trova lead</a>
-                    <a className="dropdown-item" href="#"><i className="bi bi-chat-dots"></i> Gruppi</a>
-                    <a className="dropdown-item" href="#"><i className="bi bi-receipt"></i> Gestisci fatturazione</a>
+                    <a className="dropdown-item" href="#" title="Not available"><i className="bi bi-compass"></i> Trova lead</a>
+                    <a className="dropdown-item" href="#" title="Not available"><i className="bi bi-chat-dots"></i> Gruppi</a>
+                    <a className="dropdown-item" href="#" title="Not available"><i className="bi bi-receipt"></i> Gestisci fatturazione</a>
 
                     <h6 className="dropdown-header">Talent</h6>
-                    <a className="dropdown-item" href="#"><i className="bi bi-graph-up"></i> Talents insight</a>
-                    <a className="dropdown-item" href="#"><i className="bi bi-broadcast"></i> Pubblica un'offerta di lavoro</a>
+                    <a className="dropdown-item" href="#" title="Not available"><i className="bi bi-graph-up"></i> Talents insight</a>
+                    <a className="dropdown-item" href="#" title="Not available"><i className="bi bi-broadcast"></i> Pubblica un'offerta di lavoro</a>
 
                     <h6 className="dropdown-header">Vendite</h6>
-                    <a className="dropdown-item" href="#"><i className="bi bi-check"></i> Marketplace dei servizi</a>
+                    <a className="dropdown-item" href="#" title="Not available"><i className="bi bi-check"></i> Marketplace dei servizi</a>
 
                     <h6 className="dropdown-header">Marketing</h6>
-                    <a className="dropdown-item" href="#"><i className="bi bi-bullseye"></i> Pubblicizza</a>
+                    <a className="dropdown-item" href="#" title="Not available"><i className="bi bi-bullseye"></i> Pubblicizza</a>
 
                     <h6 className="dropdown-header">Learning</h6>
-                    <a className="dropdown-item" href="#"><i className="bi bi-film"></i> Learning</a>
+                    <a className="dropdown-item" href="#" title="Not available"><i className="bi bi-film"></i> Learning</a>
                   </li>
 
                   <li className="border-end border mx-2" style={{ height: "85vh" }}></li>
 
                   <li className="business px-5 py-4">
                     <h6 className="dropdown-header">Scopri altro per il business</h6>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#" title="Not available">
                       <span>Assumi su LinkedIn</span>
                       <br /> Trova, attrai e assumi
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#" title="Not available">
                       <span>Vendi con LinkedIn</span>
                       <br /> Sblocca nuove opportunità di vendita
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#" title="Not available">
                       <span>Offerta di lavoro gratuita</span>
                       <br /> Ottieni rapidamente candidati qualificati
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#" title="Not available">
                       <span>Fai pubblicità su LinkedIn</span>
                       <br /> Acquisisci clienti e fai crescere la tua azienda
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#" title="Not available">
                       <span>Inizia con Premium</span>
                       <br /> Amplia e sfrutta la tua rete
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#" title="Not available">
                       <span>Impara con LinkedIn</span>
                       <br /> Corsi per formare i tuoi dipendenti
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#" title="Not available">
                       <span>Centro per amministratori</span>
                       <br /> Gestisci i dettagli di fatturazione e account
                     </a>
-                    <a className="dropdown-item" href="#">Crea una pagina aziendale</a>
+                    <a className="dropdown-item" href="#" title="Not available">Crea una pagina aziendale</a>
                   </li>
                 </ul>
               </div>
@@ -208,10 +210,10 @@ export default function CustomNavbar() {
             <Col xs={4} className="d-block d-sm-none text-center">
               <PersonCircle size={24} />
               <NavDropdown id="nav-dropdown-dark-example" title="" align="end">
-                <NavDropdown.Item href="#action/3.1">Account</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Impostazioni</NavDropdown.Item>
+                <NavDropdown.Item href="#" title="Not available">Account</NavDropdown.Item>
+                <NavDropdown.Item href="#" title="Not available">Impostazioni</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Esci</NavDropdown.Item>
+                <NavDropdown.Item href="#" title="Not available">Esci</NavDropdown.Item>
               </NavDropdown>
             </Col>
           </Row>

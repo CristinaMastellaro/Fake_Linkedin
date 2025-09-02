@@ -7,7 +7,7 @@ const MiniHero = ({ showMiniHero }) => {
       fluid
       className={
         showMiniHero
-          ? "position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero"
+          ? "position-fixed end-0 start-0 z-2 bg-light px-4 py-0 mini-hero"
           : "position-fixed end-0 start-0 z-2 bg-light px-4 py-2 mini-hero-out"
       }
     >
