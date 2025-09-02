@@ -9,6 +9,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import MiniHero from './components/MiniHero'
 import SidebarHome from './components/SidebarHome'
 import FooterProfile from './components/Footer/FooterProfile'
+import Messaggistica from './components/Messaggistica'
 
 function App() {
   const [showMiniHero, setShow] = useState(false)
@@ -59,6 +60,7 @@ function App() {
         </Row>
         <FooterProfile />
       </Container>
+      <Messaggistica />
     </>
   )
 }

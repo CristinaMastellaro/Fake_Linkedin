@@ -14,7 +14,7 @@ const text = [
     'Opzioni per gli annunci pubblicitari',
     'Mobile',
   ],
-  ['Talent Soulutions', 'Pubblicità', 'Piccole Imprese'],
+  ['Talent Solutions', 'Pubblicità', 'Piccole Imprese'],
 ];
 
 function FooterProfile() {
