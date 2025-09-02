@@ -18,6 +18,7 @@ const SidebarProfilo = () => {
       role: 'Senior Software Engineer presso TechCorp',
       initials: 'MR',
       color: '#007bb6',
+      image: 'https://avatar.iran.liara.run/public/boy',
     },
     {
       id: 2,
@@ -25,6 +26,7 @@ const SidebarProfilo = () => {
       role: 'Marketing Manager presso Digital Agency',
       initials: 'SB',
       color: '#dc3545',
+      image: 'https://avatar.iran.liara.run/public/girl',
     },
     {
       id: 3,
@@ -32,6 +34,7 @@ const SidebarProfilo = () => {
       role: 'Data Scientist presso Analytics Pro',
       initials: 'AV',
       color: '#6f42c1',
+      image: 'https://avatar.iran.liara.run/public/boy',
     },
     {
       id: 4,
@@ -39,6 +42,7 @@ const SidebarProfilo = () => {
       role: 'UX Designer presso Creative Studio',
       initials: 'GN',
       color: '#fd7e14',
+      image: 'https://avatar.iran.liara.run/public/girl',
     },
   ]
 
@@ -239,7 +243,7 @@ const SidebarProfilo = () => {
         <div className="card-body">
           <div className="d-flex align-items-center mb-3">
             <img
-              src="/profile-icon.png"
+              src="https://avatar.iran.liara.run/public/boy"
               alt="Leonardo Genesin"
               className="rounded-circle me-3"
               style={{ width: '50px', height: '50px' }}
@@ -261,7 +265,7 @@ const SidebarProfilo = () => {
 
           <div className="d-flex align-items-center mb-3">
             <img
-              src="profile-icon.png"
+              src="https://avatar.iran.liara.run/public/girl"
               alt="Marta Ferrari"
               className="rounded-circle me-3"
               style={{ width: '50px', height: '50px' }}
@@ -283,7 +287,7 @@ const SidebarProfilo = () => {
 
           <div className="d-flex align-items-center mb-3">
             <img
-              src="profile-icon.png"
+              src="https://avatar.iran.liara.run/public/girl"
               alt="Chiara Baldan"
               className="rounded-circle me-3"
               style={{ width: '50px', height: '50px' }}
@@ -309,7 +313,7 @@ const SidebarProfilo = () => {
 
           <div className="d-flex align-items-center mb-3">
             <img
-              src="profile-icon.png"
+              src="https://avatar.iran.liara.run/public/boy"
               alt="Diego Redi"
               className="rounded-circle me-3"
               style={{ width: '50px', height: '50px' }}
@@ -340,7 +344,7 @@ const SidebarProfilo = () => {
                   <hr className="my-3" />
                   <div className="d-flex align-items-center mb-3">
                     <img
-                      src={'profile-icon.png'}
+                      src={profile.image}
                       alt={profile.name}
                       className="rounded-circle me-3"
                       style={{ width: '50px', height: '50px' }}
