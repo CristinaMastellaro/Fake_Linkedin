@@ -54,7 +54,7 @@ const HomeMain = () => {
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
             <img
-              src="/profile-icon.png"
+              src="https://avatar.iran.liara.run/public"
               alt="Profile"
               className="rounded-circle me-3"
               style={{ width: "50px", height: "50px" }}
