@@ -1,3 +1,4 @@
+import CustomNavbar from "./components/Navbar";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
@@ -40,6 +41,9 @@ function App() {
 
   return (
     <Container>
+      <div className="col-12 d-flex flex-column bg-light mb-5">
+        <CustomNavbar />
+      </div>
       {<MiniHero showMiniHero={showMiniHero} />}
       {/* <MiniHero /> */}
       <Row>
@@ -51,6 +55,7 @@ function App() {
         </Col>
       </Row>
     </Container>
+
   );
 }
 

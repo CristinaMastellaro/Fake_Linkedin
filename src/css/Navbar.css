@@ -1,0 +1,83 @@
+.search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  transition: width 0.3s ease;
+}
+
+.search-input:focus {
+  width: 65vh;
+  box-shadow: none !important;
+  outline: none !important;
+  border-color: #000 !important;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  pointer-events: none;
+  color: #6c757d;
+}
+
+.nav-link span {
+  font-size: small;
+}
+
+.nav-item {
+  align-items: center;
+  flex: column;
+}
+
+.nav-item-hover, .active {
+  color: #000 !important;
+}
+
+.dropdown-menu {
+  max-width: 22vw;
+  max-height: 75vh;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.aziende {
+  max-width: 100vw;
+  max-height: 85vh;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.dropdown button {
+  background: none;
+  border: none;
+}
+
+.dropdown-item:hover {
+  text-decoration: underline;
+  background: none;
+}
+
+.dropdown-item.sale:hover {
+  color: blue;
+  text-decoration: none;
+}
+
+.business .dropdown-item {
+  font-size: 14px;
+  gap: 20px;
+}
+
+.app .dropdown-item {
+  color: blue;
+}
+
+.business .dropdown-item:hover {
+  text-decoration: underline;
+  text-decoration-color: #0d6efd;
+}
+.business .dropdown-item span{
+  font-weight: bold;
+}
