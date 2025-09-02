@@ -39,7 +39,7 @@ function SidebarHome() {
 
   return (
     <>
-      <div className="card mb-3 shadow-sm mt-5">
+      <div className="card mb-3 shadow-sm">
         <div className="card-body">
           <div>
             <h5 className="fw-bold">LinkedIn Notizie</h5>
