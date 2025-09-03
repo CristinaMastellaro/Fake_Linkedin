@@ -27,7 +27,7 @@ function MyFooter() {
   const location = useLocation();
 
   return (
-    <Container className='px-4 py-5'>
+    <Container className='px-4 pb-5'>
       {location.pathname === '/' && (
         <img
           src='/logo-linkedin-scritto.png'
