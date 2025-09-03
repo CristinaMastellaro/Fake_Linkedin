@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Experiences from "./Experiencies";
+import Posts from "./Posts";
 
 const HomeMain = () => {
   const [isLiked1, setIsLiked1] = useState(false);
@@ -49,6 +51,8 @@ const HomeMain = () => {
           </div>
         </div>
       </div>
+
+      <Posts />
 
       <div className="card mb-3 shadow-sm">
         <div className="card-body">
@@ -336,6 +340,8 @@ const HomeMain = () => {
           </div>
         </div>
       </div>
+
+      {/* <Experiences /> se volete aggiungere l'opzione di crearle anche nella home  */}
     </div>
   );
 };
