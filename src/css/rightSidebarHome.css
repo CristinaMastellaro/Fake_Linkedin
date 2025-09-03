@@ -1,0 +1,10 @@
+.company-profile-side {
+  background-image: url('https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg');
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  height: 70px;
+  width: 70px;
+}

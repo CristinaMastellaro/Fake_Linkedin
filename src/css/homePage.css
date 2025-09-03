@@ -11,7 +11,6 @@
   border-top-right-radius: 1rem;
   transition: all 0.3s;
 }
-
 .overlay-footer {
   position: fixed;
   top: 0;
@@ -19,5 +18,5 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 1049;
+  z-index: 5;
 }
