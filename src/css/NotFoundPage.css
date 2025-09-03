@@ -81,16 +81,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
 }
 
 .error-image {
-  width: 300px;
+  width: 30vh;
   height: auto;
   max-width: 100%;
   position: absolute;
-  top: 3em;
-  left: 7em;
+  bottom: -1%;
 }
 
 .logo-svg {
@@ -116,8 +114,6 @@
   padding: 4px 8px;
   font-size: 14px;
   background-color: white;
-}
-.gif {
 }
 
 .footer-container .text-muted {

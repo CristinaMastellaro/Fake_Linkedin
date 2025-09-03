@@ -436,6 +436,7 @@ export const fetchPosts = () => {
         throw new Error("Failed to fetch posts");
       }
       const posts = await response.json();
+      console.log("posts", posts.reverse());
       dispatch(fetchPostsSuccess(posts));
     } catch (error) {
       dispatch(fetchPostsFailure(error.message));

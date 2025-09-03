@@ -54,7 +54,7 @@ const HomeMain = () => {
 
       <Posts />
 
-      <div className="card mb-3 shadow-sm">
+      {/* <div className="card mb-3 shadow-sm">
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
             <img
@@ -339,7 +339,7 @@ const HomeMain = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* <Experiences /> se volete aggiungere l'opzione di crearle anche nella home  */}
     </div>
