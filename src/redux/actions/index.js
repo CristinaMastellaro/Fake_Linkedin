@@ -366,13 +366,16 @@ export const DELETE_POST = "DELETE_POST";
 export const MODIFY_POST = "MODIFY_POST";
 
 export const modifyPostAction = (id, text, image) => {
+  console.log("text", text);
+  console.log("image", image);
   return (dispatch) => {
     // Modifica il testo del post
     fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${TOKEN}`,
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
+        "Content-Type": "text/plain",
       },
       body: JSON.stringify(text),
     })
