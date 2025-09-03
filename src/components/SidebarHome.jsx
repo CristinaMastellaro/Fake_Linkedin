@@ -1,43 +1,43 @@
-import { useState } from "react";
-import { Card } from "react-bootstrap";
-import "../css/rightSidebarHome.css";
-import { BiPlus } from "react-icons/bi";
+import { useState } from 'react'
+import { Card } from 'react-bootstrap'
+import '../css/rightSidebarHome.css'
+import { BiPlus } from 'react-icons/bi'
 
 function SidebarHome() {
-  const [showAllNews, setShowAllNews] = useState(false);
+  const [showAllNews, setShowAllNews] = useState(false)
 
   const news = [
     {
       id: 1,
       title: "Il falso mito dell'impatto zero",
-      published: "3 ore fa",
-      readers: "585 lettori",
+      published: '3 ore fa',
+      readers: '585 lettori',
     },
     {
       id: 2,
-      title: "Quanto vale la cucina italiana",
-      published: "3 giorni fa",
-      readers: "452 lettori",
+      title: 'Quanto vale la cucina italiana',
+      published: '3 giorni fa',
+      readers: '452 lettori',
     },
     {
       id: 3,
-      title: "Il primo semestre di Iliad",
-      published: "4 giorni fa",
-      readers: "349 lettori",
+      title: 'Il primo semestre di Iliad',
+      published: '4 giorni fa',
+      readers: '349 lettori',
     },
     {
       id: 4,
-      title: "Mediaset conquista la tedesca Prosieben",
-      published: "10 ore fa",
-      readers: "264 lettori",
+      title: 'Mediaset conquista la tedesca Prosieben',
+      published: '10 ore fa',
+      readers: '264 lettori',
     },
     {
       id: 5,
       title: "McDonald's investe sull'Italia",
-      published: "3 giorni fa",
-      readers: "174 lettori",
+      published: '3 giorni fa',
+      readers: '174 lettori',
     },
-  ];
+  ]
 
   return (
     <>
@@ -90,7 +90,7 @@ function SidebarHome() {
           )}
           <p
             className="mb-0 fw-semibold"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             onClick={() => setShowAllNews(!showAllNews)}
           >
             {showAllNews ? (
@@ -105,7 +105,7 @@ function SidebarHome() {
           </p>
         </div>
       </div>
-      <section className="position-sticky" style={{ top: "75px", zIndex: 1 }}>
+      <section className="position-sticky" style={{ top: '75px', zIndex: 1 }}>
         <div className="section-sidebar-top position-relative p-0 bg-white">
           <p className="position-absolute top-0 end-0 badge rounded-pill bg-secondary-subtle mt-2 me-2 text-secondary">
             Promosso <i className="bi bi-three-dots"></i>
@@ -115,7 +115,7 @@ function SidebarHome() {
             className="side-img"
           />
           <div className="company-profile-side"></div>
-          <div className="d-flex flex-column" style={{ padding: "1em" }}>
+          <div className="d-flex flex-column" style={{ padding: '1em' }}>
             <h6 className="mb-3 mt-3 fw-bold">Nome Azienda</h6>
 
             <p className="">
@@ -132,7 +132,7 @@ function SidebarHome() {
         </div>
       </section>
     </>
-  );
+  )
 }
 
-export default SidebarHome;
+export default SidebarHome
