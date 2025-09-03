@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Main from "../components/Main";
-import SidebarProfilo from "../components/SidebarProfilo";
+import Main from "./Main";
+import SidebarProfilo from "./SidebarProfilo";
 import { Row, Col, Spinner } from "react-bootstrap";
-import MiniHero from "../components/MiniHero";
-import MyFooter from "../components/MyFooter";
+import MiniHero from "./MiniHero";
+import MyFooter from "./MyFooter";
 import { useDispatch } from "react-redux";
 import { SAVE_ME_INFO, SAVE_OTHER_INFO } from "../redux/actions";
 
