@@ -1,10 +1,23 @@
 import { useState } from "react";
+import { Dropdown, Modal, Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { deletePostAction } from "../redux/actions";
 
 const SinglePost = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
   };
+
+  const dispatch = useDispatch();
+
+  const [show, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
+
+  const [showModify, setShowModify] = useState(false);
+  const handleCloseModify = () => setShowModify(false);
+  const handleShowModify = () => setShowModify(true);
 
   const numReactions = Math.floor(Math.random() * 200);
   const numComments = Math.floor(Math.random() * 100);
@@ -29,12 +42,27 @@ const SinglePost = ({ post }) => {
               {new Date(post.createdAt).toLocaleDateString()}
             </small>
           </div>
-          <div className="dropdown">
-            <button className="btn btn-link text-muted" type="button">
+          {/* <div className="dropdown"> */}
+          {/* <button className="btn btn-link text-muted" type="button" >
               <i className="bi bi-three-dots"></i>
-            </button>
-          </div>
+            </button> */}
+          <Dropdown>
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              <i className="bi bi-three-dots"></i>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={handleShowModify}>Modifica</Dropdown.Item>
+              <Dropdown.Item variant="primary" onClick={handleShowDelete}>
+                Elimina
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          {/* </div> */}
         </div>
+        {/* <Button variant="primary" onClick={handleShowDelete}>
+          Launch demo modal
+        </Button> */}
 
         <p className="card-text">{post.text}</p>
 
@@ -115,6 +143,58 @@ const SinglePost = ({ post }) => {
           </div>
         </div>
       </div>
+
+      <Modal show={show} onHide={handleCloseDelete}>
+        <Modal.Header closeButton>
+          <Modal.Title>Attenzione!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Sei sicuro di voler cancellare il post?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDelete}>
+            No
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              dispatch(deletePostAction(post._id));
+              handleCloseDelete;
+            }}
+            className="px-3"
+          >
+            Sì
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* <Modal show={showModify} onHide={handleCloseModify} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Crea Nuovo Post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="text">
+              <Form.Label>Testo del Post</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={4}
+                name="text"
+                value={formData.text}
+                onChange={handleChange}
+                placeholder="Scrivi qualcosa..."
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="imageFile" className="mb-3">
+              <Form.Label>Immagine (opzionale)</Form.Label>
+              <Form.Control type="file" onChange={handleFileChange} />
+            </Form.Group>
+            <Button variant="primary" type="submit" disabled={postsLoading}>
+              {postsLoading ? "Pubblicando..." : "Pubblica"}
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal> */}
     </div>
   );
 };

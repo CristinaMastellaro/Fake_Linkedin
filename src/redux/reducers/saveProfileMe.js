@@ -31,6 +31,7 @@ import {
   UPLOAD_POST_IMAGE_REQUEST,
   UPLOAD_POST_IMAGE_SUCCESS,
   UPLOAD_POST_IMAGE_FAILURE,
+  DELETE_POST,
 } from "../actions";
 
 const initialState = {
@@ -283,6 +284,11 @@ const saveProfileMe = (state = initialState, action) => {
         ...state,
         postsLoading: false,
         postsError: action.payload,
+      };
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post._id !== action.payload),
       };
 
     default:

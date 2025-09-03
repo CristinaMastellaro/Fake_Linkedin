@@ -1,5 +1,7 @@
 export const SAVE_ME_INFO = "SAVE_ME_INFO";
 export const SAVE_OTHER_INFO = "SAVE_OTHER_INFO";
+export const TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
 
 export const saveMeInfoAction = (data) => {
   return {
@@ -376,6 +378,8 @@ export const UPLOAD_POST_IMAGE_REQUEST = "UPLOAD_POST_IMAGE_REQUEST";
 export const UPLOAD_POST_IMAGE_SUCCESS = "UPLOAD_POST_IMAGE_SUCCESS";
 export const UPLOAD_POST_IMAGE_FAILURE = "UPLOAD_POST_IMAGE_FAILURE";
 
+export const DELETE_POST = "DELETE_POST";
+
 export const fetchPostsRequest = () => ({
   type: FETCH_POSTS_REQUEST,
 });
@@ -436,7 +440,8 @@ export const fetchPosts = () => {
         throw new Error("Failed to fetch posts");
       }
       const posts = await response.json();
-      console.log("posts", posts.reverse());
+      // console.log("posts", posts.reverse());
+      posts.reverse();
       dispatch(fetchPostsSuccess(posts));
     } catch (error) {
       dispatch(fetchPostsFailure(error.message));
@@ -444,7 +449,7 @@ export const fetchPosts = () => {
   };
 };
 
-export const createPost = (postData) => {
+export const createPost = (postData, imageFile) => {
   return async (dispatch) => {
     dispatch(createPostRequest());
     try {
@@ -465,8 +470,10 @@ export const createPost = (postData) => {
         throw new Error("Failed to create post");
       }
       const newPost = await response.json();
-      console.log("newPost", newPost);
       dispatch(createPostSuccess(newPost));
+      if (imageFile && newPost && newPost._id) {
+        await dispatch(uploadPostImage(newPost._id, imageFile));
+      }
     } catch (error) {
       dispatch(createPostFailure(error.message));
     }
@@ -500,5 +507,29 @@ export const uploadPostImage = (postId, imageFile) => {
     } catch (error) {
       dispatch(uploadPostImageFailure(error.message));
     }
+  };
+};
+
+export const deletePostAction = (id) => {
+  const bearer = TOKEN;
+  console.log("id", id);
+  fetch("https://striveschool-api.herokuapp.com/api/posts/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${bearer}`,
+    },
+  })
+    .then((res) => {
+      if (res.ok) {
+        alert("Post cancellato!");
+      } else {
+        throw new Error("Non siamo riusciti a cancellare il post");
+      }
+    })
+    .catch((err) => console.log("Errore!", err));
+
+  return {
+    type: DELETE_POST,
+    payload: id,
   };
 };
