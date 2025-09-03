@@ -1,23 +1,85 @@
+import { useState } from 'react'
 import { Card, Row, Col } from 'react-bootstrap'
-import { BiPencil, BiRightArrowAlt } from 'react-icons/bi'
+import { BiPencil, BiTrash, BiPlus, BiRightArrowAlt } from 'react-icons/bi'
 
 const Services = () => {
+  const [services, setServices] = useState([
+    'Sviluppo Web',
+    'Sviluppo di database',
+    'Cloud Computing',
+  ])
+  const [editingIndex, setEditingIndex] = useState(null)
+  const [inputValue, setInputValue] = useState('')
+
+  const handleAddService = () => {
+    const newServices = [...services, '']
+    setServices(newServices)
+    setEditingIndex(newServices.length - 1)
+    setInputValue('')
+  }
+
+  const handleEditClick = (index, value) => {
+    setEditingIndex(index)
+    setInputValue(value)
+  }
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value)
+  }
+
+  const handleInputKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      const newServices = [...services]
+      newServices[editingIndex] = inputValue
+      setServices(newServices)
+      setEditingIndex(null)
+    }
+  }
+
+  const handleDeleteClick = (index) => {
+    const newServices = services.filter((_, i) => i !== index)
+    setServices(newServices)
+  }
+
   return (
     <Card className="border border-1 rounded-4 m-4 position-relative">
       <Card.Body className="border-bottom container">
-        <Row>
-          <Col xs={11}>
-            <Card.Title>Servizi</Card.Title>
-            <div className="mt-4 fw-semibold">
-              <p className="fw-semibold my-3">
-                Sviluppo Web · Sviluppo di database
-              </p>
-            </div>
-          </Col>
-          <Col xs={1}>
-            <BiPencil className="fs-4 edit" />
-          </Col>
-        </Row>
+        <Card.Title className="mb-4 d-flex justify-content-between align-items-center">
+          Servizi
+          <BiPlus className="fs-4 add-icon" onClick={handleAddService} />
+        </Card.Title>
+        <div className="fw-semibold">
+          {services.map((service, index) => (
+            <Row key={index} className="align-items-center my-2">
+              <Col xs={10}>
+                {editingIndex === index ? (
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onKeyDown={handleInputKeyDown}
+                    className="form-control form-control-sm"
+                  />
+                ) : (
+                  <p className="my-1">{service}</p>
+                )}
+              </Col>
+              <Col
+                xs={2}
+                className="d-flex justify-content-end align-items-center"
+              >
+                <BiPencil
+                  className="fs-6 edit-icon me-2"
+                  onClick={() => handleEditClick(index, service)}
+                />
+                <BiTrash
+                  className="fs-6 trash-icon"
+                  onClick={() => handleDeleteClick(index)}
+                />
+              </Col>
+            </Row>
+          ))}
+        </div>
       </Card.Body>
       <div className="fw-semibold d-flex align-items-center justify-content-center py-1 opacity-75">
         Mostra tutte le attività <BiRightArrowAlt className="ms-1" />
