@@ -9,9 +9,10 @@ const SidebarProfilo = () => {
   const [showAllProfiles, setShowAllProfiles] = useState(false);
 
   const { id } = useParams();
-  const { myProfile, otherProfile } = useSelector((state) => state.saveProfileMe);
+  const { myProfile, otherProfile } = useSelector(
+    (state) => state.saveProfileMe
+  );
 
-  // Usa otherProfile se stiamo visitando un profilo altrui, altrimenti myProfile
   const profileData = id ? otherProfile : myProfile;
 
   const [profileUrl, setProfileUrl] = useState(

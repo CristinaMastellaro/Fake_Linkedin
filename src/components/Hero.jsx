@@ -1,16 +1,77 @@
-import { Card, Row, Col, Carousel } from "react-bootstrap";
+import {
+  Card,
+  Row,
+  Col,
+  Carousel,
+  Button,
+  Modal,
+  Form,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 import "../css/hero.css";
 import { BiCheckShield, BiPencil, BiX, BiSolidCamera } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useState, useRef } from "react";
+import { uploadProfileImage } from "../redux/actions";
 
 const Hero = () => {
   const { id } = useParams();
-  const { myProfile, otherProfile } = useSelector(
+  const dispatch = useDispatch();
+  const { myProfile, otherProfile, loading } = useSelector(
     (state) => state.saveProfileMe
   );
 
   const profileData = id ? otherProfile : myProfile;
+  const userId = profileData?._id;
+
+  const [showModal, setShowModal] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const [alert, setAlert] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const handleCameraClick = () => {
+    if (!id) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setShowModal(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setImageFile(null);
+    setAlert(null);
+  };
+
+  const handleUpload = async () => {
+    if (!userId || !imageFile) {
+      setAlert({ type: "danger", message: "File o User ID mancante." });
+      return;
+    }
+    try {
+      await dispatch(uploadProfileImage(userId, imageFile));
+      setAlert({
+        type: "success",
+        message: "Immagine del profilo caricata con successo.",
+      });
+      setTimeout(() => {
+        handleCloseModal();
+      }, 1500);
+    } catch (error) {
+      setAlert({
+        type: "danger",
+        message: error.message || "Errore nel caricamento dell'immagine.",
+      });
+    }
+  };
 
   return (
     <Card className="border border-1 rounded-4 m-4 position-relative">
@@ -24,9 +85,20 @@ const Hero = () => {
           <img src={profileData.image} alt="Picture profile" />
         )}
       </div>
-      <div className="picture-photocamera">
+      <div
+        className="picture-photocamera"
+        onClick={handleCameraClick}
+        style={{ cursor: !id ? "pointer" : "default" }}
+      >
         <BiSolidCamera />
       </div>
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept="image/*"
+        style={{ display: "none" }}
+      />
       <Card.Body className="container-fluid mt-5">
         <Row>
           <Col xs={12} md={6}>
@@ -162,6 +234,47 @@ const Hero = () => {
         </Row>
         {/* <Button variant="primary">Go somewhere</Button> */}
       </Card.Body>
+
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Cambia Immagine del Profilo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
+          {imageFile && (
+            <div className="text-center mb-3">
+              <img
+                src={URL.createObjectURL(imageFile)}
+                alt="Preview"
+                className="img-fluid rounded"
+                style={{ maxHeight: "200px", maxWidth: "100%" }}
+              />
+            </div>
+          )}
+          <div className="d-flex justify-content-end gap-2">
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Annulla
+            </Button>
+            <Button variant="primary" onClick={handleUpload} disabled={loading}>
+              {loading ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                    className="me-2"
+                  />
+                  Caricamento...
+                </>
+              ) : (
+                "Carica"
+              )}
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </Card>
   );
 };
