@@ -6,6 +6,7 @@ import { Container } from "react-bootstrap";
 import Messaggistica from "./components/Messaggistica";
 import Homepage from "./components/Homepage";
 import ProfilePage from "./components/ProfilePage";
+import Jobs from "./components/Jobs";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import { useEffect } from "react";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/" element={<Homepage />} />
+          <Route path="/lavoro" element={<Jobs />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
