@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchPosts, createPost, uploadPostImage } from "../redux/actions";
 import "../css/services.css";
+import SinglePost from "./SinglePost";
 
 const Posts = () => {
   const dispatch = useDispatch();
@@ -141,42 +142,43 @@ const Posts = () => {
           )}
 
           {!postsLoading &&
-            currentPosts.map((post) => (
-              <div key={post._id} className="mt-3 border-bottom pb-3">
-                <div className="d-flex align-items-center mb-2">
-                  <img
-                    src={
-                      post.user?.image ||
-                      myProfile?.image ||
-                      "https://via.placeholder.com/40"
-                    }
-                    alt="Profile"
-                    className="rounded-circle me-2"
-                    style={{ width: "40px", height: "40px" }}
-                  />
-                  <div>
-                    <p className="mb-0 fw-semibold">
-                      {post.user?.name} {post.user?.surname}
-                    </p>
-                    <p className="mb-0 text-muted small">
-                      {new Date(post.createdAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-                <p className="mb-2">{post.text}</p>
-                {post.image && (
-                  <img
-                    src={post.image}
-                    alt="Post"
-                    className="img-fluid rounded"
-                    style={{
-                      maxHeight: "300px",
-                      width: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                )}
-              </div>
+            currentPosts.map((post, i) => (
+              <SinglePost post={post} key={i} />
+              // <div key={post._id} className="mt-3 border-bottom pb-3">
+              //   <div className="d-flex align-items-center mb-2">
+              //     <img
+              //       src={
+              //         post.user?.image ||
+              //         myProfile?.image ||
+              //         "https://via.placeholder.com/40"
+              //       }
+              //       alt="Profile"
+              //       className="rounded-circle me-2"
+              //       style={{ width: "40px", height: "40px" }}
+              //     />
+              //     <div>
+              //       <p className="mb-0 fw-semibold">
+              //         {post.user?.name} {post.user?.surname}
+              //       </p>
+              //       <p className="mb-0 text-muted small">
+              //         {new Date(post.createdAt).toLocaleDateString()}
+              //       </p>
+              //     </div>
+              //   </div>
+              //   <p className="mb-2">{post.text}</p>
+              //   {post.image && (
+              //     <img
+              //       src={post.image}
+              //       alt="Post"
+              //       className="img-fluid rounded"
+              //       style={{
+              //         maxHeight: "300px",
+              //         width: "100%",
+              //         objectFit: "cover",
+              //       }}
+              //     />
+              //   )}
+              // </div>
             ))}
 
           {!postsLoading && posts.length > postsPerPage && (
