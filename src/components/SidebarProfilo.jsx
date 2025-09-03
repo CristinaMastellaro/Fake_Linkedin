@@ -1,64 +1,82 @@
-import { useState } from 'react'
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SidebarProfilo = () => {
-  const [isEditingLanguage, setIsEditingLanguage] = useState(false)
-  const [isEditingUrl, setIsEditingUrl] = useState(false)
-  const [language, setLanguage] = useState('Italiano')
-  const [profileUrl, setProfileUrl] = useState(
-    'www.linkedin.com/in/cristina-mastellaro-72156a213'
-  )
-  const [showAllProfiles, setShowAllProfiles] = useState(false)
+  const [isEditingLanguage, setIsEditingLanguage] = useState(false);
+  const [isEditingUrl, setIsEditingUrl] = useState(false);
+  const [language, setLanguage] = useState("Italiano");
+  const [showAllProfiles, setShowAllProfiles] = useState(false);
 
-  const languages = ['Italiano', 'English', 'Français', 'Deutsch', 'Español']
+  const { id } = useParams();
+  const { myProfile, otherProfile } = useSelector(
+    (state) => state.saveProfileMe
+  );
+
+  const profileData = id ? otherProfile : myProfile;
+
+  const [profileUrl, setProfileUrl] = useState(
+    profileData
+      ? `www.linkedin.com/in/${profileData.name?.toLowerCase()}-${profileData.surname?.toLowerCase()}-${profileData._id?.slice(
+          -6
+        )}`
+      : "www.linkedin.com/in/profile"
+  );
+
+  const languages = ["Italiano", "English", "Français", "Deutsch", "Español"];
 
   const additionalProfiles = [
     {
       id: 1,
-      name: 'Marco Rossi',
-      role: 'Senior Software Engineer presso TechCorp',
-      initials: 'MR',
-      color: '#007bb6',
+      name: "Marco Rossi",
+      role: "Senior Software Engineer presso TechCorp",
+      initials: "MR",
+      color: "#007bb6",
+      image: "https://avatar.iran.liara.run/public/boy",
     },
     {
       id: 2,
-      name: 'Sofia Bianchi',
-      role: 'Marketing Manager presso Digital Agency',
-      initials: 'SB',
-      color: '#dc3545',
+      name: "Sofia Bianchi",
+      role: "Marketing Manager presso Digital Agency",
+      initials: "SB",
+      color: "#dc3545",
+      image: "https://avatar.iran.liara.run/public/girl",
     },
     {
       id: 3,
-      name: 'Alessandro Verdi',
-      role: 'Data Scientist presso Analytics Pro',
-      initials: 'AV',
-      color: '#6f42c1',
+      name: "Alessandro Verdi",
+      role: "Data Scientist presso Analytics Pro",
+      initials: "AV",
+      color: "#6f42c1",
+      image: "https://avatar.iran.liara.run/public/boy",
     },
     {
       id: 4,
-      name: 'Giulia Neri',
-      role: 'UX Designer presso Creative Studio',
-      initials: 'GN',
-      color: '#fd7e14',
+      name: "Giulia Neri",
+      role: "UX Designer presso Creative Studio",
+      initials: "GN",
+      color: "#fd7e14",
+      image: "https://avatar.iran.liara.run/public/girl",
     },
-  ]
+  ];
 
   const handleLanguageSubmit = (e) => {
-    e.preventDefault()
-    setIsEditingLanguage(false)
-  }
+    e.preventDefault();
+    setIsEditingLanguage(false);
+  };
 
   const handleUrlSubmit = (e) => {
-    e.preventDefault()
-    setIsEditingUrl(false)
-  }
+    e.preventDefault();
+    setIsEditingUrl(false);
+  };
 
   const handleLanguageCancel = () => {
-    setIsEditingLanguage(false)
-  }
+    setIsEditingLanguage(false);
+  };
 
   const handleUrlCancel = () => {
-    setIsEditingUrl(false)
-  }
+    setIsEditingUrl(false);
+  };
 
   return (
     <div className="mt-4">
@@ -105,7 +123,7 @@ const SidebarProfilo = () => {
             {!isEditingLanguage && (
               <i
                 className="bi bi-pencil"
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
                 onClick={() => setIsEditingLanguage(true)}
               ></i>
             )}
@@ -150,7 +168,7 @@ const SidebarProfilo = () => {
             {!isEditingUrl && (
               <i
                 className="bi bi-pencil ms-2"
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
                 onClick={() => setIsEditingUrl(true)}
               ></i>
             )}
@@ -171,7 +189,7 @@ const SidebarProfilo = () => {
               <img
                 src="/linkedin-icon.jpg"
                 alt="icona-linkedin"
-                style={{ width: '8rem' }}
+                style={{ width: "8rem" }}
               />
             </div>
           </div>
@@ -184,9 +202,9 @@ const SidebarProfilo = () => {
         </div>
       </div>
 
-      <div className="card mb-3 shadow-sm">
+      <div className="card my-3 shadow-sm">
         <div className="card-header bg-white border-0 pb-0">
-          <h6 className="mb-1 fw-bold text-dark">Altri profili consultati</h6>
+          <h6 className="my-1 fw-bold text-dark">Altri profili consultati</h6>
           <small className="text-muted">
             <i className="bi bi-eye-fill"></i> Solo per te
           </small>
@@ -196,7 +214,7 @@ const SidebarProfilo = () => {
             <div className="d-flex align-items-center">
               <div
                 className="rounded-circle me-3 bg-secondary"
-                style={{ width: '50px', height: '50px' }}
+                style={{ width: "50px", height: "50px" }}
               ></div>
               <div>
                 <h6 className="mb-0 fw-semibold">Qualcuno presso</h6>
@@ -214,7 +232,7 @@ const SidebarProfilo = () => {
             <div className="d-flex align-items-center">
               <div
                 className="rounded-circle me-3 bg-warning"
-                style={{ width: '50px', height: '50px' }}
+                style={{ width: "50px", height: "50px" }}
               ></div>
               <div>
                 <h6 className="mb-0 fw-semibold">
@@ -231,7 +249,7 @@ const SidebarProfilo = () => {
 
       <div className="card mb-3 shadow-sm">
         <div className="card-header bg-white border-0 pb-0">
-          <h6 className="mb-1 fw-bold text-dark">
+          <h6 className="my-1 fw-bold text-dark">
             Persone che potresti conoscere
           </h6>
           <small className="text-muted">Dalla tua scuola o università</small>
@@ -239,10 +257,10 @@ const SidebarProfilo = () => {
         <div className="card-body">
           <div className="d-flex align-items-center mb-3">
             <img
-              src="/profile-icon.png"
+              src="https://avatar.iran.liara.run/public/boy"
               alt="Leonardo Genesin"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-semibold">Leonardo Genesin</h6>
@@ -261,10 +279,10 @@ const SidebarProfilo = () => {
 
           <div className="d-flex align-items-center mb-3">
             <img
-              src="profile-icon.png"
+              src="https://avatar.iran.liara.run/public/girl"
               alt="Marta Ferrari"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-semibold">Marta Ferrari</h6>
@@ -283,17 +301,17 @@ const SidebarProfilo = () => {
 
           <div className="d-flex align-items-center mb-3">
             <img
-              src="profile-icon.png"
+              src="https://avatar.iran.liara.run/public/girl"
               alt="Chiara Baldan"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-semibold">
                 Chiara Baldan
                 <i
                   className="fas fa-check-circle text-primary ms-1"
-                  style={{ fontSize: '12px' }}
+                  style={{ fontSize: "12px" }}
                 ></i>
               </h6>
               <small className="text-muted">Research Fellow</small>
@@ -309,17 +327,17 @@ const SidebarProfilo = () => {
 
           <div className="d-flex align-items-center mb-3">
             <img
-              src="profile-icon.png"
+              src="https://avatar.iran.liara.run/public/boy"
               alt="Diego Redi"
               className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
+              style={{ width: "50px", height: "50px" }}
             />
             <div className="flex-grow-1">
               <h6 className="mb-0 fw-semibold">
                 Diego Redi
                 <i
                   className="fas fa-check-circle text-primary ms-1"
-                  style={{ fontSize: '12px' }}
+                  style={{ fontSize: "12px" }}
                 ></i>
               </h6>
               <small className="text-muted">
@@ -340,10 +358,10 @@ const SidebarProfilo = () => {
                   <hr className="my-3" />
                   <div className="d-flex align-items-center mb-3">
                     <img
-                      src={'profile-icon.png'}
+                      src={profile.image}
                       alt={profile.name}
                       className="rounded-circle me-3"
-                      style={{ width: '50px', height: '50px' }}
+                      style={{ width: "50px", height: "50px" }}
                     />
                     <div className="flex-grow-1">
                       <h6 className="mb-0 fw-semibold">{profile.name}</h6>
@@ -364,16 +382,16 @@ const SidebarProfilo = () => {
           <div className="text-center">
             <p
               className="text-primary mb-0 fw-semibold"
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               onClick={() => setShowAllProfiles(!showAllProfiles)}
             >
-              {showAllProfiles ? 'Mostra meno' : 'Mostra tutto'}
+              {showAllProfiles ? "Mostra meno" : "Mostra tutto"}
             </p>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SidebarProfilo
+export default SidebarProfilo;

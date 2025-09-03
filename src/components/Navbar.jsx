@@ -7,7 +7,7 @@ import {
   Container,
   Row,
   Col,
-} from 'react-bootstrap'
+} from "react-bootstrap";
 import {
   HouseFill,
   PeopleFill,
@@ -18,14 +18,69 @@ import {
   CaretDownFill,
   Grid3x3GapFill,
   StarFill,
-} from 'react-bootstrap-icons'
-import '../css/Navbar.css'
-import { useState } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+} from "react-bootstrap-icons";
+import { useState, useEffect, useRef } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import SearchModal from "./SearchModal";
+import "../css/Navbar.css";
 
 export default function CustomNavbar() {
-  const [addFlex, setAddFlex] = useState(false)
-  const location = useLocation()
+  const [addFlex, setAddFlex] = useState(false);
+  const location = useLocation();
+  const { myProfile } = useSelector((state) => state.saveProfileMe);
+
+  // stati per la ricerca
+  const [searchTerm, setSearchTerm] = useState("");
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    if (searchTerm.trim().length === 0) {
+      setResults([]);
+      setShowModal(false);
+      return;
+    }
+
+    const TOKEN =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw";
+
+    const fetchProfiles = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(
+          "https://striveschool-api.herokuapp.com/api/profile/",
+          {
+            headers: { Authorization: `Bearer ${TOKEN}` },
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Errore nella fetch: " + res.status);
+        }
+
+        const data = await res.json();
+
+        const filtered = data.filter((p) =>
+          (p.name + " " + p.surname)
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        );
+
+        setResults(filtered);
+        setShowModal(true);
+      } catch (err) {
+        console.error("Errore fetch profili:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const timeout = setTimeout(fetchProfiles, 400);
+    return () => clearTimeout(timeout);
+  }, [searchTerm]);
 
   return (
     <Navbar
@@ -37,31 +92,61 @@ export default function CustomNavbar() {
         fluid
         className="d-flex align-items-center justify-content-between px-5"
       >
-        {/* Logo + Search sempre visibili */}
-        <div className="d-flex align-items-center gap-3">
+        {/* Logo + Search */}
+        <div className="d-flex align-items-center gap-3 position-relative">
           {/* Logo */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="35"
-            height="35"
-            viewBox="0 0 24 24"
-          >
-            <rect width="24" height="24" fill="#0A66C2" rx="2" />
-            <path
-              fill="#FFFFFF"
-              d="M6.94 19H3.28V9h3.66v10zM5.11 7.41c-1.18 0-2.13-.96-2.13-2.13S3.93 3.15 5.11 3.15s2.13.96 2.13 2.13-.95 2.13-2.13 2.13zm13.79 11.59h-3.66v-4.83c0-1.15-.41-1.94-1.44-1.94-.78 0-1.24.53-1.44 1.05-.07.17-.09.41-.09.64v5.08h-3.66s.05-8.24 0-9.09h3.66v1.29c.49-.76 1.37-1.84 3.33-1.84 2.43 0 4.26 1.59 4.26 5.01v4.63z"
+          <Link to="/">
+            <img
+              src="linkedin-icon.jpg"
+              alt="icona-linkedin"
+              style={{ width: 35, height: 35 }}
             />
-          </svg>
+          </Link>
 
           {/* Barra di ricerca */}
-          <Form className="search-form">
+          <Form
+            className="search-form"
+            ref={searchRef}
+            onSubmit={(e) => e.preventDefault()}
+          >
             <i className="bi bi-search search-icon"></i>
             <FormControl
               type="search"
               placeholder="Cerca"
               className="px-5 search-input rounded-5"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onFocus={() => searchTerm.trim() && setShowModal(true)}
+              onBlur={() => setTimeout(() => setShowModal(false), 200)}
             />
           </Form>
+
+          {/* Modale a tendina */}
+          {showModal && searchRef.current && (
+            <div
+              className="scrollbar-hidden"
+              style={{
+                position: "absolute",
+                top:
+                  searchRef.current.getBoundingClientRect().bottom +
+                  window.scrollY,
+                left:
+                  searchRef.current.getBoundingClientRect().left +
+                  window.scrollX,
+                width: searchRef.current.offsetWidth,
+                zIndex: 1050,
+                maxHeight: "70vh",
+                overflowY: "auto",
+              }}
+            >
+              <SearchModal
+                results={results}
+                searchTerm={searchTerm}
+                loading={loading}
+                onClose={() => setShowModal(false)}
+              />
+            </div>
+          )}
         </div>
 
         {/* Toggle menu */}
@@ -73,9 +158,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/"
                 as={Link}
@@ -88,9 +173,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/rete' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/rete" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/rete"
                 as={Link}
@@ -103,9 +188,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/lavoro' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/lavoro" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/lavoro"
                 as={Link}
@@ -118,9 +203,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/lavoro' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/lavoro" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/lavoro"
                 as={Link}
@@ -133,9 +218,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/notifiche' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/notifiche" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/notifiche"
                 as={Link}
@@ -164,12 +249,25 @@ export default function CustomNavbar() {
                 <ul className="dropdown-menu dropdown-menu-end">
                   <li>
                     <div className="user d-flex align-items-center py-2 px-2">
-                      <PersonCircle size={48} className="me-2" />
+                      {myProfile.image ? (
+                        <img
+                          src={myProfile.image}
+                          alt={`${myProfile.name} ${myProfile.surname}`}
+                          className="rounded-circle me-2"
+                          width={48}
+                          height={48}
+                        />
+                      ) : (
+                        <PersonCircle size={48} className="me-2" />
+                      )}
                       <div className="user-info d-flex flex-column">
-                        <span className="user-name">Nome Utente</span>
-                        <span className="user-job">Posizione</span>
+                        <span className="user-name">
+                          {myProfile.name} {myProfile.surname}
+                        </span>
+                        <span className="user-job">{myProfile.title}</span>
                       </div>
                     </div>
+
                     <div className="user-actions px-2">
                       <Link to="/profile">
                         <button className="btn border border-primary text-primary rounded-pill me-1">
@@ -262,8 +360,8 @@ export default function CustomNavbar() {
                 <ul
                   className={
                     addFlex
-                      ? 'dropdown-menu d-flex aziende dropdown-menu-end justify-content-between'
-                      : 'dropdown-menu aziende dropdown-menu-end justify-content-between'
+                      ? "dropdown-menu d-flex aziende dropdown-menu-end justify-content-between"
+                      : "dropdown-menu aziende dropdown-menu-end justify-content-between"
                   }
                 >
                   <li className="app px-5 py-4">
@@ -305,7 +403,7 @@ export default function CustomNavbar() {
 
                   <li
                     className="border-end border mx-2"
-                    style={{ height: '85vh' }}
+                    style={{ height: "85vh" }}
                   ></li>
 
                   <li className="business px-5 py-4">
@@ -359,6 +457,7 @@ export default function CustomNavbar() {
               </Nav.Link>
             </Col>
 
+            {/* Dropdown "Tu" per xs */}
             <Col xs={4} className="d-block d-sm-none text-center">
               <PersonCircle size={24} />
               <NavDropdown id="nav-dropdown-dark-example" title="" align="end">
@@ -378,5 +477,5 @@ export default function CustomNavbar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
+  );
 }

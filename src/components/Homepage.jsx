@@ -1,14 +1,32 @@
-import { Container, Row, Col, Collapse, Card } from 'react-bootstrap';
+import { Container, Row, Col, Collapse } from 'react-bootstrap';
 import HomeMain from './HomeMain';
 import SidebarHome from './SidebarHome';
 import LeftSidebarHome from './LeftSidebarHome';
-import { useState } from 'react';
-import '../css/homePage.css';
+import { useState, useEffect, useRef } from 'react';
+import '../css/FooterHome.css';
 import MyFooter from './MyFooter';
 
 const Homepage = () => {
   const [showFooter, setShowFooter] = useState(false);
-  console.log(showFooter);
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        showForm &&
+        footerRef.current &&
+        !footerRef.current.contains(event.target)
+      ) {
+        setShowForm(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showForm]);
 
   return (
     <>
@@ -32,7 +50,15 @@ const Homepage = () => {
                 className='d-flex justify-content-around small px-5'
                 style={{ cursor: 'pointer' }}
               >
-                <p className='small footer-link'>Informazioni</p>
+                <p
+                  className='small footer-link'
+                  style={{ cursor: 'pointer', color: '#0a66c2' }}
+                  onClick={() => {
+                    setShowForm(!showFooter);
+                  }}
+                >
+                  Informazioni
+                </p>
                 <span
                   style={{ cursor: 'pointer' }}
                   onClick={() => setShowFooter(!showFooter)}
