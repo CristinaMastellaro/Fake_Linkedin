@@ -8,7 +8,7 @@
 }
 
 .picture-profile img {
-  background-image: url("https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg");
+  background-image: url('https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg');
   background-position: center;
   background-size: cover;
   width: 120px;
@@ -137,4 +137,7 @@
 
 .mini-hero-out {
   animation: 0.7s linear mini-hero-anim-out forwards;
+}
+.iconehome {
+  cursor: pointer;
 }
