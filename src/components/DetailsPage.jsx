@@ -10,12 +10,10 @@ import MyFooter from './MyFooter'
 const DetailsPage = () => {
   const [showFooter, setShowFooter] = useState(false)
   const footerRef = useRef(null)
-  const { type, id } = useParams() // Estrae type e id dall'URL
+  const { type = 'post', id } = useParams() // Estrae type e id dall'URL
   useEffect(() => {
-    console.log('ID from URL:', id)
-    console.log('Type from URL:', type)
-    // ... (il resto del codice useEffect)
-  }, [id, type])
+    console.log('DetailsPage - URL params:', { type, id })
+  }, [type, id])
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (
@@ -33,6 +31,9 @@ const DetailsPage = () => {
       document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [showFooter])
+  useEffect(() => {
+    console.log('Rendering DetailsPage with:', { type, id })
+  }, [type, id])
 
   return (
     <>
@@ -44,8 +45,11 @@ const DetailsPage = () => {
             </div>
           </Col>
           <Col xs={12} md={8} lg={6}>
-            <DetailCard itemId={id} itemType={type} />{' '}
-            {/* Questo è il punto in cui l'ID viene passato */}
+            {id ? (
+              <DetailCard itemId={id} itemType={type} />
+            ) : (
+              <div>Nessun ID fornito</div>
+            )}
           </Col>
           <Col xs={12} lg={3}>
             <SidebarHome />

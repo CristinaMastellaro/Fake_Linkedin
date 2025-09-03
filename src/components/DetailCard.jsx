@@ -10,9 +10,10 @@ const DetailCard = ({ itemId, itemType }) => {
 
   useEffect(() => {
     const fetchItemDetails = async () => {
-      // DEBUG: Controlla se gli itemId e itemType sono corretti
-      console.log('Fetching details for:', itemType, 'with ID:', itemId)
+      console.log('DetailCard - Received props:', { itemId, itemType })
+
       if (!itemId || !itemType) {
+        console.error('Missing required props:', { itemId, itemType })
         setLoading(false)
         setError('ID or item type missing.')
         return
@@ -43,23 +44,21 @@ const DetailCard = ({ itemId, itemType }) => {
         // DEBUG: Controlla se la chiave API è presente
         console.log('API Key present:', !!process.env.REACT_APP_API_KEY)
 
+        console.log('Attempting to fetch from URL:', apiUrl)
         const response = await fetch(apiUrl, {
           headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+            Authorization:
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFlM2FkOTYwMGJlMTAwMTgzYTg2OWEiLCJpYXQiOjE3MDU5MzI1MDUsImV4cCI6MTcwNzE0MjEwNX0.mVn1BOeFXHZYx2tBJ5pH7HibzEBWQXE8r1PR0DhzAQA',
             'Content-Type': 'application/json',
           },
         })
 
-        if (!response.ok) {
-          // Lancia un errore esplicito se la risposta non è OK
-          throw new Error(
-            `Failed to load data: ${response.status} ${response.statusText}`
-          )
-        }
-
+        console.log('Response status:', response.status)
         const data = await response.json()
+        console.log('Received data:', data)
         setItem(data)
       } catch (err) {
+        console.error('Fetch error:', err)
         setError(err.message)
       } finally {
         setLoading(false)
