@@ -20,7 +20,10 @@ const Messaggistica = () => {
   return (
     <>
       {!isMessagesOpen && (
-        <button className="messaggistica-button" onClick={toggleMessages}>
+        <button
+          className="messaggistica-button order-5 d-none d-xxl-block"
+          onClick={toggleMessages}
+        >
           Messaggistica
         </button>
       )}

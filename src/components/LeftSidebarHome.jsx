@@ -17,11 +17,19 @@ const LeftSidebarHome = () => {
           src="https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg"
           className="side-img"
         />
-        <img
-          src={myInfo.image}
-          alt="Profile picture"
-          className="picture-profile-side"
-        />
+        {myInfo && myInfo.image ? (
+          <img
+            src={myInfo.image}
+            alt="Profile picture"
+            className="picture-profile-side"
+          />
+        ) : (
+          <img
+            src="https://avatar.iran.liara.run/public"
+            alt="Profile picture"
+            className="picture-profile-side"
+          />
+        )}
         <div style={{ padding: "1em" }}>
           <Link
             to="/profile"

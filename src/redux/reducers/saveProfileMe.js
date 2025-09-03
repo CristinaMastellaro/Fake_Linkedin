@@ -35,6 +35,7 @@ import {
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAILURE,
   DELETE_POST,
+  MODIFY_POST,
 } from "../actions";
 
 const initialState = {
@@ -292,6 +293,10 @@ const saveProfileMe = (state = initialState, action) => {
       return {
         ...state,
         posts: state.posts.filter((post) => post._id !== action.payload),
+      };
+    case MODIFY_POST:
+      return {
+        ...state,
       };
     case UPDATE_PROFILE_REQUEST:
       return {

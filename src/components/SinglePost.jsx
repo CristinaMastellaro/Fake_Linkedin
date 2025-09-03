@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Dropdown, Modal, Button } from "react-bootstrap";
+import { Dropdown, Modal, Button, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { deletePostAction } from "../redux/actions";
+import PostChanger from "./PostChanger";
 
-const SinglePost = ({ post }) => {
+const SinglePost = ({ post, setCurrentPage }) => {
+  const [alert, setAlert] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
@@ -166,35 +168,21 @@ const SinglePost = ({ post }) => {
         </Modal.Footer>
       </Modal>
 
-      {/* <Modal show={showModify} onHide={handleCloseModify} centered>
+      <Modal show={showModify} onHide={handleCloseModify} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Crea Nuovo Post</Modal.Title>
+          <Modal.Title>Modifica Post</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="text">
-              <Form.Label>Testo del Post</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                name="text"
-                value={formData.text}
-                onChange={handleChange}
-                placeholder="Scrivi qualcosa..."
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="imageFile" className="mb-3">
-              <Form.Label>Immagine (opzionale)</Form.Label>
-              <Form.Control type="file" onChange={handleFileChange} />
-            </Form.Group>
-            <Button variant="primary" type="submit" disabled={postsLoading}>
-              {postsLoading ? "Pubblicando..." : "Pubblica"}
-            </Button>
-          </Form>
+          <PostChanger
+            setAlert={setAlert}
+            handleCloseModal={handleCloseModify}
+            setCurrentPage={() => setCurrentPage}
+            doModify={true}
+            postInfo={post}
+          />
         </Modal.Body>
-      </Modal> */}
+      </Modal>
     </div>
   );
 };

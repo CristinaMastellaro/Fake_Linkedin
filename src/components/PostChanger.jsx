@@ -1,19 +1,24 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, fetchPosts } from "../redux/actions";
+import { createPost, fetchPosts, modifyPostAction } from "../redux/actions";
 
 const PostChanger = ({
   setAlert,
   handleCloseModal,
   setCurrentPage,
   doModify,
+  postInfo,
 }) => {
+  console.log("postInfo", postInfo);
   const { postsLoading } = useSelector((state) => state.saveProfileMe);
+  const initialText = doModify ? postInfo.text : "";
   const [formData, setFormData] = useState({
-    text: "",
+    text: initialText,
   });
   const [imageFile, setImageFile] = useState(null);
+  const [doChangeImage, setDoChangeImage] = useState(false);
+  const [keepAlert, setDeleteAlert] = useState(doModify);
 
   const dispatch = useDispatch();
 
@@ -39,7 +44,7 @@ const PostChanger = ({
     try {
       // console.log("formData", formData);
       await dispatch(createPost(formData, imageFile));
-      // console.log("imageFile", imageFile);
+      console.log("imageFile", typeof imageFile);
       // console.log("action", action);
       //   if (imageFile && action.payload && action.payload._id) {
       //     console.log("sono dentro l'if");
@@ -58,7 +63,11 @@ const PostChanger = ({
     }
   };
 
-  const handleSubmitModify = () => {};
+  const handleSubmitModify = (e) => {
+    e.preventDefault();
+    console.log("formData.text", formData.text);
+    dispatch(modifyPostAction(postInfo._id, formData.text, imageFile));
+  };
 
   return (
     <Form onSubmit={doModify ? handleSubmitModify : handleSubmitCreate}>
@@ -74,10 +83,59 @@ const PostChanger = ({
           required
         />
       </Form.Group>
-      <Form.Group controlId="imageFile" className="mb-3">
-        <Form.Label>Immagine (opzionale)</Form.Label>
-        <Form.Control type="file" onChange={handleFileChange} />
-      </Form.Group>
+      {keepAlert ? (
+        <>
+          <Alert>
+            Vuoi modificare anche l'immagine? Se sì, l'immagine precedente verrà
+            persa.
+          </Alert>
+          <div className="d-flex justify-content-end gap-2">
+            <Button
+              variant="danger"
+              onClick={() => {
+                setDoChangeImage(true);
+                setDeleteAlert(false);
+              }}
+            >
+              Sì
+            </Button>
+            <Button
+              variant="success"
+              onClick={() => {
+                setDeleteAlert(false);
+              }}
+            >
+              No
+            </Button>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
+      {doModify ? (
+        ""
+      ) : (
+        <Form.Group controlId="imageFile" className="mb-3">
+          <Form.Label>Immagine (opzionale)</Form.Label>
+          <Form.Control type="file" onChange={handleFileChange} />
+        </Form.Group>
+      )}
+      {doChangeImage ? (
+        <Form.Group controlId="imageFile" className="mb-3">
+          <Form.Label>Immagine (opzionale)</Form.Label>
+          <Form.Control type="file" onChange={handleFileChange} />
+        </Form.Group>
+      ) : (
+        ""
+      )}
+      {/* {doChangeImage ? (
+        <Form.Group controlId="imageFile" className="mb-3">
+          <Form.Label>Immagine (opzionale)</Form.Label>
+          <Form.Control type="file" onChange={handleFileChange} />
+        </Form.Group>
+      ) : (
+        ""
+      )} */}
       <Button variant="primary" type="submit" disabled={postsLoading}>
         {postsLoading ? "Pubblicando..." : "Pubblica"}
       </Button>

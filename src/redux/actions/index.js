@@ -39,8 +39,6 @@ export const fetchProfile = () => {
   return async (dispatch) => {
     dispatch(fetchProfileRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/me",
         {
@@ -66,8 +64,6 @@ export const fetchOtherProfile = (profileId) => {
   return async (dispatch) => {
     dispatch(fetchProfileRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const response = await fetch(
         `https://striveschool-api.herokuapp.com/api/profile/${profileId}`,
         {
@@ -186,8 +182,6 @@ export const fetchExperiences = (userId) => {
   return async (dispatch) => {
     dispatch(fetchExperiencesRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const response = await fetch(
         `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`,
         {
@@ -211,8 +205,6 @@ export const createExperience = (userId, experienceData) => {
   return async (dispatch) => {
     dispatch(createExperienceRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const response = await fetch(
         `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`,
         {
@@ -239,8 +231,6 @@ export const updateExperience = (userId, expId, experienceData) => {
   return async (dispatch) => {
     dispatch(updateExperienceRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const response = await fetch(
         `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`,
         {
@@ -267,8 +257,6 @@ export const deleteExperience = (userId, expId) => {
   return async (dispatch) => {
     dispatch(deleteExperienceRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const response = await fetch(
         `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`,
         {
@@ -292,8 +280,6 @@ export const uploadExperienceImage = (userId, expId, imageFile) => {
   return async (dispatch) => {
     dispatch(uploadExperienceImageRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const formData = new FormData();
       formData.append("experience", imageFile);
 
@@ -340,8 +326,6 @@ export const uploadProfileImage = (userId, imageFile) => {
   return async (dispatch) => {
     dispatch(uploadProfileImageRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const formData = new FormData();
       formData.append("profile", imageFile);
 
@@ -379,6 +363,55 @@ export const UPLOAD_POST_IMAGE_SUCCESS = "UPLOAD_POST_IMAGE_SUCCESS";
 export const UPLOAD_POST_IMAGE_FAILURE = "UPLOAD_POST_IMAGE_FAILURE";
 
 export const DELETE_POST = "DELETE_POST";
+export const MODIFY_POST = "MODIFY_POST";
+
+export const modifyPostAction = (id, text, image) => {
+  return (dispatch) => {
+    // Modifica il testo del post
+    fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(text),
+    })
+      .then((res) => {
+        console.log("Sei entrato nel modificatore!");
+        console.log("res", res);
+        if (!res.ok) {
+          throw new Error("Non siamo riusciti a modificare il testo del post");
+        }
+      })
+      .catch((err) => console.log("Errore!", err));
+
+    if (image) {
+      const formData = new FormData();
+      formData.append("image", image);
+      fetch(`https://striveschool-api.herokuapp.com/api/post/${id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+        body: formData,
+      })
+        .then((res) => {
+          console.log("res image modify", res);
+          if (!res.ok) {
+            throw new Error("Non siamo riusciti a modificare l'immagine");
+          }
+        })
+        .catch((err) => console.log("Errore!", err));
+    } else {
+      console.log("Non abbiamo modificato l'immagine");
+    }
+    dispatch(fetchPosts());
+    return {
+      type: MODIFY_POST,
+      payload: { text: text, image: image },
+    };
+  };
+};
 
 export const fetchPostsRequest = () => ({
   type: FETCH_POSTS_REQUEST,
@@ -426,8 +459,6 @@ export const fetchPosts = () => {
   return async (dispatch) => {
     dispatch(fetchPostsRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/posts/",
         {
@@ -453,8 +484,6 @@ export const createPost = (postData, imageFile) => {
   return async (dispatch) => {
     dispatch(createPostRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/posts/",
         {
@@ -483,8 +512,6 @@ export const uploadPostImage = (postId, imageFile) => {
   return async (dispatch) => {
     dispatch(uploadPostImageRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
       const formData = new FormData();
       formData.append("post", imageFile);
 
@@ -555,8 +582,6 @@ export const updateProfile = (profileData) => {
   return async (dispatch) => {
     dispatch(updateProfileRequest());
     try {
-      const TOKEN =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw";
       const response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/",
         {

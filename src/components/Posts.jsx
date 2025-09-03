@@ -154,7 +154,11 @@ const Posts = () => {
 
           {!postsLoading &&
             currentPosts.map((post) => (
-              <SinglePost post={post} key={post._id} />
+              <SinglePost
+                post={post}
+                key={post._id}
+                setCurrentPage={() => setCurrentPage}
+              />
               // <div key={post._id} className="mt-3 border-bottom pb-3">
               //   <div className="d-flex align-items-center mb-2">
               //     <img
