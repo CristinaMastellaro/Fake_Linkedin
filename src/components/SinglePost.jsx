@@ -1,11 +1,25 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { Dropdown, Modal, Button, Alert } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { deletePostAction } from "../redux/actions";
+import PostChanger from "./PostChanger";
 
-const SinglePost = ({ post }) => {
+const SinglePost = ({ post, setCurrentPage }) => {
+  const [alert, setAlert] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
   };
+
+  const dispatch = useDispatch();
+
+  const [show, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
+
+  const [showModify, setShowModify] = useState(false);
+  const handleCloseModify = () => setShowModify(false);
+  const handleShowModify = () => setShowModify(true);
 
   const numReactions = Math.floor(Math.random() * 200);
   const numComments = Math.floor(Math.random() * 100);
@@ -26,16 +40,31 @@ const SinglePost = ({ post }) => {
               {post.user?.name} {post.user?.surname}
             </h6>
             <small className="text-muted">
-              Senior Developer presso TechCorp •{" "}
+              {post.user?.title} •{" "}
               {new Date(post.createdAt).toLocaleDateString()}
             </small>
           </div>
-          <div className="dropdown">
-            <button className="btn btn-link text-muted" type="button">
+          {/* <div className="dropdown"> */}
+          {/* <button className="btn btn-link text-muted" type="button" >
               <i className="bi bi-three-dots"></i>
-            </button>
-          </div>
+            </button> */}
+          <Dropdown>
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              <i className="bi bi-three-dots"></i>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={handleShowModify}>Modifica</Dropdown.Item>
+              <Dropdown.Item variant="primary" onClick={handleShowDelete}>
+                Elimina
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          {/* </div> */}
         </div>
+        {/* <Button variant="primary" onClick={handleShowDelete}>
+          Launch demo modal
+        </Button> */}
 
         <p className="card-text">{post.text}</p>
 
@@ -116,6 +145,44 @@ const SinglePost = ({ post }) => {
           </div>
         </div>
       </div>
+
+      <Modal show={show} onHide={handleCloseDelete}>
+        <Modal.Header closeButton>
+          <Modal.Title>Attenzione!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Sei sicuro di voler cancellare il post?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDelete}>
+            No
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              dispatch(deletePostAction(post._id));
+              handleCloseDelete;
+            }}
+            className="px-3"
+          >
+            Sì
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModify} onHide={handleCloseModify} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Modifica Post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
+          <PostChanger
+            setAlert={setAlert}
+            handleCloseModal={handleCloseModify}
+            setCurrentPage={() => setCurrentPage}
+            doModify={true}
+            postInfo={post}
+          />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

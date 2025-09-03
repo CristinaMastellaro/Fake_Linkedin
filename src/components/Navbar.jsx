@@ -24,6 +24,7 @@ import { useLocation, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SearchModal from "./SearchModal";
 import "../css/Navbar.css";
+import { TOKEN } from "../redux/actions";
 
 export default function CustomNavbar() {
   const [addFlex, setAddFlex] = useState(false);
@@ -43,9 +44,6 @@ export default function CustomNavbar() {
       setShowModal(false);
       return;
     }
-
-    const TOKEN =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw";
 
     const fetchProfiles = async () => {
       setLoading(true);

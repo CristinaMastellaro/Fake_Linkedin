@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Main from '../components/Main';
-import SidebarProfilo from '../components/SidebarProfilo';
-import { Row, Col, Spinner } from 'react-bootstrap';
-import MiniHero from '../components/MiniHero';
-import MyFooter from './MyFooter';
-import { useDispatch } from 'react-redux';
-import { SAVE_ME_INFO, SAVE_OTHER_INFO } from '../redux/actions';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Main from "../components/Main";
+import SidebarProfilo from "../components/SidebarProfilo";
+import { Row, Col, Spinner } from "react-bootstrap";
+import MiniHero from "../components/MiniHero";
+import MyFooter from "./MyFooter";
+import { useDispatch } from "react-redux";
+import { SAVE_ME_INFO, SAVE_OTHER_INFO } from "../redux/actions";
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -15,7 +15,7 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
 
   const bearer =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw';
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -23,7 +23,7 @@ const ProfilePage = () => {
         setLoading(true);
         const endpoint = id
           ? `https://striveschool-api.herokuapp.com/api/profile/${id}`
-          : 'https://striveschool-api.herokuapp.com/api/profile/me';
+          : "https://striveschool-api.herokuapp.com/api/profile/me";
 
         const response = await fetch(endpoint, {
           headers: {
@@ -32,11 +32,11 @@ const ProfilePage = () => {
         });
 
         if (!response.ok) {
-          throw new Error('Errore nel caricamento del profilo');
+          throw new Error("Errore nel caricamento del profilo");
         }
 
         const data = await response.json();
-        console.log('Profile data:', data);
+        console.log("Profile data:", data);
 
         // Usa SAVE_OTHER_INFO per profili altrui, SAVE_ME_INFO per il proprio profilo
         if (id) {
@@ -47,7 +47,7 @@ const ProfilePage = () => {
 
         setError(null);
       } catch (err) {
-        console.error('Errore!', err);
+        console.error("Errore!", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -59,17 +59,17 @@ const ProfilePage = () => {
 
   if (loading) {
     return (
-      <div className='d-flex justify-content-center align-items-center min-vh-100'>
-        <Spinner animation='border' />
-        <span className='ms-2'>Caricamento profilo...</span>
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <Spinner animation="border" />
+        <span className="ms-2">Caricamento profilo...</span>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className='d-flex justify-content-center align-items-center min-vh-100'>
-        <div className='text-center'>
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <div className="text-center">
           <h4>Errore nel caricamento</h4>
           <p>{error}</p>
         </div>
@@ -88,7 +88,7 @@ const ProfilePage = () => {
           <SidebarProfilo />
         </Col>
       </Row>
-      <div className='mt-5'>
+      <div className="mt-5">
         <MyFooter />
       </div>
     </>
