@@ -7,7 +7,7 @@ import Badge from "../assets/img/Badge-Linkedin.png";
 
 const ConsigliatoPerTe = () => {
   return (
-    <Card className="border border-1 rounded-4 m-4 position-relative">
+    <Card className="border border-1 rounded-4 m-4 position-relative shadow">
       <Card.Body>
         <Card.Title>Consigliato per te</Card.Title>
         <Card.Text className="d-flex align-items-center gap-1 opacity-75">

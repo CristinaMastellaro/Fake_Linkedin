@@ -56,7 +56,7 @@ const Interests = () => {
       };
 
   return (
-    <Card className="border border-1 rounded-4 m-4 position-relative">
+    <Card className="border border-1 rounded-4 m-4 position-relative shadow">
       <Card.Body className="border-bottom container">
         <Card.Title>Interessi</Card.Title>
         <div className="mt-4">
