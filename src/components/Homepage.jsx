@@ -59,13 +59,13 @@ const Homepage = () => {
                 >
                   Informazioni
                 </p>
-                <span
+                <p
                   style={{ cursor: 'pointer' }}
                   onClick={() => setShowFooter(!showFooter)}
                   className='small footer-link'
                 >
                   Altro
-                </span>
+                </p>
               </div>
               <div className='d-flex align-items-center px-2 small'>
                 <img
@@ -93,6 +93,7 @@ const Homepage = () => {
               &times;
             </button>
           </div>
+
           <MyFooter />
         </div>
       </Collapse>

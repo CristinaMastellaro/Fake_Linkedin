@@ -1,4 +1,5 @@
 import { Col, Container, Form, Row } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 
 const text = [
   [
@@ -23,20 +24,31 @@ const text = [
 ];
 
 function MyFooter() {
+  const location = useLocation();
+
   return (
     <Container className='px-4 py-5'>
+      {location.pathname === '/' && (
+        <img
+          src='/logo-linkedin-scritto.png'
+          width={120}
+          alt='LinkedIn Logo'
+          style={{ marginLeft: '-10px', marginBottom: '10px' }}
+        />
+      )}
       <Row>
         {text.map((dati, i) => (
           <Col sm={12} md={6} xl={2} key={i}>
             {dati.map((text, i) => (
-              <a
-                href='#'
-                className='d-block mb-3 footer-link small'
-                style={{ cursor: 'pointer' }}
-                key={i}
-              >
-                {text}
-              </a>
+              <div key={i} className='mb-3'>
+                <a
+                  href='#'
+                  className='footer-link small'
+                  style={{ cursor: 'pointer' }}
+                >
+                  {text}
+                </a>
+              </div>
             ))}
           </Col>
         ))}
@@ -71,9 +83,9 @@ function MyFooter() {
             </div>
           </div>
         </Col>
-        <Col sm={12} md={6} xl={2}>
+        <Col sm={12} md={6} xl={3}>
           <Form.Label className='mb-0 me-2 small'>Seleziona Lingua</Form.Label>
-          <Form.Select size='sm'>
+          <Form.Select size='sm' className='d-block'>
             <option>Italiano (Italiano)</option>
             <option value='1'>English (Inglese)</option>
             <option value='2'>Français (Francese)</option>
