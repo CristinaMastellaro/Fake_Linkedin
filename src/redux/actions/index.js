@@ -365,19 +365,18 @@ export const UPLOAD_POST_IMAGE_FAILURE = "UPLOAD_POST_IMAGE_FAILURE";
 export const DELETE_POST = "DELETE_POST";
 export const MODIFY_POST = "MODIFY_POST";
 
-export const modifyPostAction = (id, text, image) => {
-  console.log("text", text);
+export const modifyPostAction = (id, formData, image) => {
+  console.log("formData", formData);
   console.log("image", image);
-  return (dispatch) => {
+  return async (dispatch) => {
     // Modifica il testo del post
     fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${TOKEN}`,
-        // "Content-Type": "application/json",
-        "Content-Type": "text/plain",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(text),
+      body: JSON.stringify(formData),
     })
       .then((res) => {
         console.log("Sei entrato nel modificatore!");
@@ -389,29 +388,30 @@ export const modifyPostAction = (id, text, image) => {
       .catch((err) => console.log("Errore!", err));
 
     if (image) {
-      const formData = new FormData();
-      formData.append("image", image);
-      fetch(`https://striveschool-api.herokuapp.com/api/post/${id}`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-        body: formData,
-      })
-        .then((res) => {
-          console.log("res image modify", res);
-          if (!res.ok) {
-            throw new Error("Non siamo riusciti a modificare l'immagine");
-          }
-        })
-        .catch((err) => console.log("Errore!", err));
+      // console.log("Sei entrato nell'if dell'image");
+      // const formData = new FormData();
+      // formData.append("image", image);
+      // fetch(`https://striveschool-api.herokuapp.com/api/post/${id}`, {
+      //   method: "POST",
+      //   headers: {
+      //     Authorization: `Bearer ${TOKEN}`,
+      //   },
+      //   body: formData,
+      // })
+      //   .then((res) => {
+      //     console.log("res image modify", res);
+      //     if (!res.ok) {
+      //       throw new Error("Non siamo riusciti a modificare l'immagine");
+      //     }
+      //   })
+      //   .catch((err) => console.log("Errore!", err));
+      await dispatch(uploadPostImage(id, image));
     } else {
       console.log("Non abbiamo modificato l'immagine");
     }
     dispatch(fetchPosts());
     return {
       type: MODIFY_POST,
-      payload: { text: text, image: image },
     };
   };
 };

@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { Dropdown, Modal, Button, Alert } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deletePostAction } from "../redux/actions";
 import PostChanger from "./PostChanger";
+import "../css/singlePost.css";
 
 const SinglePost = ({ post, setCurrentPage }) => {
+  const myName = useSelector((state) => {
+    return state.saveProfileMe.myProfile.name;
+  });
+  console.log("myName", myName);
+  console.log("post.user?.name", post.user?.name);
   const [alert, setAlert] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const handleLikeClick = () => {
@@ -48,18 +54,21 @@ const SinglePost = ({ post, setCurrentPage }) => {
           {/* <button className="btn btn-link text-muted" type="button" >
               <i className="bi bi-three-dots"></i>
             </button> */}
-          <Dropdown>
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              <i className="bi bi-three-dots"></i>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={handleShowModify}>Modifica</Dropdown.Item>
-              <Dropdown.Item variant="primary" onClick={handleShowDelete}>
-                Elimina
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          {myName === post.user.name && (
+            <Dropdown>
+              <Dropdown.Toggle variant="light" id="dropdown-basic">
+                <i className="bi bi-three-dots"></i>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={handleShowModify}>
+                  Modifica
+                </Dropdown.Item>
+                <Dropdown.Item variant="primary" onClick={handleShowDelete}>
+                  Elimina
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
           {/* </div> */}
         </div>
         {/* <Button variant="primary" onClick={handleShowDelete}>

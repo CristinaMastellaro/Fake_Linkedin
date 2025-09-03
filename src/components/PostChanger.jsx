@@ -65,8 +65,8 @@ const PostChanger = ({
 
   const handleSubmitModify = (e) => {
     e.preventDefault();
-    console.log("formData.text", formData.text);
-    dispatch(modifyPostAction(postInfo._id, formData.text, imageFile));
+    console.log("formData.text", formData);
+    dispatch(modifyPostAction(postInfo._id, formData, imageFile));
   };
 
   return (
