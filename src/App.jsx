@@ -32,6 +32,10 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/lavoro" element={<Jobs />} />
+          <Route path="/details/:type/:id" element={<DetailsPage />} />
+          <Route path="/details/post/:id" element={<DetailsPage />} />
+          <Route path="/details/experience/:id" element={<DetailsPage />} />
+          <Route path="/details/profile/:id" element={<DetailsPage />} />
           <Route path="/details" element={<DetailsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

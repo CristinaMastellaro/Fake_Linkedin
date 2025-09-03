@@ -1,14 +1,21 @@
 import { Container, Row, Col, Collapse } from 'react-bootstrap'
 import SidebarHome from './SidebarHome'
 import LeftSidebarHome from './LeftSidebarHome'
+import DetailCard from './DetailCard'
 import { useState, useEffect, useRef } from 'react'
+import { useParams } from 'react-router-dom'
 import '../css/footerHome.css'
 import MyFooter from './MyFooter'
 
 const DetailsPage = () => {
   const [showFooter, setShowFooter] = useState(false)
   const footerRef = useRef(null)
-
+  const { type, id } = useParams() // Estrae type e id dall'URL
+  useEffect(() => {
+    console.log('ID from URL:', id)
+    console.log('Type from URL:', type)
+    // ... (il resto del codice useEffect)
+  }, [id, type])
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (
@@ -37,48 +44,11 @@ const DetailsPage = () => {
             </div>
           </Col>
           <Col xs={12} md={8} lg={6}>
-            <Container>
-              <div></div>
-            </Container>
+            <DetailCard itemId={id} itemType={type} />{' '}
+            {/* Questo è il punto in cui l'ID viene passato */}
           </Col>
           <Col xs={12} lg={3}>
             <SidebarHome />
-            <Container
-              className="mt-4"
-              style={{ position: 'sticky', top: '424px', zIndex: 2 }}
-            >
-              <div
-                className="d-flex justify-content-around small px-5"
-                style={{ cursor: 'pointer' }}
-              >
-                <p
-                  className="small footer-link"
-                  style={{ cursor: 'pointer', color: '#0a66c2' }}
-                  onClick={() => {
-                    setShowFooter(!showFooter)
-                  }}
-                >
-                  Informazioni
-                </p>
-                <p
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => setShowFooter(!showFooter)}
-                  className="small footer-link"
-                >
-                  Altro
-                </p>
-              </div>
-              <div className="d-flex align-items-center px-2 small">
-                <img
-                  src="/logo-linkedin-scritto.png"
-                  width={65}
-                  alt="LinkedIn Logo"
-                />
-                <p className="small mb-0">
-                  Linkedin Corporation &copy; {new Date().getFullYear()}
-                </p>
-              </div>
-            </Container>
           </Col>
         </Row>
       </Container>

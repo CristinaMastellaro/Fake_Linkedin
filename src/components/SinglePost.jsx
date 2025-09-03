@@ -1,51 +1,61 @@
-import { useState } from "react";
-import { Dropdown, Modal, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { deletePostAction } from "../redux/actions";
+import { useState } from 'react'
+import { Dropdown, Modal, Button } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
+import { deletePostAction } from '../redux/actions'
+import { useNavigate } from 'react-router-dom'
 
 const SinglePost = ({ post }) => {
-  const [isLiked, setIsLiked] = useState(false);
+  // POSIZIONE CORRETTA: all'interno del componente
+  const navigate = useNavigate()
+
+  const handlePostClick = () => {
+    const postId = post._id || post.id
+    if (postId) {
+      navigate(`/details/post/${postId}`)
+    }
+  }
+
+  const [isLiked, setIsLiked] = useState(false)
   const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-  };
+    setIsLiked(!isLiked)
+  }
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [show, setShowDelete] = useState(false);
-  const handleCloseDelete = () => setShowDelete(false);
-  const handleShowDelete = () => setShowDelete(true);
+  const [show, setShowDelete] = useState(false)
+  const handleCloseDelete = () => setShowDelete(false)
+  const handleShowDelete = () => setShowDelete(true)
 
-  const [showModify, setShowModify] = useState(false);
-  const handleCloseModify = () => setShowModify(false);
-  const handleShowModify = () => setShowModify(true);
+  const [showModify, setShowModify] = useState(false)
+  const handleCloseModify = () => setShowModify(false)
+  const handleShowModify = () => setShowModify(true)
 
-  const numReactions = Math.floor(Math.random() * 200);
-  const numComments = Math.floor(Math.random() * 100);
+  const numReactions = Math.floor(Math.random() * 200)
+  const numComments = Math.floor(Math.random() * 100)
 
   return (
     <div className="card mb-3 shadow-sm">
-      <div className="card-body">
+      <div
+        className="card-body"
+        onClick={handlePostClick}
+        style={{ cursor: 'pointer' }}
+      >
         <div className="d-flex align-items-start mb-3">
           <img
-            // src="https://avatar.iran.liara.run/public/boy"
-            src={post.user?.image || "https://via.placeholder.com/40"}
+            src={post.user?.image || 'https://via.placeholder.com/40'}
             alt="Profile"
             className="rounded-circle me-3"
-            style={{ width: "50px", height: "50px" }}
+            style={{ width: '50px', height: '50px' }}
           />
           <div className="flex-grow-1">
             <h6 className="mb-0 fw-bold">
               {post.user?.name} {post.user?.surname}
             </h6>
             <small className="text-muted">
-              {post.user?.title} •{" "}
+              {post.user?.title} •{' '}
               {new Date(post.createdAt).toLocaleDateString()}
             </small>
           </div>
-          {/* <div className="dropdown"> */}
-          {/* <button className="btn btn-link text-muted" type="button" >
-              <i className="bi bi-three-dots"></i>
-            </button> */}
           <Dropdown>
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
               <i className="bi bi-three-dots"></i>
@@ -58,41 +68,27 @@ const SinglePost = ({ post }) => {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          {/* </div> */}
         </div>
-        {/* <Button variant="primary" onClick={handleShowDelete}>
-          Launch demo modal
-        </Button> */}
-
         <p className="card-text">{post.text}</p>
-
-        {/* <img
-          src="https://blog.differentacademy.it/wp-content/uploads/sites/2/2021/12/team-working-lavoro-squadra-copertina.jpg"
-          alt="Post content"
-          className="img-fluid mb-3"
-        /> */}
-
         {post.image && (
           <img
             src={post.image}
             alt="Post"
             className="img-fluid rounded"
             style={{
-              maxHeight: "300px",
-              width: "100%",
-              objectFit: "cover",
+              maxHeight: '300px',
+              width: '100%',
+              objectFit: 'cover',
             }}
           />
         )}
-
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
-            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{" "}
+            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}
             {numReactions} reazioni
           </small>
           <small className="text-muted">{numComments} commenti</small>
         </div>
-
         <div className="d-flex justify-content-around mt-2 pt-2 border-top">
           <button
             className="btn btn-light flex-fill me-1"
@@ -100,10 +96,10 @@ const SinglePost = ({ post }) => {
           >
             <i
               className={`bi bi-hand-thumbs-up-fill me-2 ${
-                isLiked ? "text-primary" : ""
+                isLiked ? 'text-primary' : ''
               }`}
             ></i>
-            <span className={isLiked ? "text-primary" : ""}>Mi piace</span>
+            <span className={isLiked ? 'text-primary' : ''}>Mi piace</span>
           </button>
           <button className="btn btn-light flex-fill me-1">
             <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
@@ -120,7 +116,7 @@ const SinglePost = ({ post }) => {
             src="/profile-icon.png"
             alt="Profile"
             className="rounded-circle me-2"
-            style={{ width: "32px", height: "32px" }}
+            style={{ width: '32px', height: '32px' }}
           />
           <div className="flex-fill position-relative">
             <input
@@ -128,14 +124,14 @@ const SinglePost = ({ post }) => {
               className="form-control rounded-pill"
               placeholder="Aggiungi un commento..."
               style={{
-                paddingRight: "40px",
-                backgroundColor: "#f0f2f5",
-                border: "none",
+                paddingRight: '40px',
+                backgroundColor: '#f0f2f5',
+                border: 'none',
               }}
             />
             <button
               className="btn position-absolute end-0 top-50 translate-middle-y me-2"
-              style={{ border: "none", background: "transparent" }}
+              style={{ border: 'none', background: 'transparent' }}
             >
               <i className="bi bi-emoji-smile text-muted me-3"></i>
               <i className="bi bi-card-image"></i>
@@ -143,7 +139,6 @@ const SinglePost = ({ post }) => {
           </div>
         </div>
       </div>
-
       <Modal show={show} onHide={handleCloseDelete}>
         <Modal.Header closeButton>
           <Modal.Title>Attenzione!</Modal.Title>
@@ -156,8 +151,8 @@ const SinglePost = ({ post }) => {
           <Button
             variant="primary"
             onClick={() => {
-              dispatch(deletePostAction(post._id));
-              handleCloseDelete;
+              dispatch(deletePostAction(post._id))
+              handleCloseDelete()
             }}
             className="px-3"
           >
@@ -165,38 +160,8 @@ const SinglePost = ({ post }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      {/* <Modal show={showModify} onHide={handleCloseModify} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Crea Nuovo Post</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="text">
-              <Form.Label>Testo del Post</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                name="text"
-                value={formData.text}
-                onChange={handleChange}
-                placeholder="Scrivi qualcosa..."
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="imageFile" className="mb-3">
-              <Form.Label>Immagine (opzionale)</Form.Label>
-              <Form.Control type="file" onChange={handleFileChange} />
-            </Form.Group>
-            <Button variant="primary" type="submit" disabled={postsLoading}>
-              {postsLoading ? "Pubblicando..." : "Pubblica"}
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal> */}
     </div>
-  );
-};
+  )
+}
 
-export default SinglePost;
+export default SinglePost
