@@ -44,7 +44,7 @@ const Info = () => {
               </Card.Text>
             </Col>
             <Col xs={1}>
-              <BiPencil className="fs-4 edit" onClick={handleShow} />
+              <BiPencil className="fs-4 ms-3  edit" onClick={handleShow} />
             </Col>
           </Row>
         </Card.Body>
