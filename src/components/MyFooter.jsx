@@ -1,29 +1,25 @@
-import { Col, Container, Form, Row } from "react-bootstrap";
-import { X } from "react-bootstrap-icons";
+import { Col, Container, Form, Row } from 'react-bootstrap'
 
 const text = [
   [
-    "Informazioni",
-    "Informativa sulla community personale",
-    "Privacy e condizioni",
-    "Sales e solutions",
-    "Centro sicurezza",
+    'Informazioni',
+    'Informativa sulla community personale',
+    'Privacy e condizioni',
+    'Sales e solutions',
+    'Centro sicurezza',
   ],
   [
-    "Accessibilità",
-    "Carriera",
-    "Opzioni per gli annunci pubblicitari",
-    "Mobile",
+    'Accessibilità',
+    'Carriera',
+    'Opzioni per gli annunci pubblicitari',
+    'Mobile',
   ],
-  ["Talent Solutions", "Pubblicità", "Piccole Imprese"],
-];
+  ['Talent Solutions', 'Pubblicità', 'Piccole Imprese'],
+]
 
-function MyFooter({ onClose }) {
+function MyFooter() {
   return (
     <Container className="mt-4">
-      <div className="w-100 d-flex justify-content-end mb-3">
-        <X size={24} style={{ cursor: "pointer" }} onClick={onClose} />
-      </div>
       <Row>
         {text.map((dati, i) => (
           <Col sm={12} md={6} xl={2} key={i}>
@@ -31,7 +27,7 @@ function MyFooter({ onClose }) {
               <a
                 href="#"
                 className="d-block mb-2 footer-link"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
                 key={i}
               >
                 {text}
@@ -85,7 +81,7 @@ function MyFooter({ onClose }) {
         <p>LinkedIn Corporation &copy; {new Date().getFullYear()}</p>
       </Row>
     </Container>
-  );
+  )
 }
 
-export default MyFooter;
+export default MyFooter
