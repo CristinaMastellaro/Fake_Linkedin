@@ -31,20 +31,23 @@ import {
   UPLOAD_POST_IMAGE_REQUEST,
   UPLOAD_POST_IMAGE_SUCCESS,
   UPLOAD_POST_IMAGE_FAILURE,
-} from "../actions";
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_FAILURE,
+} from '../actions'
 
 const initialState = {
   myProfile: {
-    area: "",
-    bio: "",
-    createdAt: "",
-    email: "",
-    image: "",
-    name: "",
-    surname: "",
-    title: "",
-    updatedAt: "",
-    username: "",
+    area: '',
+    bio: '',
+    createdAt: '',
+    email: '',
+    image: '',
+    name: '',
+    surname: '',
+    title: '',
+    updatedAt: '',
+    username: '',
   },
   otherProfile: null,
   experiences: [],
@@ -55,7 +58,7 @@ const initialState = {
   postsError: null,
   loading: false,
   error: null,
-};
+}
 
 const saveProfileMe = (state = initialState, action) => {
   switch (action.type) {
@@ -64,80 +67,80 @@ const saveProfileMe = (state = initialState, action) => {
         ...state,
         loading: true,
         error: null,
-      };
+      }
     case FETCH_PROFILE_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-      };
+      }
     case SAVE_ME_INFO:
       return {
         ...state,
         loading: false,
         myProfile: action.payload,
         error: null,
-      };
+      }
     case SAVE_OTHER_INFO:
       return {
         ...state,
         loading: false,
         otherProfile: action.payload,
         error: null,
-      };
+      }
     case FETCH_PROFILE_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
-      };
+      }
 
     case FETCH_EXPERIENCES_REQUEST:
       return {
         ...state,
         experiencesLoading: true,
         experiencesError: null,
-      };
+      }
     case FETCH_EXPERIENCES_SUCCESS:
       return {
         ...state,
         experiencesLoading: false,
         experiences: action.payload,
         experiencesError: null,
-      };
+      }
     case FETCH_EXPERIENCES_FAILURE:
       return {
         ...state,
         experiencesLoading: false,
         experiencesError: action.payload,
-      };
+      }
 
     case CREATE_EXPERIENCE_REQUEST:
       return {
         ...state,
         experiencesLoading: true,
         experiencesError: null,
-      };
+      }
     case CREATE_EXPERIENCE_SUCCESS:
       return {
         ...state,
         experiencesLoading: false,
         experiences: [...state.experiences, action.payload],
         experiencesError: null,
-      };
+      }
     case CREATE_EXPERIENCE_FAILURE:
       return {
         ...state,
         experiencesLoading: false,
         experiencesError: action.payload,
-      };
+      }
 
     case UPDATE_EXPERIENCE_REQUEST:
       return {
         ...state,
         experiencesLoading: true,
         experiencesError: null,
-      };
+      }
     case UPDATE_EXPERIENCE_SUCCESS:
       return {
         ...state,
@@ -146,20 +149,20 @@ const saveProfileMe = (state = initialState, action) => {
           exp._id === action.payload._id ? action.payload : exp
         ),
         experiencesError: null,
-      };
+      }
     case UPDATE_EXPERIENCE_FAILURE:
       return {
         ...state,
         experiencesLoading: false,
         experiencesError: action.payload,
-      };
+      }
 
     case DELETE_EXPERIENCE_REQUEST:
       return {
         ...state,
         experiencesLoading: true,
         experiencesError: null,
-      };
+      }
     case DELETE_EXPERIENCE_SUCCESS:
       return {
         ...state,
@@ -168,20 +171,20 @@ const saveProfileMe = (state = initialState, action) => {
           (exp) => exp._id !== action.payload
         ),
         experiencesError: null,
-      };
+      }
     case DELETE_EXPERIENCE_FAILURE:
       return {
         ...state,
         experiencesLoading: false,
         experiencesError: action.payload,
-      };
+      }
 
     case UPLOAD_EXPERIENCE_IMAGE_REQUEST:
       return {
         ...state,
         experiencesLoading: true,
         experiencesError: null,
-      };
+      }
     case UPLOAD_EXPERIENCE_IMAGE_SUCCESS:
       return {
         ...state,
@@ -192,80 +195,80 @@ const saveProfileMe = (state = initialState, action) => {
             : exp
         ),
         experiencesError: null,
-      };
+      }
     case UPLOAD_EXPERIENCE_IMAGE_FAILURE:
       return {
         ...state,
         experiencesLoading: false,
         experiencesError: action.payload,
-      };
+      }
 
     case UPLOAD_PROFILE_IMAGE_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
-      };
+      }
     case UPLOAD_PROFILE_IMAGE_SUCCESS:
       return {
         ...state,
         loading: false,
         myProfile: { ...state.myProfile, image: action.payload },
         error: null,
-      };
+      }
     case UPLOAD_PROFILE_IMAGE_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
-      };
+      }
 
     case FETCH_POSTS_REQUEST:
       return {
         ...state,
         postsLoading: true,
         postsError: null,
-      };
+      }
     case FETCH_POSTS_SUCCESS:
       return {
         ...state,
         postsLoading: false,
         posts: action.payload,
         postsError: null,
-      };
+      }
     case FETCH_POSTS_FAILURE:
       return {
         ...state,
         postsLoading: false,
         postsError: action.payload,
-      };
+      }
 
     case CREATE_POST_REQUEST:
       return {
         ...state,
         postsLoading: true,
         postsError: null,
-      };
+      }
     case CREATE_POST_SUCCESS:
       return {
         ...state,
         postsLoading: false,
         posts: [action.payload, ...state.posts],
         postsError: null,
-      };
+      }
     case CREATE_POST_FAILURE:
       return {
         ...state,
         postsLoading: false,
         postsError: action.payload,
-      };
+      }
 
     case UPLOAD_POST_IMAGE_REQUEST:
       return {
         ...state,
         postsLoading: true,
         postsError: null,
-      };
+      }
     case UPLOAD_POST_IMAGE_SUCCESS:
       return {
         ...state,
@@ -276,17 +279,36 @@ const saveProfileMe = (state = initialState, action) => {
             : post
         ),
         postsError: null,
-      };
+      }
     case UPLOAD_POST_IMAGE_FAILURE:
       return {
         ...state,
         postsLoading: false,
         postsError: action.payload,
-      };
+      }
+    case UPDATE_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      }
+    case UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        myProfile: action.payload,
+        error: null,
+      }
+    case UPDATE_PROFILE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default saveProfileMe;
+export default saveProfileMe
