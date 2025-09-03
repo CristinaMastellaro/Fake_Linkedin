@@ -3,7 +3,7 @@ import HomeMain from './HomeMain';
 import SidebarHome from './SidebarHome';
 import LeftSidebarHome from './LeftSidebarHome';
 import { useState, useEffect, useRef } from 'react';
-import '../css/FooterHome.css';
+import '../css/footerHome.css';
 import MyFooter from './MyFooter';
 
 const Homepage = () => {
@@ -13,11 +13,11 @@ const Homepage = () => {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (
-        showForm &&
+        showFooter &&
         footerRef.current &&
         !footerRef.current.contains(event.target)
       ) {
-        setShowForm(false);
+        setShowFooter(false);
       }
     };
 
@@ -26,7 +26,7 @@ const Homepage = () => {
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [showForm]);
+  }, [showFooter]);
 
   return (
     <>
@@ -44,7 +44,7 @@ const Homepage = () => {
             <SidebarHome />
             <Container
               className='mt-4'
-              style={{ position: 'sticky', top: '384px', zIndex: 2 }}
+              style={{ position: 'sticky', top: '424px', zIndex: 2 }}
             >
               <div
                 className='d-flex justify-content-around small px-5'
@@ -54,7 +54,7 @@ const Homepage = () => {
                   className='small footer-link'
                   style={{ cursor: 'pointer', color: '#0a66c2' }}
                   onClick={() => {
-                    setShowForm(!showFooter);
+                    setShowFooter(!showFooter);
                   }}
                 >
                   Informazioni
