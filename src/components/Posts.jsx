@@ -8,22 +8,26 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
-import { BiPlus, BiCamera } from "react-icons/bi";
+import { BiPlus } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchPosts, createPost, uploadPostImage } from "../redux/actions";
+// import { fetchPosts, createPost, uploadPostImage } from "../redux/actions";
+import { fetchPosts, createPost } from "../redux/actions";
 import "../css/services.css";
 import SinglePost from "./SinglePost";
+import PostChanger from "./PostChanger";
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const { posts, postsLoading, postsError, myProfile } = useSelector(
+  // const { posts, postsLoading, postsError, myProfile } = useSelector(
+  const { posts, postsLoading, postsError } = useSelector(
     (state) => state.saveProfileMe
   );
 
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     text: "",
+    // image: "",
   });
   const [imageFile, setImageFile] = useState(null);
   const [alert, setAlert] = useState(null);
@@ -35,6 +39,7 @@ const Posts = () => {
   }, [dispatch]);
 
   const handleShowModal = () => {
+    // setFormData({ text: "", image: "" });
     setFormData({ text: "" });
     setImageFile(null);
     setAlert(null);
@@ -43,6 +48,7 @@ const Posts = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    // setFormData({ text: "", image: "" });
     setFormData({ text: "" });
     setImageFile(null);
     setAlert(null);
@@ -59,6 +65,7 @@ const Posts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.text.trim()) {
       setAlert({
         type: "danger",
@@ -67,10 +74,14 @@ const Posts = () => {
       return;
     }
     try {
-      const action = await dispatch(createPost(formData));
-      if (imageFile && action.payload && action.payload._id) {
-        await dispatch(uploadPostImage(action.payload._id, imageFile));
-      }
+      // console.log("formData", formData);
+      await dispatch(createPost(formData, imageFile));
+      // console.log("imageFile", imageFile);
+      // console.log("action", action);
+      // if (imageFile && action.payload && action.payload._id) {
+      //   console.log("sono dentro l'if");
+      //   await dispatch(uploadPostImage(action.payload._id, imageFile));
+      // }
       setAlert({ type: "success", message: "Post creato con successo." });
       dispatch(fetchPosts());
       setCurrentPage(1); // Torna alla prima pagina dopo la creazione del post
@@ -231,7 +242,7 @@ const Posts = () => {
         </Modal.Header>
         <Modal.Body>
           {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
-          <Form onSubmit={handleSubmit}>
+          {/* <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="text">
               <Form.Label>Testo del Post</Form.Label>
               <Form.Control
@@ -251,7 +262,13 @@ const Posts = () => {
             <Button variant="primary" type="submit" disabled={postsLoading}>
               {postsLoading ? "Pubblicando..." : "Pubblica"}
             </Button>
-          </Form>
+          </Form> */}
+          <PostChanger
+            setAlert={setAlert}
+            handleCloseModal={handleCloseModal}
+            setCurrentPage={() => setCurrentPage}
+            doModify={false}
+          />
         </Modal.Body>
       </Modal>
     </>

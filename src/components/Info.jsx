@@ -1,36 +1,40 @@
-import { useState, useEffect, useRef } from 'react'
-import { Card, Row, Col, Modal, Form, Button } from 'react-bootstrap'
-import { BiPencil } from 'react-icons/bi'
-import { useSelector, useDispatch } from 'react-redux'
-import { updateProfile } from '../redux/actions'
+import { useState, useEffect, useRef } from "react";
+import { Card, Row, Col, Modal, Form, Button } from "react-bootstrap";
+import { BiPencil } from "react-icons/bi";
+import { useSelector, useDispatch } from "react-redux";
+import { updateProfile } from "../redux/actions";
+import { useParams } from "react-router-dom";
 
 const Info = () => {
-  const [showModal, setShowModal] = useState(false)
-  const myInfo = useSelector((state) => state.saveProfileMe.myProfile)
-  const dispatch = useDispatch()
+  const { id } = useParams();
+  const [canModify, _] = useState(id === "" || id === undefined);
 
-  const [editedBio, setEditedBio] = useState(myInfo?.bio || '')
-  const textareaRef = useRef(null)
+  const [showModal, setShowModal] = useState(false);
+  const myInfo = useSelector((state) => state.saveProfileMe.myProfile);
+  const dispatch = useDispatch();
+
+  const [editedBio, setEditedBio] = useState(myInfo?.bio || "");
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     if (myInfo) {
-      setEditedBio(myInfo.bio)
+      setEditedBio(myInfo.bio);
     }
-  }, [myInfo])
+  }, [myInfo]);
 
   const handleShow = () => {
-    setShowModal(true)
-  }
+    setShowModal(true);
+  };
 
   const handleClose = () => {
-    setShowModal(false)
-    setEditedBio(myInfo?.bio || '')
-  }
+    setShowModal(false);
+    setEditedBio(myInfo?.bio || "");
+  };
 
   const handleSave = async () => {
-    await dispatch(updateProfile({ bio: editedBio }))
-    handleClose()
-  }
+    await dispatch(updateProfile({ bio: editedBio }));
+    handleClose();
+  };
 
   return (
     <>
@@ -40,12 +44,16 @@ const Info = () => {
             <Col xs={11}>
               <Card.Title>Informazioni</Card.Title>
               <Card.Text className="mt-4">
-                {myInfo?.bio || 'Nessuna biografia'}
+                {myInfo?.bio || "Nessuna biografia"}
               </Card.Text>
             </Col>
-            <Col xs={1}>
-              <BiPencil className="fs-4 ms-3  edit" onClick={handleShow} />
-            </Col>
+            {canModify ? (
+              <Col xs={1}>
+                <BiPencil className="fs-4 ms-3  edit" onClick={handleShow} />
+              </Col>
+            ) : (
+              ""
+            )}
           </Row>
         </Card.Body>
       </Card>
@@ -78,7 +86,7 @@ const Info = () => {
         </Modal.Footer>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Info
+export default Info;
