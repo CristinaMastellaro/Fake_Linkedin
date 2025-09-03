@@ -1,13 +1,16 @@
-import { Card, Row, Col, Carousel } from 'react-bootstrap'
-import '../css/hero.css'
-import { BiCheckShield, BiPencil, BiX, BiSolidCamera } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
+import { Card, Row, Col, Carousel } from "react-bootstrap";
+import "../css/hero.css";
+import { BiCheckShield, BiPencil, BiX, BiSolidCamera } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const Hero = () => {
-  const myInfo = useSelector((state) => {
-    // console.log("state", state.saveProfileMe.myProfile);
-    return state.saveProfileMe.myProfile
-  })
+  const { id } = useParams();
+  const { myProfile, otherProfile } = useSelector(
+    (state) => state.saveProfileMe
+  );
+
+  const profileData = id ? otherProfile : myProfile;
 
   return (
     <Card className="border border-1 rounded-4 m-4 position-relative">
@@ -17,9 +20,8 @@ const Hero = () => {
         className="hero-img"
       />
       <div className="picture-profile">
-         {' '}
-        {myInfo && myInfo.image && (
-          <img src={myInfo.image} alt="Picture profile" />
+        {profileData && profileData.image && (
+          <img src={profileData.image} alt="Picture profile" />
         )}
       </div>
       <div className="picture-photocamera">
@@ -29,17 +31,23 @@ const Hero = () => {
         <Row>
           <Col xs={12} md={6}>
             <Card.Title>
-              {myInfo && myInfo.name + ' ' + myInfo.surname}
+              {profileData && profileData.name + " " + profileData.surname}
             </Card.Title>
             <div className="badge-verifica rounded-4 px-3 d-flex align-items-center">
               <BiCheckShield className="fs-5 me-1" /> Aggiungi badge di verifica
             </div>
-            <Card.Text className="mb-0">{myInfo && myInfo.title}</Card.Text>
+            <Card.Text className="mb-0">
+              {profileData && profileData.title}
+            </Card.Text>
             <p className="d-md-none my-0 opacity-75 small">
-              Università degli studi di Padova
+              {profileData && profileData.area
+                ? `Università degli Studi di ${profileData.area.split(",")[0]}`
+                : "Università degli Studi"}
             </p>
             <div className="d-flex gap-1 my-1 flex-wrap">
-              <p className="my-0 opacity-75 small">{myInfo && myInfo.area}</p>
+              <p className="my-0 opacity-75 small">
+                {profileData && profileData.area}
+              </p>
               <p className="my-0 ">·</p>
               <p className="my-0 myBlue small">Informazioni di contatto</p>
             </div>
@@ -56,7 +64,9 @@ const Hero = () => {
               className="logo-uni"
             />
             <span className="fw-semibold ms-1">
-              Università degli Studi di Padova
+              {profileData && profileData.area
+                ? `Università degli Studi di ${profileData.area.split(",")[0]}`
+                : "Università degli Studi"}
             </span>
           </Col>
         </Row>
@@ -102,7 +112,7 @@ const Hero = () => {
                   <div>
                     <span className="fw-semibold">
                       Metti in risalto i tuoi servizi
-                    </span>{' '}
+                    </span>{" "}
                     in un'apposita sezione sul tuo profilo, così sarà più facile
                     trovarti.
                   </div>
@@ -138,7 +148,7 @@ const Hero = () => {
                 <div>
                   <span className="fw-semibold">
                     Metti in risalto i tuoi servizi
-                  </span>{' '}
+                  </span>{" "}
                   in un'apposita sezione sul tuo profilo, così sarà più facile
                   trovarti.
                 </div>
@@ -153,7 +163,7 @@ const Hero = () => {
         {/* <Button variant="primary">Go somewhere</Button> */}
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

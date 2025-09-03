@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import saveProfileMe from "../reducers/saveProfileMe";
 
-const configStore = configureStore({
+const store = configureStore({
   reducer: combineReducers({
     saveProfileMe,
   }),
 });
 
-export default configStore;
+export default store;

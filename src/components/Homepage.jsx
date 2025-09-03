@@ -1,14 +1,14 @@
-import { Container, Row, Col, Collapse } from 'react-bootstrap'
-import HomeMain from './HomeMain'
-import SidebarHome from './SidebarHome'
-import LeftSidebarHome from './LeftSidebarHome'
-import { useState, useEffect, useRef } from 'react'
-import '../css/FooterHome.css'
-import MyFooter from './MyFooter'
+import { Container, Row, Col, Collapse } from "react-bootstrap";
+import HomeMain from "./HomeMain";
+import SidebarHome from "./SidebarHome";
+import LeftSidebarHome from "./LeftSidebarHome";
+import { useState, useEffect, useRef } from "react";
+import "../css/FooterHome.css";
+import MyFooter from "./MyFooter";
 
 const Homepage = () => {
-  const [showForm, setShowForm] = useState(false)
-  const footerRef = useRef(null)
+  const [showForm, setShowForm] = useState(false);
+  const footerRef = useRef(null);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -17,16 +17,16 @@ const Homepage = () => {
         footerRef.current &&
         !footerRef.current.contains(event.target)
       ) {
-        setShowForm(false)
+        setShowForm(false);
       }
-    }
+    };
 
-    document.addEventListener('mousedown', handleOutsideClick)
+    document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick)
-    }
-  }, [showForm])
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showForm]);
 
   return (
     <>
@@ -43,9 +43,9 @@ const Homepage = () => {
             <Container>
               <p>Informazioni</p>
               <p
-                style={{ cursor: 'pointer', color: '#0a66c2' }}
-                onClick={(e) => {
-                  setShowForm(!showForm)
+                style={{ cursor: "pointer", color: "#0a66c2" }}
+                onClick={() => {
+                  setShowForm(!showForm);
                 }}
               >
                 Altro
@@ -61,7 +61,7 @@ const Homepage = () => {
         </div>
       </Collapse>
     </>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;
