@@ -1,24 +1,25 @@
-import CustomNavbar from "./components/Navbar";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { Container } from "react-bootstrap";
-import Messaggistica from "./components/Messaggistica";
-import Homepage from "./components/Homepage";
-import ProfilePage from "./components/ProfilePage";
-import Jobs from "./components/Jobs";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NotFound from "./components/NotFound";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchProfile } from "./redux/actions";
+import CustomNavbar from './components/Navbar'
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import { Container } from 'react-bootstrap'
+import Messaggistica from './components/Messaggistica'
+import Homepage from './components/Homepage'
+import ProfilePage from './components/ProfilePage'
+import Jobs from './components/Jobs'
+import DetailsPage from './components/DetailsPage'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import NotFound from './components/NotFound'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchProfile } from './redux/actions'
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchProfile());
-  }, [dispatch]);
+    dispatch(fetchProfile())
+  }, [dispatch])
 
   return (
     <BrowserRouter>
@@ -31,12 +32,13 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/lavoro" element={<Jobs />} />
+          <Route path="/details" element={<DetailsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
       <Messaggistica />
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
