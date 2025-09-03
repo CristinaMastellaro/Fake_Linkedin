@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react'
 import { Card, Row, Col, Modal, Form, Button } from 'react-bootstrap'
 import { BiPencil } from 'react-icons/bi'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateProfile } from '../redux/actions'
 
 const Info = () => {
   const [showModal, setShowModal] = useState(false)
+
   const myInfo = useSelector((state) => state.saveProfileMe.myProfile)
   const dispatch = useDispatch()
 
@@ -28,8 +28,39 @@ const Info = () => {
   }
 
   const handleSave = async () => {
-    await dispatch(updateProfile({ bio: editedBio }))
-    handleClose()
+    const TOKEN =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw'
+
+    try {
+      const response = await fetch(
+        'https://striveschool-api.herokuapp.com/api/profile/',
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${TOKEN}`,
+          },
+          body: JSON.stringify({ bio: editedBio }),
+        }
+      )
+
+      if (response.ok) {
+        const updatedProfile = await response.json()
+        console.log('Profilo aggiornato con successo:', updatedProfile)
+
+        dispatch({ type: 'UPDATE_PROFILE', payload: updatedProfile })
+
+        handleClose()
+      } else {
+        console.error(
+          'Salvataggio fallito:',
+          response.status,
+          response.statusText
+        )
+      }
+    } catch (error) {
+      console.error('Errore di rete:', error)
+    }
   }
 
   return (
