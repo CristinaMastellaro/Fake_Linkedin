@@ -110,9 +110,9 @@ const Posts = () => {
 
   return (
     <>
-      <Card className="border border-1 rounded-4 m-4 position-relative">
+      <Card className="border border-1 rounded-3 my-4 position-relative">
         <Card.Body className="border-bottom container">
-          <Row>
+          <Row className="mb-3">
             <Col xs={10}>
               <Card.Title>Post</Card.Title>
             </Col>
@@ -142,8 +142,8 @@ const Posts = () => {
           )}
 
           {!postsLoading &&
-            currentPosts.map((post, i) => (
-              <SinglePost post={post} key={i} />
+            currentPosts.map((post) => (
+              <SinglePost post={post} key={post._id} />
               // <div key={post._id} className="mt-3 border-bottom pb-3">
               //   <div className="d-flex align-items-center mb-2">
               //     <img
