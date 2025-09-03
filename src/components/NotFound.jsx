@@ -22,16 +22,16 @@ const Complete404Page = () => {
               <button className="home-button">Vai al tuo feed</button>
             </a>
           </div>
-          <div className="image-container position-relative">
-            <img
-              src="/gif-telescopio.gif"
-              alt="Telescopio animato"
-              className="error-image"
-            />
-          </div>
         </div>
       </div>
       <div className="footer-container">
+        <div className="image-container position-relative">
+          <img
+            src="/giphy-unscreen.gif"
+            alt="Telescopio animato"
+            className="error-image"
+          />
+        </div>
         <Container fluid className="py-3">
           <Row className="justify-content-center align-items-center flex-wrap">
             <Col
