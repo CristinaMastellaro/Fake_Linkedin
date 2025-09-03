@@ -5,7 +5,7 @@ import { BiLineChart, BiRightArrowAlt } from "react-icons/bi";
 
 const Analisi = () => {
   return (
-    <Card className="border border-1 rounded-4 m-4 position-relative">
+    <Card className="border border-1 rounded-4 m-4 position-relative shadow">
       <Card.Body className="border-bottom">
         <Card.Title>Analisi</Card.Title>
         <Card.Text className="d-flex align-items-center gap-1 opacity-75">

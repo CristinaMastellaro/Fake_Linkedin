@@ -62,7 +62,7 @@ const Services = () => {
   }
 
   return (
-    <Card className="border border-1 rounded-4 m-4 position-relative">
+    <Card className="border border-1 rounded-4 m-4 position-relative shadow">
       <Card.Body className="border-bottom container">
         <Card.Title className="mb-4 d-flex justify-content-between align-items-center">
           Competenze

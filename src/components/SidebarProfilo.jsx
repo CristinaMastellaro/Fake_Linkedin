@@ -80,7 +80,7 @@ const SidebarProfilo = () => {
 
   return (
     <div className="mt-4">
-      <div className="card mb-3 shadow-sm">
+      <div className="card mb-3 shadow">
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center mb-3">
             <div className="flex-grow-1">
@@ -182,7 +182,7 @@ const SidebarProfilo = () => {
         </div>
       </div>
 
-      <div className="card shadow-sm">
+      <div className="card shadow">
         <div className="card-body text-center">
           <div className="mb-3">
             <div className="d-inline-block p-3 rounded">
@@ -202,7 +202,7 @@ const SidebarProfilo = () => {
         </div>
       </div>
 
-      <div className="card my-3 shadow-sm">
+      <div className="card my-3 shadow">
         <div className="card-header bg-white border-0 pb-0">
           <h6 className="my-1 fw-bold text-dark">Altri profili consultati</h6>
           <small className="text-muted">
@@ -247,7 +247,7 @@ const SidebarProfilo = () => {
         </div>
       </div>
 
-      <div className="card mb-3 shadow-sm">
+      <div className="card mb-3 shadow">
         <div className="card-header bg-white border-0 pb-0">
           <h6 className="my-1 fw-bold text-dark">
             Persone che potresti conoscere

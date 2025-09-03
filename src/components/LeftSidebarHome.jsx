@@ -12,7 +12,7 @@ const LeftSidebarHome = () => {
 
   return (
     <>
-      <section className="section-sidebar-top position-relative p-0">
+      <section className="section-sidebar-top position-relative p-0 shadow">
         <img
           src="https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg"
           className="side-img"
@@ -37,14 +37,14 @@ const LeftSidebarHome = () => {
           </div>
         </div>
       </section>
-      <section className="section-sidebar d-flex justify-content-between connections">
+      <section className="section-sidebar d-flex justify-content-between connections shadow">
         <div>
           <p className="mb-2 fw-semibold">Collegamenti</p>
           <p className="mb-0 fw-semibold opacity-75">Espandi la tua rete</p>
         </div>
         <p className="mb-0 myBlue">3</p>
       </section>
-      <section className="section-sidebar">
+      <section className="section-sidebar shadow">
         <p className="mb-2 opacity-75">
           Sblocca strumenti e informazioni Premium
         </p>
@@ -53,7 +53,7 @@ const LeftSidebarHome = () => {
           Prova Premium per 0 EUR
         </p>
       </section>
-      <section className="section-sidebar">
+      <section className="section-sidebar shadow">
         <div className="d-flex fw-semibold align-items-center hover-underlined mb-2">
           <BiSolidBookmark className="me-1" />
           Elementi salvati

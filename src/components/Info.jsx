@@ -34,7 +34,7 @@ const Info = () => {
 
   return (
     <>
-      <Card className="border border-1 rounded-4 m-4 position-relative">
+      <Card className="border border-1 rounded-4 m-4 position-relative shadow">
         <Card.Body className="border-bottom container">
           <Row>
             <Col xs={11}>

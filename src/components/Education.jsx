@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Card, Row, Col, Modal, Form, Button } from "react-bootstrap";
-import { BiPencil, BiPlus, BiTrash } from "react-icons/bi"; // Importiamo BiTrash
+import { BiPencil, BiPlus, BiTrash } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const Education = () => {
     endDate: '',
     logo: '',
   });
-  const [editingEducation, setEditingEducation] = useState(null); // Nuovo stato per la modifica
+  const [editingEducation, setEditingEducation] = useState(null);
 
   useEffect(() => {
     const savedEducation = localStorage.getItem('educationData');
@@ -41,7 +41,7 @@ const Education = () => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => {
     setShowModal(false);
-    setEditingEducation(null); // Reset dello stato di modifica
+    setEditingEducation(null);
     setNewEducation({ institution: '', degree: '', startDate: '', endDate: '', logo: '' });
   };
 
@@ -72,8 +72,8 @@ const Education = () => {
     setNewEducation({
       institution: edu.institution,
       degree: edu.degree,
-      startDate: '', // Potrebbe essere necessario gestire il formato data qui
-      endDate: '', // Potrebbe essere necessario gestire il formato data qui
+      startDate: '',
+      endDate: '',
       logo: edu.logo,
     });
     handleShow();
@@ -120,7 +120,7 @@ const Education = () => {
   };
 
   return (
-    <Card className="border border-1 rounded-4 m-4 position-relative">
+    <Card className="border border-1 rounded-4 m-4 position-relative shadow">
       <Card.Body className="border-bottom container">
         <Row>
           <Col xs={10}>

@@ -68,7 +68,7 @@ const Jobs = () => {
       <h1 className="mb-4">Job Listings</h1>
 
       {/* Search Form */}
-      <Card className="mb-4">
+      <Card className="mb-4 shadow">
         <Card.Body>
           <Form onSubmit={handleSearch}>
             <Row>
