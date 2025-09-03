@@ -41,10 +41,10 @@ const PostChanger = ({
       await dispatch(createPost(formData, imageFile));
       // console.log("imageFile", imageFile);
       // console.log("action", action);
-      // if (imageFile && action.payload && action.payload._id) {
-      //   console.log("sono dentro l'if");
-      //   await dispatch(uploadPostImage(action.payload._id, imageFile));
-      // }
+      //   if (imageFile && action.payload && action.payload._id) {
+      //     console.log("sono dentro l'if");
+      //     await dispatch(uploadPostImage(action.payload._id, imageFile));
+      //   }
       setAlert({ type: "success", message: "Post creato con successo." });
       dispatch(fetchPosts());
       //  // Torna alla prima pagina dopo la creazione del post
@@ -61,7 +61,7 @@ const PostChanger = ({
   const handleSubmitModify = () => {};
 
   return (
-    <Form onSubmit={doModify ? handleSubmitCreate : handleSubmitModify}>
+    <Form onSubmit={doModify ? handleSubmitModify : handleSubmitCreate}>
       <Form.Group className="mb-3" controlId="text">
         <Form.Label>Testo del Post</Form.Label>
         <Form.Control
