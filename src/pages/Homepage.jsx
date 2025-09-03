@@ -1,10 +1,10 @@
 import { Container, Row, Col, Collapse } from "react-bootstrap";
-import HomeMain from "./HomeMain";
-import SidebarHome from "./SidebarHome";
-import LeftSidebarHome from "./LeftSidebarHome";
+import HomeMain from "../components/HomeMain";
+import SidebarHome from "../components/SidebarHome";
+import LeftSidebarHome from "../components/LeftSidebarHome";
 import { useState, useEffect, useRef } from "react";
 import "../css/FooterHome.css";
-import MyFooter from "./MyFooter";
+import MyFooter from "../components/MyFooter";
 
 const Homepage = () => {
   const [showForm, setShowForm] = useState(false);

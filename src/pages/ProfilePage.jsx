@@ -4,7 +4,7 @@ import Main from "../components/Main";
 import SidebarProfilo from "../components/SidebarProfilo";
 import { Row, Col, Spinner } from "react-bootstrap";
 import MiniHero from "../components/MiniHero";
-import MyFooter from "./MyFooter";
+import MyFooter from "../components/MyFooter";
 import { useDispatch } from "react-redux";
 import { SAVE_ME_INFO, SAVE_OTHER_INFO } from "../redux/actions";
 

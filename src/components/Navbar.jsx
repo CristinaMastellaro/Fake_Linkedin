@@ -204,10 +204,10 @@ export default function CustomNavbar() {
               <Nav.Link
                 className={
                   "nav-link" +
-                  (location.pathname === "/lavoro" ? " active" : "") +
+                  (location.pathname === "/messaggi" ? " active" : "") +
                   " d-flex flex-column align-items-center"
                 }
-                to="/lavoro"
+                to="/messaggi"
                 as={Link}
               >
                 <ChatDotsFill size={22} />
