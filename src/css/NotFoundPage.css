@@ -127,4 +127,5 @@
   border: 0 !important;
   border-bottom: 2px solid green !important;
   text-decoration: none;
+  display: inline;
 }
