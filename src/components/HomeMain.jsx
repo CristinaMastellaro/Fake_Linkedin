@@ -1,51 +1,35 @@
-import { useState } from 'react';
-import Experiences from './Experiencies';
-import Posts from './Posts';
+import Posts from "./Posts";
 
 const HomeMain = () => {
-  const [isLiked1, setIsLiked1] = useState(false);
-  const [isLiked2, setIsLiked2] = useState(false);
-  const [isLiked3, setIsLiked3] = useState(false);
-
-  const handleLikeClick1 = () => {
-    setIsLiked1(!isLiked1);
-  };
-  const handleLikeClick2 = () => {
-    setIsLiked2(!isLiked2);
-  };
-  const handleLikeClick3 = () => {
-    setIsLiked3(!isLiked3);
-  };
-
   return (
-    <div className='home-main'>
-      <div className='card mb-3 shadow-sm'>
-        <div className='card-body'>
-          <div className='d-flex align-items-center mb-3'>
+    <div className="home-main">
+      <div className="card mb-3 shadow-sm">
+        <div className="card-body">
+          <div className="d-flex align-items-center mb-3">
             <img
-              src='/profile-icon.png'
-              alt='Profile'
-              className='rounded-circle me-3'
-              style={{ width: '50px', height: '50px' }}
+              src="/profile-icon.png"
+              alt="Profile"
+              className="rounded-circle me-3"
+              style={{ width: "50px", height: "50px" }}
             />
             <input
-              type='text'
-              className='form-control rounded-pill'
-              placeholder='Crea un post'
-              style={{ backgroundColor: '#f3f2ef', border: 'none' }}
+              type="text"
+              className="form-control rounded-pill"
+              placeholder="Crea un post"
+              style={{ backgroundColor: "#f3f2ef", border: "none" }}
             />
           </div>
-          <div className='d-flex justify-content-around'>
-            <button className='btn btn-light d-flex align-items-center'>
-              <i className='bi bi-camera-video text-primary me-2'></i>
+          <div className="d-flex justify-content-around">
+            <button className="btn btn-light d-flex align-items-center">
+              <i className="bi bi-camera-video text-primary me-2"></i>
               Video
             </button>
-            <button className='btn btn-light d-flex align-items-center'>
-              <i className='bi bi-image text-success me-2'></i>
+            <button className="btn btn-light d-flex align-items-center">
+              <i className="bi bi-image text-success me-2"></i>
               Foto
             </button>
-            <button className='btn btn-light d-flex align-items-center'>
-              <i className='bi bi-pencil-square text-warning me-2'></i>
+            <button className="btn btn-light d-flex align-items-center">
+              <i className="bi bi-pencil-square text-warning me-2"></i>
               Scrivi un articolo
             </button>
           </div>
