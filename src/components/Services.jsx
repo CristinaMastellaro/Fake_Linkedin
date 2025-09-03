@@ -1,5 +1,5 @@
-import { Card, Row, Col } from "react-bootstrap";
-import { BiPencil, BiRightArrowAlt } from "react-icons/bi";
+import { Card, Row, Col } from 'react-bootstrap'
+import { BiPencil, BiRightArrowAlt } from 'react-icons/bi'
 
 const Services = () => {
   return (
@@ -23,7 +23,7 @@ const Services = () => {
         Mostra tutte le attività <BiRightArrowAlt className="ms-1" />
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default Services;
+export default Services
