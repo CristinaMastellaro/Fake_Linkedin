@@ -8,7 +8,7 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
-import { BiPlus, BiCamera } from "react-icons/bi";
+import { BiPlus } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchPosts, createPost, uploadPostImage } from "../redux/actions";
@@ -17,13 +17,15 @@ import SinglePost from "./SinglePost";
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const { posts, postsLoading, postsError, myProfile } = useSelector(
+  // const { posts, postsLoading, postsError, myProfile } = useSelector(
+  const { posts, postsLoading, postsError } = useSelector(
     (state) => state.saveProfileMe
   );
 
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     text: "",
+    image: "",
   });
   const [imageFile, setImageFile] = useState(null);
   const [alert, setAlert] = useState(null);

@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 
 const Info = () => {
   const { id } = useParams();
-  const [canModify, setCanModify] = useState(id === "");
+  console.log("id", id);
+  const [canModify, _] = useState(id === "" || id === undefined);
   const myInfo = useSelector((state) => {
     console.log("state", state.saveProfileMe.myProfile);
     return state.saveProfileMe.myProfile;

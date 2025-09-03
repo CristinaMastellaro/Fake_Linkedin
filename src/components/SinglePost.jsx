@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 const SinglePost = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -26,7 +25,7 @@ const SinglePost = ({ post }) => {
               {post.user?.name} {post.user?.surname}
             </h6>
             <small className="text-muted">
-              Senior Developer presso TechCorp •{" "}
+              {post.user?.title} •{" "}
               {new Date(post.createdAt).toLocaleDateString()}
             </small>
           </div>

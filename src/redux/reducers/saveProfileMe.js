@@ -247,6 +247,7 @@ const saveProfileMe = (state = initialState, action) => {
         postsError: null,
       };
     case CREATE_POST_SUCCESS:
+      console.log("action.payload", action.payload);
       return {
         ...state,
         postsLoading: false,
