@@ -4,6 +4,9 @@
   transition: color 0.2s;
   cursor: pointer;
   font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+  display: inline;
 }
 .footer-link:hover {
   color: #0a66c2;

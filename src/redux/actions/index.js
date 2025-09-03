@@ -468,12 +468,40 @@ export const createPost = (postData) => {
     }
   }
 }
-// Aggiungi queste costanti per le azioni di aggiornamento
+export const uploadPostImage = (postId, imageFile) => {
+  return async (dispatch) => {
+    dispatch(uploadPostImageRequest())
+    try {
+      const TOKEN =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw'
+      const formData = new FormData()
+      formData.append('post', imageFile)
+
+      const response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/posts/${postId}`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+          },
+          body: formData,
+        }
+      )
+      if (!response.ok) {
+        throw new Error('Failed to upload post image')
+      }
+      const result = await response.json()
+      dispatch(uploadPostImageSuccess(postId, result.image))
+    } catch (error) {
+      dispatch(uploadPostImageFailure(error.message))
+    }
+  }
+}
+
 export const UPDATE_PROFILE_REQUEST = 'UPDATE_PROFILE_REQUEST'
 export const UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS'
 export const UPDATE_PROFILE_FAILURE = 'UPDATE_PROFILE_FAILURE'
 
-// Aggiungi queste action creators
 export const updateProfileRequest = () => ({
   type: UPDATE_PROFILE_REQUEST,
 })
@@ -516,35 +544,6 @@ export const updateProfile = (profileData) => {
       dispatch(fetchProfile())
     } catch (error) {
       dispatch(updateProfileFailure(error.message))
-    }
-  }
-}
-export const uploadPostImage = (postId, imageFile) => {
-  return async (dispatch) => {
-    dispatch(uploadPostImageRequest())
-    try {
-      const TOKEN =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw'
-      const formData = new FormData()
-      formData.append('post', imageFile)
-
-      const response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/posts/${postId}`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          },
-          body: formData,
-        }
-      )
-      if (!response.ok) {
-        throw new Error('Failed to upload post image')
-      }
-      const result = await response.json()
-      dispatch(uploadPostImageSuccess(postId, result.image))
-    } catch (error) {
-      dispatch(uploadPostImageFailure(error.message))
     }
   }
 }
