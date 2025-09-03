@@ -7,7 +7,7 @@ import {
   Container,
   Row,
   Col,
-} from 'react-bootstrap'
+} from "react-bootstrap";
 import {
   HouseFill,
   PeopleFill,
@@ -18,67 +18,69 @@ import {
   CaretDownFill,
   Grid3x3GapFill,
   StarFill,
-} from 'react-bootstrap-icons'
-import { useState, useEffect, useRef } from 'react'
-import { useLocation, Link } from 'react-router-dom'
-import SearchModal from './SearchModal'
-import '../css/Navbar.css'
+} from "react-bootstrap-icons";
+import { useState, useEffect, useRef } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import SearchModal from "./SearchModal";
+import "../css/Navbar.css";
 
 export default function CustomNavbar() {
-  const [addFlex, setAddFlex] = useState(false)
-  const location = useLocation()
+  const [addFlex, setAddFlex] = useState(false);
+  const location = useLocation();
+  const { myProfile } = useSelector((state) => state.saveProfileMe);
 
   // stati per la ricerca
-  const [searchTerm, setSearchTerm] = useState('')
-  const [results, setResults] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const searchRef = useRef(null)
+  const [searchTerm, setSearchTerm] = useState("");
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const searchRef = useRef(null);
 
   useEffect(() => {
     if (searchTerm.trim().length === 0) {
-      setResults([])
-      setShowModal(false)
-      return
+      setResults([]);
+      setShowModal(false);
+      return;
     }
 
     const TOKEN =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw'
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1NTJlZGQyOWE0OTAwMTUxZjIwODYiLCJpYXQiOjE3NTY3MTM3MDksImV4cCI6MTc1NzkyMzMwOX0.2QqwabOIJ4yHBhR_8VkIe6oenP3ri7nHieLQL9H5Tmw";
 
     const fetchProfiles = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
         const res = await fetch(
-          'https://striveschool-api.herokuapp.com/api/profile/',
+          "https://striveschool-api.herokuapp.com/api/profile/",
           {
             headers: { Authorization: `Bearer ${TOKEN}` },
           }
-        )
+        );
 
         if (!res.ok) {
-          throw new Error('Errore nella fetch: ' + res.status)
+          throw new Error("Errore nella fetch: " + res.status);
         }
 
-        const data = await res.json()
+        const data = await res.json();
 
         const filtered = data.filter((p) =>
-          (p.name + ' ' + p.surname)
+          (p.name + " " + p.surname)
             .toLowerCase()
             .includes(searchTerm.toLowerCase())
-        )
+        );
 
-        setResults(filtered)
-        setShowModal(true)
+        setResults(filtered);
+        setShowModal(true);
       } catch (err) {
-        console.error('Errore fetch profili:', err)
+        console.error("Errore fetch profili:", err);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    const timeout = setTimeout(fetchProfiles, 400)
-    return () => clearTimeout(timeout)
-  }, [searchTerm])
+    const timeout = setTimeout(fetchProfiles, 400);
+    return () => clearTimeout(timeout);
+  }, [searchTerm]);
 
   return (
     <Navbar
@@ -124,7 +126,7 @@ export default function CustomNavbar() {
             <div
               className="scrollbar-hidden"
               style={{
-                position: 'absolute',
+                position: "absolute",
                 top:
                   searchRef.current.getBoundingClientRect().bottom +
                   window.scrollY,
@@ -133,8 +135,8 @@ export default function CustomNavbar() {
                   window.scrollX,
                 width: searchRef.current.offsetWidth,
                 zIndex: 1050,
-                maxHeight: '70vh',
-                overflowY: 'auto',
+                maxHeight: "70vh",
+                overflowY: "auto",
               }}
             >
               <SearchModal
@@ -156,9 +158,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/"
                 as={Link}
@@ -171,9 +173,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/rete' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/rete" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/rete"
                 as={Link}
@@ -186,9 +188,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/lavoro' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/lavoro" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/lavoro"
                 as={Link}
@@ -201,9 +203,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/lavoro' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/lavoro" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/lavoro"
                 as={Link}
@@ -216,9 +218,9 @@ export default function CustomNavbar() {
             <Col xs={4} md="auto">
               <Nav.Link
                 className={
-                  'nav-link' +
-                  (location.pathname === '/notifiche' ? ' active' : '') +
-                  ' d-flex flex-column align-items-center'
+                  "nav-link" +
+                  (location.pathname === "/notifiche" ? " active" : "") +
+                  " d-flex flex-column align-items-center"
                 }
                 to="/notifiche"
                 as={Link}
@@ -247,10 +249,22 @@ export default function CustomNavbar() {
                 <ul className="dropdown-menu dropdown-menu-end">
                   <li>
                     <div className="user d-flex align-items-center py-2 px-2">
-                      <PersonCircle size={48} className="me-2" />
+                      {myProfile.image ? (
+                        <img
+                          src={myProfile.image}
+                          alt={`${myProfile.name} ${myProfile.surname}`}
+                          className="rounded-circle me-2"
+                          width={48}
+                          height={48}
+                        />
+                      ) : (
+                        <PersonCircle size={48} className="me-2" />
+                      )}
                       <div className="user-info d-flex flex-column">
-                        <span className="user-name">Nome Utente</span>
-                        <span className="user-job">Posizione</span>
+                        <span className="user-name">
+                          {myProfile.name} {myProfile.surname}
+                        </span>
+                        <span className="user-job">{myProfile.title}</span>
                       </div>
                     </div>
 
@@ -346,8 +360,8 @@ export default function CustomNavbar() {
                 <ul
                   className={
                     addFlex
-                      ? 'dropdown-menu d-flex aziende dropdown-menu-end justify-content-between'
-                      : 'dropdown-menu aziende dropdown-menu-end justify-content-between'
+                      ? "dropdown-menu d-flex aziende dropdown-menu-end justify-content-between"
+                      : "dropdown-menu aziende dropdown-menu-end justify-content-between"
                   }
                 >
                   <li className="app px-5 py-4">
@@ -389,7 +403,7 @@ export default function CustomNavbar() {
 
                   <li
                     className="border-end border mx-2"
-                    style={{ height: '85vh' }}
+                    style={{ height: "85vh" }}
                   ></li>
 
                   <li className="business px-5 py-4">
@@ -463,5 +477,5 @@ export default function CustomNavbar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
+  );
 }

@@ -1,12 +1,21 @@
-import { useState } from 'react'
-import '../css/messaggistica.css'
+import { useState } from "react";
+import "../css/messaggistica.css";
 
 const Messaggistica = () => {
-  const [isMessagesOpen, setIsMessagesOpen] = useState(false)
+  const [isMessagesOpen, setIsMessagesOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   const toggleMessages = () => {
-    setIsMessagesOpen(!isMessagesOpen)
-  }
+    if (isMessagesOpen) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsMessagesOpen(false);
+        setIsClosing(false);
+      }, 300);
+    } else {
+      setIsMessagesOpen(true);
+    }
+  };
 
   return (
     <>
@@ -16,7 +25,7 @@ const Messaggistica = () => {
         </button>
       )}
       {isMessagesOpen && (
-        <div className="messages-dropdown">
+        <div className={`messages-dropdown ${isClosing ? "closing" : ""}`}>
           <div className="messages-header">
             <div className="messages-title">
               <img
@@ -30,7 +39,11 @@ const Messaggistica = () => {
               <button className="icon-button" title="Impostazioni">
                 &#9881;
               </button>
-              <button className="icon-button" title="Espandi">
+              <button
+                onClick={toggleMessages}
+                className="icon-button"
+                title="Abbassa"
+              >
                 &#x25BC;
               </button>
               <button
@@ -64,7 +77,7 @@ const Messaggistica = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Messaggistica
+export default Messaggistica;
