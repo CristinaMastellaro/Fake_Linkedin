@@ -299,7 +299,7 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
           <Button
             variant="primary"
             onClick={() => {
-              dispatch(deletePostAction(item._id))
+              dispatch(deletePostAction(item._id, true))
               handleCloseDelete()
               handleGoBack()
             }}

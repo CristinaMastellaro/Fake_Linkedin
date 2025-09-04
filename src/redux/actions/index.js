@@ -460,6 +460,7 @@ export const createPost = (postData, imageFile) => {
     }
   };
 };
+
 export const uploadPostImage = (postId, imageFile) => {
   return async (dispatch) => {
     dispatch(uploadPostImageRequest());
@@ -488,7 +489,25 @@ export const uploadPostImage = (postId, imageFile) => {
   };
 };
 
-export const deletePostAction = (id) => {
+export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
+export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
+export const DELETE_POST_FAILURE = "DELETE_POST_REQUEST";
+
+export const deletePostRequest = () => ({
+  type: DELETE_POST_REQUEST,
+});
+
+export const deletePostSuccess = (postId) => ({
+  type: DELETE_POST_SUCCESS,
+  payload: postId,
+});
+
+export const deletePostFailure = (error) => ({
+  type: DELETE_POST_FAILURE,
+  payload: error,
+});
+
+export const deletePostAction = (id, sentAlert) => {
   const bearer = TOKEN;
   console.log("id", id);
   fetch("https://striveschool-api.herokuapp.com/api/posts/" + id, {
@@ -498,7 +517,7 @@ export const deletePostAction = (id) => {
     },
   })
     .then((res) => {
-      if (res.ok) {
+      if (res.ok && sentAlert) {
         alert("Post cancellato!");
       } else {
         throw new Error("Non siamo riusciti a cancellare il post");
@@ -511,6 +530,24 @@ export const deletePostAction = (id) => {
     payload: id,
   };
 };
+
+export const MODIFY_POST_REQUEST = "MODIFY_POST_REQUEST";
+export const MODIFY_POST_SUCCESS = "MODIFY_POST_SUCCESS";
+export const MODIFY_POST_FAILURE = "MODIFY_POST_REQUEST";
+
+export const modifyPostRequest = () => ({
+  type: MODIFY_POST_REQUEST,
+});
+
+export const modifyPostSuccess = (postId) => ({
+  type: MODIFY_POST_SUCCESS,
+  payload: postId,
+});
+
+export const modifyPostFailure = (error) => ({
+  type: MODIFY_POST_FAILURE,
+  payload: error,
+});
 
 export const modifyPostAction = (id, formData, image) => {
   console.log("formData", formData);

@@ -205,7 +205,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
           <Button
             variant="primary"
             onClick={() => {
-              dispatch(deletePostAction(post._id))
+              dispatch(deletePostAction(post._id, true))
               handleCloseDelete
             }}
             className="px-3"
