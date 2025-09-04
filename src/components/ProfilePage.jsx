@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Main from "../components/Main";
-import SidebarProfilo from "../components/SidebarProfilo";
-import { Row, Col, Spinner } from "react-bootstrap";
-import MiniHero from "../components/MiniHero";
-import MyFooter from "./MyFooter";
-import Messaggistica from "./Messaggistica";
-import { useDispatch } from "react-redux";
-import { SAVE_ME_INFO, SAVE_OTHER_INFO, TOKEN } from "../redux/actions";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Main from '../components/Main';
+import SidebarProfilo from '../components/SidebarProfilo';
+import { Row, Col, Spinner } from 'react-bootstrap';
+import MiniHero from '../components/MiniHero';
+import MyFooter from './MyFooter';
+import Messaggistica from './Messaggistica';
+import { useDispatch } from 'react-redux';
+import { SAVE_ME_INFO, SAVE_OTHER_INFO, TOKEN } from '../redux/actions';
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -23,7 +23,7 @@ const ProfilePage = () => {
         setLoading(true);
         const endpoint = id
           ? `https://striveschool-api.herokuapp.com/api/profile/${id}`
-          : "https://striveschool-api.herokuapp.com/api/profile/me";
+          : 'https://striveschool-api.herokuapp.com/api/profile/me';
 
         const response = await fetch(endpoint, {
           headers: {
@@ -32,11 +32,11 @@ const ProfilePage = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Errore nel caricamento del profilo");
+          throw new Error('Errore nel caricamento del profilo');
         }
 
         const data = await response.json();
-        console.log("Profile data:", data);
+        console.log('Profile data:', data);
 
         if (id) {
           dispatch({ type: SAVE_OTHER_INFO, payload: data });
@@ -46,7 +46,7 @@ const ProfilePage = () => {
 
         setError(null);
       } catch (err) {
-        console.error("Errore!", err);
+        console.error('Errore!', err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -54,21 +54,22 @@ const ProfilePage = () => {
     };
 
     fetchProfileData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, dispatch]);
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center min-vh-100">
-        <Spinner animation="border" />
-        <span className="ms-2">Caricamento profilo...</span>
+      <div className='d-flex justify-content-center align-items-center min-vh-100'>
+        <Spinner animation='border' />
+        <span className='ms-2'>Caricamento profilo...</span>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="d-flex justify-content-center align-items-center min-vh-100">
-        <div className="text-center">
+      <div className='d-flex justify-content-center align-items-center min-vh-100'>
+        <div className='text-center'>
           <h4>Errore nel caricamento</h4>
           <p>{error}</p>
         </div>
@@ -87,7 +88,7 @@ const ProfilePage = () => {
           <SidebarProfilo />
         </Col>
       </Row>
-      <div className="mt-5">
+      <div className='mt-5'>
         <Messaggistica />
         <MyFooter />
       </div>
