@@ -1,83 +1,111 @@
-import { Card, Button, Spinner, Alert } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { TOKEN } from "../redux/actions";
+import { Card, Button, Spinner, Alert, Dropdown, Modal } from 'react-bootstrap'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { deletePostAction } from '../redux/actions'
+import PostChanger from './PostChanger'
 
-const DetailCard = ({ itemId, itemType }) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [item, setItem] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+const TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY'
 
-  const numReactions = Math.floor(Math.random() * 200);
-  const numComments = Math.floor(Math.random() * 100);
+const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
+  const dispatch = useDispatch()
+  const myName = useSelector((state) => {
+    return state.saveProfileMe.myProfile.name
+  })
+  const isMyPost = myName === post?.user?.name
+
+  // Stati per modifica/elimina
+  const [show, setShowDelete] = useState(false)
+  const [showModify, setShowModify] = useState(false)
+  const [alert, setAlert] = useState(null)
+
+  const [isLiked, setIsLiked] = useState(false)
+  const [item, setItem] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const navigate = useNavigate()
+
+  const numReactions = Math.floor(Math.random() * 200)
+  const numComments = Math.floor(Math.random() * 100)
 
   useEffect(() => {
     const fetchItemDetails = async () => {
-      console.log("Fetching details for:", { itemId, itemType });
+      console.log('Fetching details for:', { itemId, itemType })
 
       if (!itemId || !itemType) {
-        setError("ID o tipo elemento mancante");
-        setLoading(false);
-        return;
+        setError('ID o tipo elemento mancante')
+        setLoading(false)
+        return
       }
 
       try {
-        // Prima fetch per ottenere il post
         const postResponse = await fetch(
           `https://striveschool-api.herokuapp.com/api/posts/${itemId}`,
           {
             headers: {
               Authorization: `Bearer ${TOKEN}`,
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
           }
-        );
+        )
 
         if (!postResponse.ok) {
-          throw new Error(`HTTP error! status: ${postResponse.status}`);
+          throw new Error(`HTTP error! status: ${postResponse.status}`)
         }
 
-        const postData = await postResponse.json();
-        console.log("Post data:", postData);
+        const postData = await postResponse.json()
 
-        setItem(postData); // Prima settiamo i dati del post
+        // Prima settiamo i dati del post
+        setItem(postData)
 
-        // Poi prendiamo i dati dell'utente se abbiamo un user._id
+        // Verifichiamo che l'user._id esista prima di fare la seconda fetch
         if (postData.user && postData.user._id) {
-          const userResponse = await fetch(
-            `https://striveschool-api.herokuapp.com/api/profile/me`,
-            {
-              headers: {
-                Authorization: `Bearer ${TOKEN}`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
+          try {
+            const userResponse = await fetch(
+              `https://striveschool-api.herokuapp.com/api/profile/${postData.user._id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${TOKEN}`,
+                  'Content-Type': 'application/json',
+                },
+              }
+            )
 
-          if (userResponse.ok) {
-            const userData = await userResponse.json();
-            setItem((prev) => ({
-              ...prev,
-              user: { ...prev.user, ...userData },
-            }));
+            if (userResponse.ok) {
+              const userData = await userResponse.json()
+              setItem((prev) => ({
+                ...prev,
+                user: {
+                  ...prev.user,
+                  ...userData,
+                },
+              }))
+            }
+          } catch (userError) {
+            console.error('Error fetching user data:', userError)
+            // Non settiamo l'errore principale perché abbiamo già i dati del post
           }
         }
       } catch (err) {
-        console.error("Fetch error:", err);
-        setError(err.message);
+        console.error('Fetch error:', err)
+        setError(err.message)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchItemDetails();
-  }, [itemId, itemType]);
+    fetchItemDetails()
+  }, [itemId, itemType])
 
   const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-  };
+    setIsLiked(!isLiked)
+  }
+
+  const handleCloseDelete = () => setShowDelete(false)
+  const handleShowDelete = () => setShowDelete(true)
+  const handleCloseModify = () => setShowModify(false)
+  const handleShowModify = () => setShowModify(true)
 
   if (loading) {
     return (
@@ -86,7 +114,7 @@ const DetailCard = ({ itemId, itemType }) => {
           <span className="visually-hidden">Caricamento...</span>
         </Spinner>
       </Card>
-    );
+    )
   }
 
   if (error) {
@@ -98,7 +126,7 @@ const DetailCard = ({ itemId, itemType }) => {
           Torna indietro
         </Button>
       </Alert>
-    );
+    )
   }
 
   if (!item) {
@@ -108,36 +136,47 @@ const DetailCard = ({ itemId, itemType }) => {
         <p>Il contenuto richiesto non è disponibile.</p>
         <Button variant="outline-warning" onClick={() => navigate(-1)}></Button>
       </Alert>
-    );
+    )
   }
 
   const handleGoBack = () => {
-    navigate(-1);
+    navigate(-1)
     setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 100);
-  };
+      window.scrollTo(0, 0)
+    }, 100)
+  }
 
   return (
     <Card className="shadow">
       <Card.Header className="d-flex align-items-center">
         <img
-          src={
-            item.user?.image ||
-            "https://avatar.iran.liara.run/public://via.placeholder.com/40"
-          }
+          src={post?.user?.image || 'https://avatar.iran.liara.run/public'}
           alt="Profile"
           className="rounded-circle me-3"
-          style={{ width: "50px", height: "50px" }}
+          style={{ width: '50px', height: '50px' }}
         />
-        <div>
+        <div className="flex-grow-1">
           <h5 className="mb-0">
-            {item.user?.name} {item.user?.surname}
+            {post?.user?.name || item.user?.name}{' '}
+            {post?.user?.surname || item.user?.surname}
           </h5>
           <small className="text-muted">
-            {item.user?.title || "Utente LinkedIn"}
+            {post?.user?.title || item.user?.title || 'Utente LinkedIn'}
           </small>
         </div>
+        {isMyPost && (
+          <Dropdown>
+            <Dropdown.Toggle variant="light" id="dropdown-basic">
+              <i className="bi bi-three-dots"></i>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={handleShowModify}>Modifica</Dropdown.Item>
+              <Dropdown.Item variant="primary" onClick={handleShowDelete}>
+                Elimina
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
       </Card.Header>
 
       <Card.Body>
@@ -148,13 +187,13 @@ const DetailCard = ({ itemId, itemType }) => {
               src={item.image}
               alt="Post content"
               className="img-fluid rounded"
-              style={{ maxHeight: "400px" }}
+              style={{ maxHeight: '400px' }}
             />
           </div>
         )}
         <div className="text-muted small">
           <p>
-            Pubblicato il: {new Date(item.createdAt).toLocaleString("it-IT")}
+            Pubblicato il: {new Date(item.createdAt).toLocaleString('it-IT')}
           </p>
         </div>
       </Card.Body>
@@ -162,11 +201,12 @@ const DetailCard = ({ itemId, itemType }) => {
       <div className="card-body ">
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
-            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{" "}
-            {numReactions} reazioni
+            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}
+            {item.likes || 0} reazioni
           </small>
-          <small className="text-muted">{numComments} commenti</small>
+          <small className="text-muted">{item.comments || 0} commenti</small>
         </div>
+
         <div className="d-flex justify-content-around mt-2 pt-2 border-top">
           <button
             className="btn btn-light flex-fill me-1"
@@ -174,10 +214,10 @@ const DetailCard = ({ itemId, itemType }) => {
           >
             <i
               className={`bi bi-hand-thumbs-up-fill me-2 ${
-                isLiked ? "text-primary" : ""
+                isLiked ? 'text-primary' : ''
               }`}
             ></i>
-            <span className={isLiked ? "text-primary" : ""}>Mi piace</span>
+            <span className={isLiked ? 'text-primary' : ''}>Mi piace</span>
           </button>
           <button className="btn btn-light flex-fill me-1">
             <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
@@ -195,7 +235,7 @@ const DetailCard = ({ itemId, itemType }) => {
             src="/profile-icon.png"
             alt="Profile"
             className="rounded-circle me-2"
-            style={{ width: "32px", height: "32px" }}
+            style={{ width: '32px', height: '32px' }}
           />
           <div className="flex-fill position-relative">
             <input
@@ -203,14 +243,14 @@ const DetailCard = ({ itemId, itemType }) => {
               className="form-control rounded-pill"
               placeholder="Aggiungi un commento..."
               style={{
-                paddingRight: "40px",
-                backgroundColor: "#f0f2f5",
-                border: "none",
+                paddingRight: '40px',
+                backgroundColor: '#f0f2f5',
+                border: 'none',
               }}
             />
             <button
               className="btn position-absolute end-0 top-50 translate-middle-y me-2"
-              style={{ border: "none", background: "transparent" }}
+              style={{ border: 'none', background: 'transparent' }}
             >
               <i className="bi bi-emoji-smile text-muted me-3"></i>
               <i className="bi bi-card-image"></i>
@@ -225,8 +265,48 @@ const DetailCard = ({ itemId, itemType }) => {
           Torna indietro
         </Button>
       </Card.Footer>
-    </Card>
-  );
-};
 
-export default DetailCard;
+      {/* Modals for edit/delete */}
+      <Modal show={show} onHide={handleCloseDelete}>
+        <Modal.Header closeButton>
+          <Modal.Title>Attenzione!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Sei sicuro di voler cancellare il post?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDelete}>
+            No
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              dispatch(deletePostAction(item._id))
+              handleCloseDelete()
+              handleGoBack()
+            }}
+            className="px-3"
+          >
+            Sì
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModify} onHide={handleCloseModify} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Modifica Post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
+          <PostChanger
+            setAlert={setAlert}
+            handleCloseModal={handleCloseModify}
+            setCurrentPage={setCurrentPage}
+            doModify={true}
+            postInfo={item}
+          />
+        </Modal.Body>
+      </Modal>
+    </Card>
+  )
+}
+
+export default DetailCard
