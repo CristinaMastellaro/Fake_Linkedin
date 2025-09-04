@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Card, Row, Col } from 'react-bootstrap'
 import { BiPencil, BiTrash, BiPlus, BiRightArrowAlt } from 'react-icons/bi'
 
-const Services = () => {
+const Services = ({ isOwner }) => {
   const [services, setServices] = useState([
     'Sviluppo Web',
     'Sviluppo di database',
@@ -66,10 +66,12 @@ const Services = () => {
       <Card.Body className="border-bottom container">
         <Card.Title className="mb-4 d-flex justify-content-between align-items-center">
           Competenze
-          <BiPlus
-            className="fs-4 add-icon iconehome"
-            onClick={handleAddService}
-          />
+          {isOwner && (
+            <BiPlus
+              className="fs-4 add-icon iconehome"
+              onClick={handleAddService}
+            />
+          )}
         </Card.Title>
         <div className="fw-semibold">
           {services.map((service, index) => (
@@ -92,14 +94,18 @@ const Services = () => {
                 xs={2}
                 className="d-flex justify-content-end align-items-center"
               >
-                <BiPencil
-                  className="fs-6 edit-icon me-2 iconehome"
-                  onClick={() => handleEditClick(index, service)}
-                />
-                <BiTrash
-                  className="fs-6 trash-icon iconehome"
-                  onClick={() => handleDeleteClick(index)}
-                />
+                {isOwner && (
+                  <>
+                    <BiPencil
+                      className="fs-6 edit-icon me-2 iconehome"
+                      onClick={() => handleEditClick(index, service)}
+                    />
+                    <BiTrash
+                      className="fs-6 trash-icon iconehome"
+                      onClick={() => handleDeleteClick(index)}
+                    />
+                  </>
+                )}
               </Col>
             </Row>
           ))}

@@ -8,19 +8,25 @@ import Experiencies from "./Experiencies";
 import Services from "./Services";
 import Interests from "./Interests";
 
-const Main = () => {
+const Main = ({ userId, loggedUserId }) => {
+  // Considera il tuo profilo come "me"
+  const isOwner = userId === "me" || String(userId) === String(loggedUserId);
+
+  console.log("Main.jsx debug:");
+  console.log("userId (profilo visitato):", userId);
+  console.log("loggedUserId (utente loggato):", loggedUserId);
+  console.log("isOwner:", isOwner);
+
   return (
     <section>
       <Hero />
-      <ConsigliatoPerTe />
-      <Analisi />
+      {isOwner && <ConsigliatoPerTe />}
+      {isOwner && <Analisi />}
+
       <Info />
-      {/* Informazioni > c'è so */}
-      {/* Servizi */}
-      <Services />
-      <Attivita />
+      <Services isOwner={isOwner} />
+      <Attivita isOwner={isOwner} />
       <Experiencies />
-      {/* Esperienza */}
       <Education />
       <Interests />
     </section>

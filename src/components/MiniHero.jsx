@@ -34,7 +34,7 @@ const MiniHero = () => {
     <Container
       fluid
       className={
-        "position-fixed end-0 start-0 z-2 bg-light px-4 py-2 d-none d-lg-block start-mini-hero " +
+        "position-fixed end-0 start-0 z-2 bg-light py-2 d-none d-lg-block start-mini-hero " +
         showMiniHero
       }
     >

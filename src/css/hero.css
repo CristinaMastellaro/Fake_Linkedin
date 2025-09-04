@@ -127,6 +127,8 @@
 .start-mini-hero {
   top: -5em;
   transition: all 0.7s linear;
+  padding-left: 8rem;
+  padding-right: 7rem;
 }
 
 .mini-hero {

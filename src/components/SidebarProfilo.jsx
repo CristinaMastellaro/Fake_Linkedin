@@ -165,7 +165,7 @@ const SidebarProfilo = () => {
                 <small className="text-muted text-break">{profileUrl}</small>
               )}
             </div>
-            {!isEditingUrl && (
+            {!id && !isEditingUrl && (
               <i
                 className="bi bi-pencil ms-2"
                 style={{ cursor: "pointer" }}
@@ -182,25 +182,27 @@ const SidebarProfilo = () => {
         </div>
       </div>
 
-      <div className="card shadow">
-        <div className="card-body text-center">
-          <div className="mb-3">
-            <div className="d-inline-block p-3 rounded">
-              <img
-                src="/linkedin-icon.jpg"
-                alt="icona-linkedin"
-                style={{ width: "8rem" }}
-              />
+      {!id && (
+        <div className="card shadow">
+          <div className="card-body text-center">
+            <div className="mb-3">
+              <div className="d-inline-block p-3 rounded">
+                <img
+                  src="/linkedin-icon.jpg"
+                  alt="icona-linkedin"
+                  style={{ width: "8rem" }}
+                />
+              </div>
             </div>
+            <p className="text-muted mb-3">
+              Fatti trovare per le posizioni giuste
+            </p>
+            <button className="btn btn-outline-primary rounded-pill fw-bold">
+              Le tue preferenze
+            </button>
           </div>
-          <p className="text-muted mb-3">
-            Fatti trovare per le posizioni giuste
-          </p>
-          <button className="btn btn-outline-primary rounded-pill fw-bold">
-            Le tue preferenze
-          </button>
         </div>
-      </div>
+      )}
 
       <div className="card my-3 shadow">
         <div className="card-header bg-white border-0 pb-0">
