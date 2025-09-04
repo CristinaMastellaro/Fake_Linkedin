@@ -1,69 +1,69 @@
-import { Card, Row, Col, Button, Modal, Alert, Spinner } from "react-bootstrap";
-import { BiPlus } from "react-icons/bi";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchPosts } from "../redux/actions";
-import "../css/services.css";
-import SinglePost from "./SinglePost";
-import PostChanger from "./PostChanger";
+import { Card, Row, Col, Button, Modal, Alert, Spinner } from 'react-bootstrap'
+import { BiPlus } from 'react-icons/bi'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { fetchPosts } from '../redux/actions'
+import '../css/services.css'
+import SinglePost from './SinglePost'
+import PostChanger from './PostChanger'
 
 const Posts = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const { posts, postsLoading, postsError } = useSelector(
     (state) => state.saveProfileMe
-  );
+  )
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
-    text: "",
-  });
-  const [imageFile, setImageFile] = useState(null);
-  const [alert, setAlert] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 5; // mostra 5 post per pagina
+    text: '',
+  })
+  const [imageFile, setImageFile] = useState(null)
+  const [alert, setAlert] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const postsPerPage = 5 // mostra 5 post per pagina
 
   useEffect(() => {
-    dispatch(fetchPosts());
-  }, [dispatch]);
+    dispatch(fetchPosts())
+  }, [dispatch])
 
   const handleShowModal = () => {
-    setFormData({ text: "" });
-    setImageFile(null);
-    setAlert(null);
-    setShowModal(true);
-  };
+    setFormData({ text: '' })
+    setImageFile(null)
+    setAlert(null)
+    setShowModal(true)
+  }
 
   const handleCloseModal = () => {
-    setShowModal(false);
-    setFormData({ text: "" });
-    setImageFile(null);
-    setAlert(null);
-  };
+    setShowModal(false)
+    setFormData({ text: '' })
+    setImageFile(null)
+    setAlert(null)
+  }
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const indexOfLastPost = currentPage * postsPerPage
+  const indexOfFirstPost = indexOfLastPost - postsPerPage
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
+  const totalPages = Math.ceil(posts.length / postsPerPage)
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      setCurrentPage(currentPage + 1)
     }
-  };
+  }
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setCurrentPage(currentPage - 1)
     }
-  };
+  }
 
   const handleFirstPage = () => {
-    setCurrentPage(1);
-  };
+    setCurrentPage(1)
+  }
 
   const handleLastPage = () => {
-    setCurrentPage(totalPages);
-  };
+    setCurrentPage(totalPages)
+  }
 
   return (
     <>
@@ -166,7 +166,7 @@ const Posts = () => {
         </Modal.Body>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default Posts;
+export default Posts

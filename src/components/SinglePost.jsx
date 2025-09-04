@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Dropdown, Modal, Button, Alert } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { deletePostAction } from '../redux/actions'
+import { deletePostAction } from '../redux/actions/index'
 import PostChanger from './PostChanger'
 import { useNavigate } from 'react-router-dom'
 import '../css/singlePost.css'
@@ -14,8 +14,19 @@ const SinglePost = ({ post, setCurrentPage }) => {
   const isMyPost = myName === post.user?.name
 
   const [alert, setAlert] = useState(null)
+
+  // Stati like/reazioni e commenti
   const [isLiked, setIsLiked] = useState(false)
+  const [reactions, setReactions] = useState(
+    () => Math.floor(Math.random() * 99) + 2 // 2–100
+  )
+  const [comments, setComments] = useState(
+    () => Math.floor(Math.random() * 99) + 2 // 2–100
+  )
+
   const handleLikeClick = () => {
+    const increment = Math.floor(Math.random() * 15) + 1
+    setReactions((prev) => prev + increment)
     setIsLiked(!isLiked)
   }
 
@@ -28,9 +39,6 @@ const SinglePost = ({ post, setCurrentPage }) => {
   const [showModify, setShowModify] = useState(false)
   const handleCloseModify = () => setShowModify(false)
   const handleShowModify = () => setShowModify(true)
-
-  const numReactions = Math.floor(Math.random() * 200)
-  const numComments = Math.floor(Math.random() * 100)
 
   const handlePostClick = (e) => {
     if (e.target.closest('.dropdown') || e.target.closest('.dropdown-menu')) {
@@ -105,9 +113,9 @@ const SinglePost = ({ post, setCurrentPage }) => {
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
             <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}
-            {numReactions} reazioni
+            {reactions} reazioni
           </small>
-          <small className="text-muted">{numComments} commenti</small>
+          <small className="text-muted">{comments} commenti</small>
         </div>
 
         <div className="d-flex justify-content-around mt-2 pt-2 border-top">

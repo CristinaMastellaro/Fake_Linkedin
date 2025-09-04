@@ -2,7 +2,7 @@ import { Card, Button, Spinner, Alert, Dropdown, Modal } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { deletePostAction } from '../redux/actions'
+import { deletePostAction } from '../redux/actions/index'
 import PostChanger from './PostChanger'
 
 const TOKEN =
@@ -20,19 +20,22 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
   const [showModify, setShowModify] = useState(false)
   const [alert, setAlert] = useState(null)
 
+  // Stati like/reazioni e commenti
   const [isLiked, setIsLiked] = useState(false)
+  const [reactions, setReactions] = useState(
+    () => Math.floor(Math.random() * 99) + 2 // 2–100
+  )
+  const [comments, setComments] = useState(
+    () => Math.floor(Math.random() * 99) + 2 // 2–100
+  )
+
   const [item, setItem] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
-  const numReactions = Math.floor(Math.random() * 200)
-  const numComments = Math.floor(Math.random() * 100)
-
   useEffect(() => {
     const fetchItemDetails = async () => {
-      console.log('Fetching details for:', { itemId, itemType })
-
       if (!itemId || !itemType) {
         setError('ID o tipo elemento mancante')
         setLoading(false)
@@ -55,11 +58,8 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
         }
 
         const postData = await postResponse.json()
-
-        // Prima settiamo i dati del post
         setItem(postData)
 
-        // Verifichiamo che l'user._id esista prima di fare la seconda fetch
         if (postData.user && postData.user._id) {
           try {
             const userResponse = await fetch(
@@ -84,7 +84,6 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
             }
           } catch (userError) {
             console.error('Error fetching user data:', userError)
-            // Non settiamo l'errore principale perché abbiamo già i dati del post
           }
         }
       } catch (err) {
@@ -99,6 +98,8 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
   }, [itemId, itemType])
 
   const handleLikeClick = () => {
+    const increment = Math.floor(Math.random() * 15) + 1
+    setReactions((prev) => prev + increment)
     setIsLiked(!isLiked)
   }
 
@@ -150,7 +151,11 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
     <Card className="shadow">
       <Card.Header className="d-flex align-items-center">
         <img
-          src={post?.user?.image || 'https://avatar.iran.liara.run/public'}
+          src={
+            post?.user?.image ||
+            item.user?.image ||
+            'https://avatar.iran.liara.run/public'
+          }
           alt="Profile"
           className="rounded-circle me-3"
           style={{ width: '50px', height: '50px' }}
@@ -202,9 +207,9 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
             <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}
-            {item.likes || 0} reazioni
+            {reactions} reazioni
           </small>
-          <small className="text-muted">{item.comments || 0} commenti</small>
+          <small className="text-muted">{comments} commenti</small>
         </div>
 
         <div className="d-flex justify-content-around mt-2 pt-2 border-top">
