@@ -1,89 +1,96 @@
-import { Card, Button, Modal, Alert, Spinner } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
-import { createPost, fetchPosts } from '../redux/actions'
-import '../css/services.css'
-import SinglePost from './SinglePost'
-import PostChanger from './PostChanger'
-import '../css/postChanger.css'
+import { Card, Button, Modal, Alert, Spinner } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { createPost, fetchPosts, setPageAction } from "../redux/actions";
+import "../css/services.css";
+import SinglePost from "./SinglePost";
+import PostChanger from "./PostChanger";
+import "../css/postChanger.css";
 
 const Posts = () => {
-  const dispatch = useDispatch()
-  const { posts, postsLoading, postsError, myProfile } = useSelector(
-    (state) => state.saveProfileMe
-  )
+  const dispatch = useDispatch();
+  const { posts, postsLoading, postsError, myProfile, setPageHome } =
+    useSelector((state) => state.saveProfileMe);
 
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    text: '',
-  })
-  const [imageFile, setImageFile] = useState(null)
-  const [alert, setAlert] = useState(null)
-  const [currentPage, setCurrentPage] = useState(1)
-  const postsPerPage = 5 // mostra 5 post per pagina
+    text: "",
+  });
+  const [imageFile, setImageFile] = useState(null);
+  const [alert, setAlert] = useState(null);
+  const [currentPage, setCurrentPage] = useState(setPageHome);
+  const postsPerPage = 5; // mostra 5 post per pagina
 
   useEffect(() => {
-    dispatch(fetchPosts())
-  }, [dispatch])
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setCurrentPage(setPageHome);
+  }, [setPageHome]);
 
   const createPostOnlyText = async () => {
-    await dispatch(createPost(formData, ''))
+    await dispatch(createPost(formData, ""));
 
-    setAlert({ type: 'success', message: 'Post creato con successo.' })
-    dispatch(fetchPosts())
+    setAlert({ type: "success", message: "Post creato con successo." });
+    dispatch(fetchPosts());
     // Torna alla prima pagina dopo la creazione del post
-    setCurrentPage(1)
-    handleCloseCreate()
-  }
+    setCurrentPage(1);
+    handleCloseCreate();
+  };
 
-  const [changeOnlyImage, setChangeOnlyImage] = useState(false)
-  const [showModalCreate, setShowModalCreate] = useState(false)
+  const [changeOnlyImage, setChangeOnlyImage] = useState(false);
+  const [showModalCreate, setShowModalCreate] = useState(false);
 
   const handleCloseCreate = () => {
-    setShowModalCreate(false)
-    setFormData({ text: '' })
-    setAlert(null)
-  }
+    setShowModalCreate(false);
+    setFormData({ text: "" });
+    setAlert(null);
+  };
 
   const handleShowModal = () => {
-    setFormData({ text: '' })
-    setImageFile(null)
-    setAlert(null)
-    setShowModal(true)
-  }
+    setFormData({ text: "" });
+    setImageFile(null);
+    setAlert(null);
+    setShowModal(true);
+  };
 
   const handleCloseModal = () => {
-    setShowModal(false)
-    setFormData({ text: '' })
-    setImageFile(null)
-    setAlert(null)
-    setChangeOnlyImage(false)
-  }
+    setShowModal(false);
+    setFormData({ text: "" });
+    setImageFile(null);
+    setAlert(null);
+    setChangeOnlyImage(false);
+  };
 
-  const indexOfLastPost = currentPage * postsPerPage
-  const indexOfFirstPost = indexOfLastPost - postsPerPage
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
-  const totalPages = Math.ceil(posts.length / postsPerPage)
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(posts.length / postsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1)
+      setCurrentPage(currentPage + 1);
+      dispatch(setPageAction(currentPage + 1));
     }
-  }
+  };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
+      setCurrentPage(currentPage - 1);
+      dispatch(setPageAction(currentPage - 1));
     }
-  }
+  };
 
   const handleFirstPage = () => {
-    setCurrentPage(1)
-  }
+    setCurrentPage(1);
+    dispatch(setPageAction(1));
+  };
 
   const handleLastPage = () => {
-    setCurrentPage(totalPages)
-  }
+    setCurrentPage(totalPages);
+    dispatch(setPageAction(totalPages));
+  };
 
   return (
     <>
@@ -91,8 +98,8 @@ const Posts = () => {
         <div className="card-body">
           <form
             onSubmit={(e) => {
-              e.preventDefault()
-              setShowModalCreate(true)
+              e.preventDefault();
+              setShowModalCreate(true);
             }}
           >
             <div className="d-flex align-items-center mb-3">
@@ -100,7 +107,7 @@ const Posts = () => {
                 src="/profile-icon.png"
                 alt="Profile"
                 className="rounded-circle me-3"
-                style={{ width: '50px', height: '50px' }}
+                style={{ width: "50px", height: "50px" }}
               />
               <input
                 type="text"
@@ -108,9 +115,9 @@ const Posts = () => {
                 placeholder="Crea un post"
                 value={formData.text}
                 onChange={(e) => {
-                  setFormData({ text: e.target.value })
+                  setFormData({ text: e.target.value });
                 }}
-                style={{ backgroundColor: '#f3f2ef', border: 'none' }}
+                style={{ backgroundColor: "#f3f2ef", border: "none" }}
               />
             </div>
           </form>
@@ -118,8 +125,8 @@ const Posts = () => {
             <button
               className="btn btn-light d-flex align-items-center"
               onClick={() => {
-                handleShowModal()
-                setChangeOnlyImage(true)
+                handleShowModal();
+                setChangeOnlyImage(true);
               }}
             >
               <i className="bi bi-camera-video text-primary me-2"></i>
@@ -128,8 +135,8 @@ const Posts = () => {
             <button
               className="btn btn-light d-flex align-items-center"
               onClick={() => {
-                handleShowModal()
-                setChangeOnlyImage(true)
+                handleShowModal();
+                setChangeOnlyImage(true);
               }}
             >
               <i className="bi bi-image text-success me-2"></i>
@@ -281,7 +288,7 @@ const Posts = () => {
         </Modal.Body>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Posts
+export default Posts;
