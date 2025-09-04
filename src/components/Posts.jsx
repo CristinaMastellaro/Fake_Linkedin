@@ -1,4 +1,4 @@
-import { Card, Row, Col, Button, Modal, Alert, Spinner } from "react-bootstrap";
+import { Card, Button, Modal, Alert, Spinner } from "react-bootstrap";
 import { BiPlus } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -6,10 +6,11 @@ import { createPost, fetchPosts } from "../redux/actions";
 import "../css/services.css";
 import SinglePost from "./SinglePost";
 import PostChanger from "./PostChanger";
+import "../css/postChanger.css";
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const { posts, postsLoading, postsError } = useSelector(
+  const { posts, postsLoading, postsError, myProfile } = useSelector(
     (state) => state.saveProfileMe
   );
 
@@ -36,7 +37,7 @@ const Posts = () => {
     handleCloseCreate();
   };
 
-  // show={showModalCreate} onHide={handleCloseCreate}
+  const [changeOnlyImage, setChangeOnlyImage] = useState(false);
   const [showModalCreate, setShowModalCreate] = useState(false);
 
   const handleCloseCreate = () => {
@@ -57,6 +58,7 @@ const Posts = () => {
     setFormData({ text: "" });
     setImageFile(null);
     setAlert(null);
+    setChangeOnlyImage(false);
   };
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -116,14 +118,20 @@ const Posts = () => {
           <div className="d-flex justify-content-around">
             <button
               className="btn btn-light d-flex align-items-center"
-              onClick={handleShowModal}
+              onClick={() => {
+                handleShowModal();
+                setChangeOnlyImage(true);
+              }}
             >
               <i className="bi bi-camera-video text-primary me-2"></i>
               Video
             </button>
             <button
               className="btn btn-light d-flex align-items-center"
-              onClick={handleShowModal}
+              onClick={() => {
+                handleShowModal();
+                setChangeOnlyImage(true);
+              }}
             >
               <i className="bi bi-image text-success me-2"></i>
               Foto
@@ -224,7 +232,21 @@ const Posts = () => {
 
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Crea Nuovo Post</Modal.Title>
+          {/* <Modal.Title> */}
+          <div className="d-flex align-items-center gap-3">
+            <img
+              src={myProfile.image}
+              alt="Profile picture"
+              className="picture-new-post"
+            />
+            <div>
+              <p className="mb-0 fw-bold fs-5 line lh-2">
+                {myProfile.name} {myProfile.surname}
+              </p>
+              <p className="mb-0 small opacity-75 fs-7">Crea nuovo post</p>
+            </div>
+          </div>
+          {/* </Modal.Title> */}
         </Modal.Header>
         <Modal.Body>
           {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
@@ -233,6 +255,8 @@ const Posts = () => {
             handleCloseModal={handleCloseModal}
             setCurrentPage={() => setCurrentPage}
             doModify={false}
+            myProfile={myProfile}
+            changeOnlyImage={changeOnlyImage}
           />
         </Modal.Body>
       </Modal>

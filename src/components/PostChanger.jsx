@@ -3,7 +3,8 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, fetchPosts, modifyPostAction } from "../redux/actions";
 import "../css/postChanger.css";
-import { BiImageAdd, BiSmile, BiCalendar } from "react-icons/bi";
+import { BiImageAdd, BiSmile, BiCalendar, BiPlus } from "react-icons/bi";
+import changeImagePicture from "../assets/CreateImage.png";
 
 const PostChanger = ({
   setAlert,
@@ -11,6 +12,7 @@ const PostChanger = ({
   setCurrentPage,
   doModify,
   postInfo,
+  changeOnlyImage,
 }) => {
   console.log("postInfo", postInfo);
   const { postsLoading } = useSelector((state) => state.saveProfileMe);
@@ -24,6 +26,8 @@ const PostChanger = ({
 
   const dispatch = useDispatch();
 
+  const [isImageAdded, setIsImageAdded] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -31,12 +35,14 @@ const PostChanger = ({
 
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
+    console.log("e.target.files[0]", e.target.files[0]);
+    setIsImageAdded(true);
   };
 
   const handleSubmitCreate = async (e) => {
     e.preventDefault();
 
-    if (!formData.text.trim()) {
+    if (!formData.text.trim() && !changeOnlyImage) {
       setAlert({
         type: "danger",
         message: "Il testo del post è obbligatorio.",
@@ -44,7 +50,11 @@ const PostChanger = ({
       return;
     }
     try {
-      await dispatch(createPost(formData, imageFile));
+      if (changeOnlyImage) {
+        await dispatch(createPost({ text: "T" }, imageFile));
+      } else {
+        await dispatch(createPost(formData, imageFile));
+      }
 
       setAlert({ type: "success", message: "Post creato con successo." });
       dispatch(fetchPosts());
@@ -62,31 +72,88 @@ const PostChanger = ({
   const handleSubmitModify = (e) => {
     e.preventDefault();
     console.log("formData.text", formData);
-    dispatch(modifyPostAction(postInfo._id, formData, imageFile));
+    if (changeOnlyImage) {
+      dispatch(modifyPostAction(postInfo._id, formData, imageFile));
+    } else {
+      dispatch(modifyPostAction(postInfo._id, formData, imageFile));
+    }
   };
+
+  const imageChanger = (
+    <>
+      <BiSmile className="icons-form mt-0 ms-3" />
+      <div className="mb-2 d-flex">
+        <div>
+          <label for="file-upload" class="custom-file-upload">
+            <BiImageAdd className="icons-form" />
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            // className="fs-3"
+            onChange={handleFileChange}
+          />
+        </div>
+        <BiCalendar className="icons-form" />
+        <BiPlus className="icons-form" />
+      </div>
+      {isImageAdded && <Alert variant="success">Immagine aggiunta!</Alert>}
+    </>
+  );
 
   return (
     <Form onSubmit={doModify ? handleSubmitModify : handleSubmitCreate}>
-      <Form.Group className="mb-3" controlId="text">
-        {/* <Form.Label>Testo del Post</Form.Label> */}
-        <Form.Control
-          as="textarea"
-          rows={8}
-          name="text"
-          value={formData.text}
-          onChange={handleChange}
-          // placeholder="Scrivi qualcosa..."
-          placeholder="Di cosa vorresti parlare?"
-          required
-        />
-      </Form.Group>
-      {keepAlert ? (
+      {changeOnlyImage ? (
+        <section className="py-3 d-flex flex-column align-items-center justify-content-center">
+          <img
+            src={changeImagePicture}
+            alt="Picture of a man changing picture"
+          />
+          <h5 className="mt-3">Per iniziare, seleziona il file</h5>
+          <p className="small">Condividi un'immagine nel tuo post!</p>
+
+          <label
+            for="file-upload"
+            class="mt-3 custom-file-upload bg-primary-subtle p-2 rounded-pill px-4 carica"
+          >
+            Carica immagine
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            // className="fs-3"
+            onChange={handleFileChange}
+          />
+          {isImageAdded && (
+            <Alert variant="success" className="py-2 mb-0 mt-3 small">
+              Immagine aggiunta!
+            </Alert>
+          )}
+        </section>
+      ) : (
+        <Form.Group className="mb-3" controlId="text">
+          {/* <Form.Label>Testo del Post</Form.Label> */}
+          <Form.Control
+            as="textarea"
+            rows={7}
+            name="text"
+            value={formData.text}
+            onChange={handleChange}
+            className="border-0 fs-6"
+            // placeholder="Scrivi qualcosa..."
+            placeholder="Di cosa vorresti parlare?"
+            required
+          />
+        </Form.Group>
+      )}
+
+      {keepAlert && (
         <>
           <Alert>
             Vuoi modificare anche l'immagine? Se sì, l'immagine precedente verrà
             persa.
           </Alert>
-          <div className="d-flex justify-content-end gap-2">
+          <div className="d-flex justify-content-start gap-2">
             <Button
               variant="danger"
               onClick={() => {
@@ -106,45 +173,37 @@ const PostChanger = ({
             </Button>
           </div>
         </>
-      ) : (
-        ""
       )}
-      {doModify ? (
-        ""
-      ) : (
-        <>
-          <BiSmile className="icons-form mt-0 ms-3" />
-          <div className="mb-2 d-flex">
-            <div>
-              <label for="file-upload" class="custom-file-upload">
-                <BiImageAdd className="icons-form" />
-              </label>
-              <input
-                id="file-upload"
-                type="file"
-                // className="fs-3"
-                onChange={handleFileChange}
-              />
-            </div>
-            <BiCalendar className="icons-form" />
-          </div>
-        </>
-        // <Form.Group controlId="imageFile" className="mb-3">
-        //   <Form.Label>Immagine (opzionale)</Form.Label>
-        //   <Form.Control type="file" onChange={handleFileChange} />
-        // </Form.Group>
+      {!doModify && !changeOnlyImage && imageChanger}
+      {doChangeImage && (
+        <div className="d-flex align-items-center gap-2">
+          <label for="file-upload" class="custom-file-upload">
+            <BiImageAdd className="icons-form" />
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            // className="fs-3"
+            onChange={handleFileChange}
+          />
+          {isImageAdded && (
+            <Alert variant="success" className="py-2 mb-0">
+              Immagine aggiunta!
+            </Alert>
+          )}
+        </div>
       )}
-      {doChangeImage ? (
-        <Form.Group controlId="imageFile" className="mb-3">
-          <Form.Label>Immagine (opzionale)</Form.Label>
-          <Form.Control type="file" onChange={handleFileChange} />
-        </Form.Group>
-      ) : (
-        ""
-      )}
-      <Button variant="primary" type="submit" disabled={postsLoading}>
-        {postsLoading ? "Pubblicando..." : "Pubblica"}
-      </Button>
+      <div className="d-flex justify-content-end mt-2">
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={postsLoading}
+          className="rounded-pill px-4"
+          onClick={() => setIsImageAdded(false)}
+        >
+          {postsLoading ? "Pubblicando..." : "Pubblica"}
+        </Button>
+      </div>
     </Form>
   );
 };

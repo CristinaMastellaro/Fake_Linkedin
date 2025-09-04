@@ -82,8 +82,9 @@ const SinglePost = ({ post, setCurrentPage }) => {
               </Dropdown>
             )}
           </div>
-
-          <p className="card-text">{post.text}</p>
+          <p className={"T" !== post.text ? "card-text" : "d-none"}>
+            {post.text}
+          </p>
 
           {post.image && (
             <img
