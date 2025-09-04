@@ -1,9 +1,20 @@
 import { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, fetchPosts, modifyPostAction } from "../redux/actions";
+import {
+  createPost,
+  fetchPosts,
+  modifyPostAction,
+  uploadPostImage,
+} from "../redux/actions";
 import "../css/postChanger.css";
-import { BiImageAdd, BiSmile, BiCalendar, BiPlus } from "react-icons/bi";
+import {
+  BiImageAdd,
+  BiSmile,
+  BiCalendar,
+  BiPlus,
+  BiImage,
+} from "react-icons/bi";
 import changeImagePicture from "../assets/CreateImage.png";
 
 const PostChanger = ({
@@ -27,6 +38,8 @@ const PostChanger = ({
   const dispatch = useDispatch();
 
   const [isImageAdded, setIsImageAdded] = useState(false);
+  const [deleteImage, setDeleteImage] = useState(false);
+  const [messageDeleteImage, setMessageDeleteImage] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -178,7 +191,7 @@ const PostChanger = ({
       {!doModify && !changeOnlyImage && imageChanger}
       {doChangeImage && (
         <div className="d-flex align-items-center gap-2">
-          <label for="file-upload" className="custom-file-upload">
+          <label for="file-upload" className="custom-file-upload d-flex gap-4">
             <BiImageAdd className="icons-form" />
           </label>
           <input
@@ -187,12 +200,48 @@ const PostChanger = ({
             // className="fs-3"
             onChange={handleFileChange}
           />
+          <div
+            className="position-relative"
+            onClick={() => setDeleteImage(true)}
+          >
+            <BiImage className="icons-form" />
+            <i className="bi bi-x-lg position-absolute sovrapposto"></i>
+          </div>
           {isImageAdded && (
             <Alert variant="success" className="py-2 mb-0">
               Immagine aggiunta!
             </Alert>
           )}
         </div>
+      )}
+      {deleteImage && (
+        <>
+          <Alert variant="danger">Eliminare l'immagine?</Alert>
+          <div>
+            <Button
+              variant="success"
+              className="px-3 me-2"
+              onClick={() => {
+                setDeleteImage(false);
+                setMessageDeleteImage(true);
+                dispatch(uploadPostImage(postInfo, null));
+              }}
+            >
+              Sì
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setDeleteImage(false);
+              }}
+            >
+              No
+            </Button>
+          </div>
+        </>
+      )}
+      {messageDeleteImage && (
+        <Alert variant="success">Immagine eliminata!</Alert>
       )}
       <div className="d-flex justify-content-end mt-2">
         <Button
