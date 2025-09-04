@@ -40,18 +40,26 @@ const SinglePost = ({ post, setCurrentPage }) => {
   const handleShowModify = () => setShowModify(true)
 
   const handlePostClick = (e) => {
-    if (e.target.closest('.dropdown') || e.target.closest('.dropdown-menu')) {
+    if (
+      e.target.closest('.dropdown') ||
+      e.target.closest('.dropdown-menu') ||
+      e.target.closest('.profile-link')
+    ) {
       e.stopPropagation()
       return
     }
+    navigate(`/details/post/${post._id}`)
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 100)
+  }
 
-    if (!e.target.closest('.dropdown')) {
-      navigate(`/details/post/${post._id}`)
-
-      setTimeout(() => {
-        window.scrollTo(0, 0)
-      }, 100)
-    }
+  const handleProfileClick = (e) => {
+    e.stopPropagation()
+    navigate(`/profile/${post.user._id}`)
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 100)
   }
 
   return (
@@ -59,14 +67,24 @@ const SinglePost = ({ post, setCurrentPage }) => {
       <div onClick={handlePostClick} style={{ cursor: 'pointer' }}>
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
-            <img
-              src={post.user?.image || 'https://avatar.iran.liara.run/public'}
-              alt="Profile"
-              className="rounded-circle me-3"
-              style={{ width: '50px', height: '50px' }}
-            />
+            <div
+              className="profile-link"
+              onClick={handleProfileClick}
+              style={{ cursor: 'pointer' }}
+            >
+              <img
+                src={post.user?.image || 'https://avatar.iran.liara.run/public'}
+                alt="Profile"
+                className="rounded-circle me-3"
+                style={{ width: '50px', height: '50px' }}
+              />
+            </div>
             <div className="flex-grow-1">
-              <h6 className="mb-0 fw-bold">
+              <h6
+                className="mb-0 fw-bold profile-link"
+                onClick={handleProfileClick}
+                style={{ cursor: 'pointer' }}
+              >
                 {post.user?.name} {post.user?.surname}
               </h6>
               <small className="text-muted">
@@ -90,22 +108,24 @@ const SinglePost = ({ post, setCurrentPage }) => {
               </Dropdown>
             )}
           </div>
-          <p className={'T' !== post.text ? 'card-text' : 'd-none'}>
-            {post.text}
-          </p>
+          <div>
+            <p className={'T' !== post.text ? 'card-text' : 'd-none'}>
+              {post.text}
+            </p>
 
-          {post.image && (
-            <img
-              src={post.image}
-              alt="Post"
-              className="img-fluid rounded"
-              style={{
-                maxHeight: '300px',
-                width: '100%',
-                objectFit: 'cover',
-              }}
-            />
-          )}
+            {post.image && (
+              <img
+                src={post.image}
+                alt="Post"
+                className="img-fluid rounded"
+                style={{
+                  maxHeight: '300px',
+                  width: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+            )}
+          </div>
         </div>
       </div>
 
