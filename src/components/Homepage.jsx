@@ -1,22 +1,22 @@
-import { Container, Row, Col, Collapse } from 'react-bootstrap'
-import HomeMain from './HomeMain'
-import SidebarHome from './SidebarHome'
-import LeftSidebarHome from './LeftSidebarHome'
-import Messaggistica from './Messaggistica'
-import { useState, useEffect, useRef } from 'react'
-import '../css/footerHome.css'
-import MyFooter from './MyFooter'
+import { Container, Row, Col, Collapse } from 'react-bootstrap';
+import HomeMain from './HomeMain';
+import SidebarHome from './SidebarHome';
+import LeftSidebarHome from './LeftSidebarHome';
+import Messaggistica from './Messaggistica';
+import { useState, useEffect, useRef } from 'react';
+import '../css/footerHome.css';
+import MyFooter from './MyFooter';
 
 const Homepage = () => {
-  const [showFooter, setShowFooter] = useState(false)
-  const footerRef = useRef(null)
+  const [showFooter, setShowFooter] = useState(false);
+  const footerRef = useRef(null);
 
   useEffect(() => {
     // Reset dello scroll quando il componente viene montato
     setTimeout(() => {
-      window.scrollTo(0, 0)
-    }, 100)
-  }, []) // Si attiva solo al mount del componente
+      window.scrollTo(0, 0);
+    }, 100);
+  }, []); // Si attiva solo al mount del componente
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -25,25 +25,25 @@ const Homepage = () => {
         footerRef.current &&
         !footerRef.current.contains(event.target)
       ) {
-        setShowFooter(false)
+        setShowFooter(false);
       }
-    }
+    };
 
-    document.addEventListener('mousedown', handleOutsideClick)
+    document.addEventListener('mousedown', handleOutsideClick);
 
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick)
-    }
-  }, [showFooter])
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showFooter]);
 
   return (
     <>
-      <Container className="homepage bg-light min-vh-100 py-4">
-        <Row className="justify-content-center">
+      <Container className='homepage bg-light min-vh-100 py-4'>
+        <Row className='justify-content-center'>
           <Col xs={12} md={4} lg={3}>
-            {/* <div className="position-fixed"> */}
-            <LeftSidebarHome />
-            {/* </div> */}
+            <div style={{ position: 'sticky', top: '80px', zIndex: 2 }}>
+              <LeftSidebarHome />
+            </div>
           </Col>
           <Col xs={12} md={8} lg={6}>
             <HomeMain />
@@ -51,18 +51,18 @@ const Homepage = () => {
           <Col xs={12} lg={3}>
             <SidebarHome />
             <Container
-              className="mt-4"
+              className='mt-4'
               style={{ position: 'sticky', top: '424px', zIndex: 2 }}
             >
               <div
-                className="d-flex justify-content-around small px-5"
+                className='d-flex justify-content-around small px-5'
                 style={{ cursor: 'pointer' }}
               >
                 <p
-                  className="small footer-link"
+                  className='small footer-link'
                   style={{ cursor: 'pointer', color: '#0a66c2' }}
                   onClick={() => {
-                    setShowFooter(!showFooter)
+                    setShowFooter(!showFooter);
                   }}
                 >
                   Informazioni
@@ -70,18 +70,18 @@ const Homepage = () => {
                 <p
                   style={{ cursor: 'pointer' }}
                   onClick={() => setShowFooter(!showFooter)}
-                  className="small footer-link"
+                  className='small footer-link'
                 >
                   Altro
                 </p>
               </div>
-              <div className="d-flex align-items-center px-2 small">
+              <div className='d-flex align-items-center px-2 small'>
                 <img
-                  src="/logo-linkedin-scritto.png"
+                  src='/logo-linkedin-scritto.png'
                   width={65}
-                  alt="LinkedIn Logo"
+                  alt='LinkedIn Logo'
                 />
-                <p className="small mb-0">
+                <p className='small mb-0'>
                   Linkedin Corporation &copy; {new Date().getFullYear()}
                 </p>
               </div>
@@ -90,13 +90,13 @@ const Homepage = () => {
         </Row>
       </Container>
       <Messaggistica />
-      {showFooter && <div className="overlay-footer" />}
+      {showFooter && <div className='overlay-footer' />}
       <Collapse in={showFooter}>
-        <div className="footer-dropup">
-          <div className="d-flex justify-content-end">
+        <div className='footer-dropup'>
+          <div className='d-flex justify-content-end'>
             <button
-              className="close-button fs-1"
-              title="Chiudi"
+              className='close-button fs-1'
+              title='Chiudi'
               onClick={() => setShowFooter(false)}
             >
               &times;
@@ -107,7 +107,7 @@ const Homepage = () => {
         </div>
       </Collapse>
     </>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;
