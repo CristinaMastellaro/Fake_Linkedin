@@ -28,7 +28,11 @@ const Messaggistica = () => {
         </button>
       )}
       {isMessagesOpen && (
-        <div className={`messages-dropdown ${isClosing ? 'closing' : ''}`}>
+        <div
+          className={`messages-dropdown d-none d-xxl-block ${
+            isClosing ? 'closing' : ''
+          }`}
+        >
           <div className="messages-header">
             <div className="messages-title">
               <img

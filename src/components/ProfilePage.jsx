@@ -5,6 +5,7 @@ import SidebarProfilo from '../components/SidebarProfilo'
 import { Row, Col, Spinner } from 'react-bootstrap'
 import MiniHero from '../components/MiniHero'
 import MyFooter from './MyFooter'
+import Messaggistica from './Messaggistica'
 import { useDispatch } from 'react-redux'
 import { SAVE_ME_INFO, SAVE_OTHER_INFO } from '../redux/actions'
 
@@ -38,7 +39,6 @@ const ProfilePage = () => {
         const data = await response.json()
         console.log('Profile data:', data)
 
-        // Usa SAVE_OTHER_INFO per profili altrui, SAVE_ME_INFO per il proprio profilo
         if (id) {
           dispatch({ type: SAVE_OTHER_INFO, payload: data })
         } else {
@@ -89,6 +89,7 @@ const ProfilePage = () => {
         </Col>
       </Row>
       <div className="mt-5">
+        <Messaggistica />
         <MyFooter />
       </div>
     </>
