@@ -84,7 +84,7 @@ const PostChanger = ({
       <BiSmile className="icons-form mt-0 ms-3" />
       <div className="mb-2 d-flex">
         <div>
-          <label for="file-upload" class="custom-file-upload">
+          <label for="file-upload" className="custom-file-upload">
             <BiImageAdd className="icons-form" />
           </label>
           <input
@@ -114,7 +114,7 @@ const PostChanger = ({
 
           <label
             for="file-upload"
-            class="mt-3 custom-file-upload bg-primary-subtle p-2 rounded-pill px-4 carica"
+            className="mt-3 custom-file-upload bg-primary-subtle p-2 rounded-pill px-4 carica"
           >
             Carica immagine
           </label>
@@ -177,7 +177,7 @@ const PostChanger = ({
       {!doModify && !changeOnlyImage && imageChanger}
       {doChangeImage && (
         <div className="d-flex align-items-center gap-2">
-          <label for="file-upload" class="custom-file-upload">
+          <label for="file-upload" className="custom-file-upload">
             <BiImageAdd className="icons-form" />
           </label>
           <input
