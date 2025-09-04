@@ -42,36 +42,37 @@ function SidebarHome() {
   return (
     <>
       <div className='card mb-3 shadow-sm'>
-        <div className='card-body'>
-          <div>
+        <div className='card-body p-0'>
+          <div className='px-3 pt-3 d-flex justify-content-between'>
             <h5 className='fw-bold'>LinkedIn Notizie</h5>
+            <i class='bi bi-info-square-fill'></i>
           </div>
-          <div>
+          <div className='px-3'>
             <h6 className='text-muted fw-bold'>Storie Principali</h6>
           </div>
-          <div className=' link'>
+          <div className='link px-3'>
             <p className='mb-0 fw-bold'>Venezia 82: racconti dal Lido</p>
-            <p className='fw-6 text-muted small'>
+            <p className='fw-6 text-muted small mb-2'>
               4 giorni fa &bull; 1.869 lettori
             </p>
           </div>
-          <div className=' link'>
+          <div className='link px-3'>
             <p className='mb-0 fw-bold'>Greenpeace Italia cambia guida</p>
-            <p className='fw-6 text-muted small'>3 ore fa</p>
+            <p className='fw-6 text-muted small mb-2'>3 ore fa</p>
           </div>
-          <div className=' link'>
+          <div className='link px-3'>
             <p className='mb-0 fw-bold'>Si (ri)parla di caro scuola</p>
-            <p className='fw-6 text-muted small'>25 minuti fa</p>
+            <p className='fw-6 text-muted small mb-2'>25 minuti fa</p>
           </div>
-          <div className=' link'>
+          <div className='link px-3'>
             <p className='mb-0 fw-bold'>Smart working e lavoro femminile</p>
-            <p className='fw-6 text-muted small'>
+            <p className='fw-6 text-muted small mb-2'>
               3 giorni fa &bull; 1.394 lettori
             </p>
           </div>
-          <div className=' link'>
+          <div className=' link px-3'>
             <p className='mb-0 fw-bold'>Fame di data center</p>
-            <p className='fw-6 text-muted small'>
+            <p className='fw-6 text-muted small mb-2'>
               5 giorni fa &bull; 698 lettori
             </p>
           </div>
@@ -79,9 +80,9 @@ function SidebarHome() {
           {showAllNews && (
             <>
               {news.map((text) => (
-                <div key={text.id} className=' link'>
+                <div key={text.id} className='link px-3'>
                   <p className='mb-0 fw-bold'>{text.title}</p>
-                  <p className='fw-6 text-muted small'>
+                  <p className='fw-6 text-muted small mb-2'>
                     {text.published} &bull; {text.readers}
                   </p>
                 </div>
@@ -89,7 +90,7 @@ function SidebarHome() {
             </>
           )}
           <p
-            className='mb-0 fw-semibold'
+            className='mb-0 fw-semibold px-3 pb-3'
             style={{ cursor: 'pointer' }}
             onClick={() => setShowAllNews(!showAllNews)}
           >
