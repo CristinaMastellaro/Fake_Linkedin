@@ -52,7 +52,7 @@ const Homepage = () => {
             <SidebarHome />
             <Container
               className='mt-4'
-              style={{ position: 'sticky', top: '424px', zIndex: 2 }}
+              style={{ position: 'sticky', top: '429px', zIndex: 2 }}
             >
               <div
                 className='d-flex justify-content-around small px-5'
