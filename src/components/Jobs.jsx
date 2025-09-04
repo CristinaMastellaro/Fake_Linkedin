@@ -8,10 +8,10 @@ import {
   Button,
   Spinner,
   Alert,
-  Pagination,
 } from "react-bootstrap";
 
 const Jobs = () => {
+  const [allJobs, setAllJobs] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,9 +20,10 @@ const Jobs = () => {
   const [category, setCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const jobsPerPage = 10;
+  const [expandedJobs, setExpandedJobs] = useState(new Set());
+  const jobsPerPage = 12;
 
-  const fetchJobs = async (page = 1) => {
+  const fetchAllJobs = async () => {
     setLoading(true);
     setError(null);
     try {
@@ -30,8 +31,6 @@ const Jobs = () => {
       if (query) params.append("query", query);
       if (company) params.append("company", company);
       if (category) params.append("category", category);
-      params.append("limit", jobsPerPage);
-      params.append("skip", (page - 1) * jobsPerPage);
 
       const response = await fetch(
         `https://strive-benchmark.herokuapp.com/api/jobs?${params}`
@@ -40,9 +39,11 @@ const Jobs = () => {
         throw new Error("Failed to fetch jobs");
       }
       const data = await response.json();
-      setJobs(data.data || data);
-      setTotalPages(Math.ceil((data.total || data.length) / jobsPerPage));
-      setCurrentPage(page);
+      const jobsData = data.data || data;
+      setAllJobs(jobsData);
+      setTotalPages(Math.ceil(jobsData.length / jobsPerPage));
+
+      updatePageJobs(1, jobsData);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -50,17 +51,37 @@ const Jobs = () => {
     }
   };
 
+  const updatePageJobs = (page, jobsArray = allJobs) => {
+    const startIndex = (page - 1) * jobsPerPage;
+    const endIndex = startIndex + jobsPerPage;
+    const pageJobs = jobsArray.slice(startIndex, endIndex);
+    setJobs(pageJobs);
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
-    fetchJobs();
+    fetchAllJobs();
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchJobs(1);
+    fetchAllJobs();
   };
 
   const handlePageChange = (page) => {
-    fetchJobs(page);
+    updatePageJobs(page);
+  };
+
+  const toggleDescription = (jobId) => {
+    setExpandedJobs((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(jobId)) {
+        newSet.delete(jobId);
+      } else {
+        newSet.add(jobId);
+      }
+      return newSet;
+    });
   };
 
   return (
@@ -126,11 +147,18 @@ const Jobs = () => {
       {/* Job Listings */}
       {!loading && !error && jobs.length > 0 && (
         <>
+          {/* Indicatore Pagina Sopra */}
+          <div className="d-flex justify-content-center align-items-center mb-3">
+            <div className="text-muted mx-3">
+              Pagina {currentPage} di {totalPages}
+            </div>
+          </div>
+
           <Row>
             {jobs.map((job) => (
-              <Col key={job._id} md={6} lg={4} className="mb-4">
-                <Card>
-                  <Card.Body>
+              <Col key={job._id} md={6} lg={4} className="mb-4 d-flex">
+                <Card className="h-100 w-100">
+                  <Card.Body className="d-flex flex-column">
                     <Card.Title>{job.title}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
                       {job.company_name}
@@ -150,48 +178,111 @@ const Jobs = () => {
                       <strong>Salary:</strong>{" "}
                       {job.salary_range || "Not specified"}
                     </Card.Text>
-                    <Card.Text className="text-truncate">
-                      {job.description}
-                    </Card.Text>
-                    <Button variant="primary" href={job.url} target="_blank">
-                      Apply Now
-                    </Button>
+                    <div className="flex-grow-1 mb-2">
+                      <Card.Text
+                        className={
+                          expandedJobs.has(job._id) ? "" : "text-truncate"
+                        }
+                        style={{
+                          maxHeight: expandedJobs.has(job._id)
+                            ? "none"
+                            : "4.8em",
+                          overflow: expandedJobs.has(job._id)
+                            ? "visible"
+                            : "hidden",
+                        }}
+                        dangerouslySetInnerHTML={{ __html: job.description }}
+                      />
+                    </div>
+                    <div className="mt-auto">
+                      <Button
+                        variant="link"
+                        className="p-0 mb-2 d-block text-start"
+                        onClick={() => toggleDescription(job._id)}
+                      >
+                        {expandedJobs.has(job._id) ? "Show less" : "Show more"}
+                      </Button>
+                      <Button
+                        variant="primary"
+                        className="w-100"
+                        href={job.url}
+                        target="_blank"
+                      >
+                        Apply Now
+                      </Button>
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>
             ))}
           </Row>
 
-          {/* Pagination */}
+          {/* Frecce di Navigazione  */}
           {totalPages > 1 && (
-            <div className="d-flex justify-content-center">
-              <Pagination>
-                <Pagination.First
-                  onClick={() => handlePageChange(1)}
-                  disabled={currentPage === 1}
-                />
-                <Pagination.Prev
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                />
-                {[...Array(totalPages)].map((_, index) => (
-                  <Pagination.Item
-                    key={index + 1}
-                    active={index + 1 === currentPage}
-                    onClick={() => handlePageChange(index + 1)}
+            <div className="d-flex justify-content-center align-items-center mt-6 mb-4">
+              <div
+                className="d-flex align-items-center"
+                style={{ gap: "0.5rem" }}
+              >
+                {/* Gruppo Sinistro: Prima Pagina + Pagina Precedente */}
+                <div
+                  className="d-flex align-items-center"
+                  style={{ gap: "0.25rem" }}
+                >
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => handlePageChange(1)}
+                    disabled={currentPage === 1}
+                    className="d-flex align-items-center justify-content-center"
+                    style={{ width: "2.5rem", height: "2.5rem", padding: 0 }}
+                    aria-label="Prima Pagina"
                   >
-                    {index + 1}
-                  </Pagination.Item>
-                ))}
-                <Pagination.Next
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                />
-                <Pagination.Last
-                  onClick={() => handlePageChange(totalPages)}
-                  disabled={currentPage === totalPages}
-                />
-              </Pagination>
+                    <span style={{ fontSize: "1.5rem" }}>⇤</span>
+                  </Button>
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="d-flex align-items-center justify-content-center"
+                    style={{ width: "2.5rem", height: "2.5rem", padding: 0 }}
+                    aria-label="Pagina Precedente"
+                  >
+                    <span style={{ fontSize: "1.5rem" }}>←</span>
+                  </Button>
+                </div>
+
+                {/*Indicatore Pagina */}
+                <div className="text-muted mx-3">
+                  Pagina {currentPage} di {totalPages}
+                </div>
+
+                {/* Gruppo Destro: Pagina Successiva + Ultima Pagina */}
+                <div
+                  className="d-flex align-items-center"
+                  style={{ gap: "0.25rem" }}
+                >
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="d-flex align-items-center justify-content-center"
+                    style={{ width: "2.5rem", height: "2.5rem", padding: 0 }}
+                    aria-label="Pagina Successiva"
+                  >
+                    <span style={{ fontSize: "1.5rem" }}>→</span>
+                  </Button>
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => handlePageChange(totalPages)}
+                    disabled={currentPage === totalPages}
+                    className="d-flex align-items-center justify-content-center"
+                    style={{ width: "2.5rem", height: "2.5rem", padding: 0 }}
+                    aria-label="Ultima Pagina"
+                  >
+                    <span style={{ fontSize: "1.5rem" }}>⇥</span>
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
         </>
