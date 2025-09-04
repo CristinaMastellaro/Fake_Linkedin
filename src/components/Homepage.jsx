@@ -41,7 +41,7 @@ const Homepage = () => {
       <Container className='homepage bg-light min-vh-100 py-4'>
         <Row className='justify-content-center'>
           <Col xs={12} md={4} lg={3}>
-            <div style={{ position: 'sticky', top: '80px', zIndex: 2 }}>
+            <div className='sticky-sidebar'>
               <LeftSidebarHome />
             </div>
           </Col>
@@ -75,7 +75,7 @@ const Homepage = () => {
                   Altro
                 </p>
               </div>
-              <div className='d-flex align-items-center px-2 small'>
+              <div className='d-flex align-items-center px-2 small justify-content-center'>
                 <img
                   src='/logo-linkedin-scritto.png'
                   width={65}
