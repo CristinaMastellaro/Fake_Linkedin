@@ -1,94 +1,94 @@
-import { useState } from 'react'
-import { Dropdown, Modal, Button, Alert } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { deletePostAction } from '../redux/actions'
-import PostChanger from './PostChanger'
-import { useNavigate } from 'react-router-dom'
-import '../css/singlePost.css'
+import { useState } from "react";
+import { Dropdown, Modal, Button, Alert } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePostAction } from "../redux/actions";
+import PostChanger from "./PostChanger";
+import { useNavigate } from "react-router-dom";
+import "../css/singlePost.css";
 
 const SinglePost = ({ post, setCurrentPage }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const myName = useSelector((state) => {
-    return state.saveProfileMe.myProfile.name
-  })
+    return state.saveProfileMe.myProfile.name;
+  });
 
-  const [alert, setAlert] = useState(null)
+  const [alert, setAlert] = useState(null);
 
   // Stati like/reazioni e commenti
-  const [isLiked, setIsLiked] = useState(false)
+  const [isLiked, setIsLiked] = useState(false);
   const [reactions, setReactions] = useState(
     () => Math.floor(Math.random() * 99) + 2 // 2–100
-  )
+  );
   const [comments, setComments] = useState(
     () => Math.floor(Math.random() * 99) + 2 // 2–100
-  )
+  );
 
   const handleLikeClick = () => {
-    const increment = Math.floor(Math.random() * 15) + 1
-    setReactions((prev) => prev + increment)
-    setIsLiked(!isLiked)
-  }
+    const increment = Math.floor(Math.random() * 15) + 1;
+    setReactions((prev) => prev + increment);
+    setIsLiked(!isLiked);
+  };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [show, setShowDelete] = useState(false)
-  const handleCloseDelete = () => setShowDelete(false)
-  const handleShowDelete = () => setShowDelete(true)
+  const [show, setShowDelete] = useState(false);
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
 
-  const [showModify, setShowModify] = useState(false)
-  const handleCloseModify = () => setShowModify(false)
-  const handleShowModify = () => setShowModify(true)
+  const [showModify, setShowModify] = useState(false);
+  const handleCloseModify = () => setShowModify(false);
+  const handleShowModify = () => setShowModify(true);
 
   const handlePostClick = (e) => {
     if (
-      e.target.closest('.dropdown') ||
-      e.target.closest('.dropdown-menu') ||
-      e.target.closest('.profile-link')
+      e.target.closest(".dropdown") ||
+      e.target.closest(".dropdown-menu") ||
+      e.target.closest(".profile-link")
     ) {
-      e.stopPropagation()
-      return
+      e.stopPropagation();
+      return;
     }
-    navigate(`/details/post/${post._id}`)
+    navigate(`/details/post/${post._id}`);
     setTimeout(() => {
-      window.scrollTo(0, 0)
-    }, 100)
-  }
+      window.scrollTo(0, 0);
+    }, 100);
+  };
 
   const handleProfileClick = (e) => {
-    e.stopPropagation()
-    navigate(`/profile/${post.user._id}`)
+    e.stopPropagation();
+    navigate(`/profile/${post.user._id}`);
     setTimeout(() => {
-      window.scrollTo(0, 0)
-    }, 100)
-  }
+      window.scrollTo(0, 0);
+    }, 100);
+  };
 
   return (
     <div className="card mb-3 shadow-sm">
-      <div onClick={handlePostClick} style={{ cursor: 'pointer' }}>
+      <div onClick={handlePostClick} style={{ cursor: "pointer" }}>
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
             <div
               className="profile-link"
               onClick={handleProfileClick}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
             >
               <img
-                src={post.user?.image || 'https://avatar.iran.liara.run/public'}
+                src={post.user?.image || "https://avatar.iran.liara.run/public"}
                 alt="Profile"
                 className="rounded-circle me-3"
-                style={{ width: '50px', height: '50px' }}
+                style={{ width: "50px", height: "50px" }}
               />
             </div>
             <div className="flex-grow-1">
               <h6
                 className="mb-0 fw-bold profile-link"
                 onClick={handleProfileClick}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               >
                 {post.user?.name} {post.user?.surname}
               </h6>
               <small className="text-muted">
-                {post.user?.title} •{' '}
+                {post.user?.title} •{" "}
                 {new Date(post.createdAt).toLocaleDateString()}
               </small>
             </div>
@@ -109,7 +109,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
             )}
           </div>
           <div>
-            <p className={'T' !== post.text ? 'card-text' : 'd-none'}>
+            <p className={"T" !== post.text ? "card-text" : "d-none"}>
               {post.text}
             </p>
 
@@ -119,9 +119,9 @@ const SinglePost = ({ post, setCurrentPage }) => {
                 alt="Post"
                 className="img-fluid rounded"
                 style={{
-                  maxHeight: '300px',
-                  width: '100%',
-                  objectFit: 'cover',
+                  maxHeight: "300px",
+                  width: "100%",
+                  objectFit: "cover",
                 }}
               />
             )}
@@ -132,7 +132,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
       <div className="card-body ">
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
-            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}
+            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{" "}
             {reactions} reazioni
           </small>
           <small className="text-muted">{comments} commenti</small>
@@ -145,10 +145,10 @@ const SinglePost = ({ post, setCurrentPage }) => {
           >
             <i
               className={`bi bi-hand-thumbs-up-fill me-2 ${
-                isLiked ? 'text-primary' : ''
+                isLiked ? "text-primary" : ""
               }`}
             ></i>
-            <span className={isLiked ? 'text-primary' : ''}>Mi piace</span>
+            <span className={isLiked ? "text-primary" : ""}>Mi piace</span>
           </button>
           <button className="btn btn-light flex-fill me-1">
             <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
@@ -165,7 +165,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
             src="/profile-icon.png"
             alt="Profile"
             className="rounded-circle me-2"
-            style={{ width: '32px', height: '32px' }}
+            style={{ width: "32px", height: "32px" }}
           />
           <div className="flex-fill position-relative">
             <input
@@ -173,14 +173,14 @@ const SinglePost = ({ post, setCurrentPage }) => {
               className="form-control rounded-pill"
               placeholder="Aggiungi un commento..."
               style={{
-                paddingRight: '40px',
-                backgroundColor: '#f0f2f5',
-                border: 'none',
+                paddingRight: "40px",
+                backgroundColor: "#f0f2f5",
+                border: "none",
               }}
             />
             <button
               className="btn position-absolute end-0 top-50 translate-middle-y me-2"
-              style={{ border: 'none', background: 'transparent' }}
+              style={{ border: "none", background: "transparent" }}
             >
               <i className="bi bi-emoji-smile text-muted me-3"></i>
               <i className="bi bi-card-image"></i>
@@ -201,8 +201,8 @@ const SinglePost = ({ post, setCurrentPage }) => {
           <Button
             variant="primary"
             onClick={() => {
-              dispatch(deletePostAction(post._id))
-              handleCloseDelete
+              dispatch(deletePostAction(post._id, true));
+              handleCloseDelete;
             }}
             className="px-3"
           >
@@ -227,7 +227,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
         </Modal.Body>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default SinglePost
+export default SinglePost;

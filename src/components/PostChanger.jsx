@@ -3,9 +3,9 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createPost,
+  deletePostAction,
   fetchPosts,
   modifyPostAction,
-  uploadPostImage,
 } from "../redux/actions";
 import "../css/postChanger.css";
 import {
@@ -85,11 +85,16 @@ const PostChanger = ({
   const handleSubmitModify = async (e) => {
     e.preventDefault();
     console.log("formData.text", formData);
+    if (messageDeleteImage) {
+      await dispatch(deletePostAction(postInfo._id, false));
+      await dispatch(createPost({ text: postInfo.text }, null));
+    }
     if (changeOnlyImage) {
       await dispatch(modifyPostAction(postInfo._id, formData, imageFile));
     } else {
       await dispatch(modifyPostAction(postInfo._id, formData, imageFile));
     }
+
     handleCloseModal();
   };
 
@@ -221,10 +226,11 @@ const PostChanger = ({
             <Button
               variant="success"
               className="px-3 me-2"
-              onClick={() => {
+              onClick={async () => {
                 setDeleteImage(false);
                 setMessageDeleteImage(true);
-                dispatch(uploadPostImage(postInfo, null));
+                // console.log("postInfo", postInfo);
+                // dispatch(uploadPostImage(postInfo._id, "no"));
               }}
             >
               Sì
@@ -241,7 +247,7 @@ const PostChanger = ({
         </>
       )}
       {messageDeleteImage && (
-        <Alert variant="success">Immagine eliminata!</Alert>
+        <Alert variant="success">L'immagine verrà eliminata</Alert>
       )}
       <div className="d-flex justify-content-end mt-2">
         <Button

@@ -488,7 +488,7 @@ export const uploadPostImage = (postId, imageFile) => {
   };
 };
 
-export const deletePostAction = (id) => {
+export const deletePostAction = (id, sentAlert) => {
   const bearer = TOKEN;
   console.log("id", id);
   fetch("https://striveschool-api.herokuapp.com/api/posts/" + id, {
@@ -498,7 +498,7 @@ export const deletePostAction = (id) => {
     },
   })
     .then((res) => {
-      if (res.ok) {
+      if (res.ok && sentAlert) {
         alert("Post cancellato!");
       } else {
         throw new Error("Non siamo riusciti a cancellare il post");
