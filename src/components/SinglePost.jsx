@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Dropdown, Modal, Button, Alert } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { deletePostAction } from '../redux/actions/index'
+import { deletePostAction } from '../redux/actions'
 import PostChanger from './PostChanger'
 import { useNavigate } from 'react-router-dom'
 import '../css/singlePost.css'
@@ -11,7 +11,6 @@ const SinglePost = ({ post, setCurrentPage }) => {
   const myName = useSelector((state) => {
     return state.saveProfileMe.myProfile.name
   })
-  const isMyPost = myName === post.user?.name
 
   const [alert, setAlert] = useState(null)
 
@@ -91,8 +90,9 @@ const SinglePost = ({ post, setCurrentPage }) => {
               </Dropdown>
             )}
           </div>
-
-          <p className="card-text">{post.text}</p>
+          <p className={'T' !== post.text ? 'card-text' : 'd-none'}>
+            {post.text}
+          </p>
 
           {post.image && (
             <img

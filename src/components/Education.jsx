@@ -124,11 +124,13 @@ const Education = () => {
       <Card.Body className="border-bottom container">
         <Row>
           <Col xs={10}>
-            <Card.Title>Educazione</Card.Title>
+            <Card.Title>Formazione</Card.Title>
           </Col>
-          <Col xs={2} className="d-flex gap-2 justify-content-end">
-            <BiPlus className="fs-3 edit" onClick={handleShow} style={{ cursor: 'pointer' }} />
-          </Col>
+          {!id && (
+            <Col xs={2} className="d-flex gap-2 justify-content-end">
+              <BiPlus className="fs-3 edit" onClick={handleShow} style={{ cursor: 'pointer' }} />
+            </Col>
+          )}
         </Row>
         <hr />
 
@@ -145,10 +147,12 @@ const Education = () => {
                   <p className="mb-0 opacity-50">{edu.period}</p>
                 </div>
               </div>
-              <div className="d-flex gap-2">
-                <BiPencil className="fs-5 edit" onClick={() => handleEdit(edu)} style={{ cursor: 'pointer' }} />
-                <BiTrash className="fs-5 edit" onClick={() => handleDelete(edu.id)} style={{ cursor: 'pointer' }} />
-              </div>
+              {!id && (
+                <div className="d-flex gap-2">
+                  <BiPencil className="fs-5 edit" onClick={() => handleEdit(edu)} style={{ cursor: 'pointer' }} />
+                  <BiTrash className="fs-5 edit" onClick={() => handleDelete(edu.id)} style={{ cursor: 'pointer' }} />
+                </div>
+              )}
             </div>
           ))
         ) : (
