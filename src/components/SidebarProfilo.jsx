@@ -212,10 +212,16 @@ const SidebarProfilo = () => {
         <div className='card-body'>
           <div className='d-flex mb-3'>
             <div className='d-flex mb-2'>
-              <div
+              {/* <div
                 className='rounded-circle me-3 bg-secondary flex-shrink-0'
                 style={{ width: '50px', height: '50px' }}
-              ></div>
+              > */}
+              <img
+                src='https://as2.ftcdn.net/v2/jpg/05/80/60/33/1000_F_580603305_ysEbDBvHCKM9TyzEINHyW614NWLdTe0b.jpg'
+                style={{ width: '50px', height: '50px' }}
+                className='rounded-circle me-3 blur-img border'
+              />
+              {/* </div> */}
               <div>
                 <h6 className='mb-0 fw-semibold'>Qualcuno presso</h6>
                 <small className='text-muted'>Università degli Studi...</small>
@@ -230,10 +236,16 @@ const SidebarProfilo = () => {
 
           <div className='d-flex mb-3'>
             <div className='d-flex mb-2'>
-              <div
-                className='rounded-circle me-3 bg-warning flex-shrink-0'
+              {/* <div
+                className='rounded-circle me-3 bg-secondary flex-shrink-0'
                 style={{ width: '50px', height: '50px' }}
-              ></div>
+              > */}
+              <img
+                src='https://as2.ftcdn.net/v2/jpg/06/49/71/91/1000_F_649719174_3W1xTqSMFvoykIMkCami0sBYyoh1SUWO.jpg'
+                style={{ width: '50px', height: '50px' }}
+                className='rounded-circle me-3 blur-img'
+              />
+              {/* </div> */}
               <div>
                 <h6 className='mb-0 fw-semibold'>
                   Consulente informatico presso...
