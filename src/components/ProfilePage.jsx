@@ -6,7 +6,7 @@ import { Row, Col, Spinner } from "react-bootstrap";
 import MiniHero from "../components/MiniHero";
 import MyFooter from "./MyFooter";
 import { useDispatch } from "react-redux";
-import { SAVE_ME_INFO, SAVE_OTHER_INFO } from "../redux/actions";
+import { SAVE_ME_INFO, SAVE_OTHER_INFO, TOKEN } from "../redux/actions";
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -14,8 +14,7 @@ const ProfilePage = () => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
 
-  const bearer =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
+  const bearer = TOKEN;
 
   useEffect(() => {
     const fetchProfileData = async () => {
