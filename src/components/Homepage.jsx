@@ -11,6 +11,13 @@ const Homepage = () => {
   const footerRef = useRef(null);
 
   useEffect(() => {
+    // Reset dello scroll quando il componente viene montato
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+  }, []); // Si attiva solo al mount del componente
+
+  useEffect(() => {
     const handleOutsideClick = (event) => {
       if (
         showFooter &&
