@@ -71,7 +71,6 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
               const userData = await userResponse.json()
               setItem({ ...postData, user: userData })
             } else {
-              // Handle case where user data fetch fails but post is available
               console.warn(
                 'Failed to fetch user data, displaying post without profile info.'
               )
@@ -116,7 +115,6 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
         window.scrollTo(0, 0)
       }, 100)
     } else if (typeof item?.user === 'string') {
-      // Fallback for cases where the second fetch failed
       navigate(`/profile/${item.user}`)
       setTimeout(() => {
         window.scrollTo(0, 0)
@@ -214,14 +212,14 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
           </div>
         )}
         <div className="text-muted small">
-          <p>
+          <p className="mb-0">
             Pubblicato il: {new Date(item.createdAt).toLocaleString('it-IT')}
           </p>
         </div>
       </Card.Body>
 
-      <div className="card-body ">
-        <div className="d-flex justify-content-between align-items-center pt-2">
+      <div className="card-body pt-0 pb-2 ">
+        <div className="d-flex justify-content-between align-items-center">
           <small className="text-muted">
             <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}
             {reactions} reazioni

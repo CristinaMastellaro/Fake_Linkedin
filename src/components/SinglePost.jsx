@@ -64,7 +64,11 @@ const SinglePost = ({ post, setCurrentPage }) => {
 
   return (
     <div className="card mb-3 shadow-sm">
-      <div onClick={handlePostClick} style={{ cursor: 'pointer' }}>
+      <div
+        onClick={handlePostClick}
+        style={{ cursor: 'pointer' }}
+        className="pt-1"
+      >
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
             <div
@@ -108,7 +112,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
               </Dropdown>
             )}
           </div>
-          <div>
+          <div className="py-2">
             <p className={'T' !== post.text ? 'card-text' : 'd-none'}>
               {post.text}
             </p>
@@ -129,7 +133,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
         </div>
       </div>
 
-      <div className="card-body ">
+      <div className="card-body pt-0 ">
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
             <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}

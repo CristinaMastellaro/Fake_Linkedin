@@ -22,6 +22,25 @@ const DetailsPage = () => {
     console.log('Detail params:', { type, id })
   }, [type, id])
 
+  // Gestisce il click fuori dal footer per chiuderlo
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (footerRef.current && !footerRef.current.contains(event.target)) {
+        setShowFooter(false)
+      }
+    }
+
+    // Aggiunge l'event listener solo se il footer è visibile
+    if (showFooter) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    // Rimuove l'event listener quando il componente viene smontato o il footer viene chiuso
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [showFooter])
+
   // Recupera il post corrente dallo store
   const posts = useSelector((state) => state.saveProfileMe.posts)
   const currentPost = posts.find((post) => post._id === id)
@@ -85,8 +104,9 @@ const DetailsPage = () => {
       </Container>
       {showFooter && <div className="overlay-footer" />}
       <Collapse in={showFooter}>
-        <div className="footer-dropup">
-          <div className="d-flex justify-content-end">
+        <div className="footer-dropup" ref={footerRef}>
+          <MyFooter />
+          <div className="position-absolute top-0 end-0 me-5 pe-1">
             <button
               className="close-button fs-1"
               title="Chiudi"
@@ -95,8 +115,6 @@ const DetailsPage = () => {
               &times;
             </button>
           </div>
-
-          <MyFooter />
         </div>
       </Collapse>
     </>

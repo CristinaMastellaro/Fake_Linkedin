@@ -160,9 +160,9 @@ const Posts = () => {
           </div>
         </div>
       </div>
-      <Card className="border border-1 rounded-3 my-4 position-relative">
+      <Card className="border border-1 rounded-3 my-3 position-relative">
         <Card.Body className="border-bottom container">
-          <Card.Title>Post</Card.Title>
+          <Card.Title className="pb-3">Post</Card.Title>
 
           {postsLoading && (
             <div className="d-flex justify-content-center my-3">
