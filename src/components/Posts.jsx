@@ -1,5 +1,4 @@
 import { Card, Button, Modal, Alert, Spinner } from "react-bootstrap";
-import { BiPlus } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { createPost, fetchPosts } from "../redux/actions";
