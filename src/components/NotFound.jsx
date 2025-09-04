@@ -1,9 +1,20 @@
 import { Container, Row, Col } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 
 import '../css/NotFoundPage.css'
 import { Link } from 'react-router-dom'
 
 const Complete404Page = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch({ type: 'SET_MESSAGGISTICA_VISIBILITY', payload: false })
+    return () => {
+      dispatch({ type: 'SET_MESSAGGISTICA_VISIBILITY', payload: true })
+    }
+  }, [dispatch])
+
   return (
     <div className="page-container">
       <div className="main-content">
