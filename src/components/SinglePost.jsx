@@ -1,56 +1,80 @@
-import { useState } from "react";
-import { Dropdown, Modal, Button, Alert } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { deletePostAction } from "../redux/actions";
-import PostChanger from "./PostChanger";
-import "../css/singlePost.css";
+import { useState } from 'react'
+import { Dropdown, Modal, Button, Alert } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { deletePostAction } from '../redux/actions'
+import PostChanger from './PostChanger'
+import { useNavigate } from 'react-router-dom'
+import '../css/singlePost.css'
 
 const SinglePost = ({ post, setCurrentPage }) => {
+  const navigate = useNavigate()
   const myName = useSelector((state) => {
-    return state.saveProfileMe.myProfile.name;
-  });
-  console.log("myName", myName);
-  console.log("post.user?.name", post.user?.name);
-  const [alert, setAlert] = useState(null);
-  const [isLiked, setIsLiked] = useState(false);
+    return state.saveProfileMe.myProfile.name
+  })
+  const isMyPost = myName === post.user?.name
+
+  const [alert, setAlert] = useState(null)
+  const [isLiked, setIsLiked] = useState(false)
   const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-  };
+    setIsLiked(!isLiked)
+  }
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [show, setShowDelete] = useState(false);
-  const handleCloseDelete = () => setShowDelete(false);
-  const handleShowDelete = () => setShowDelete(true);
+  const [show, setShowDelete] = useState(false)
+  const handleCloseDelete = () => setShowDelete(false)
+  const handleShowDelete = () => setShowDelete(true)
 
-  const [showModify, setShowModify] = useState(false);
-  const handleCloseModify = () => setShowModify(false);
-  const handleShowModify = () => setShowModify(true);
+  const [showModify, setShowModify] = useState(false)
+  const handleCloseModify = () => setShowModify(false)
+  const handleShowModify = () => setShowModify(true)
 
-  const numReactions = Math.floor(Math.random() * 200);
-  const numComments = Math.floor(Math.random() * 100);
+  const numReactions = Math.floor(Math.random() * 200)
+  const numComments = Math.floor(Math.random() * 100)
+
+  const handlePostClick = (e) => {
+    // Se il click è sul dropdown o sui suoi elementi, non navigare
+    if (e.target.closest('.dropdown') || e.target.closest('.dropdown-menu')) {
+      e.stopPropagation()
+      return
+    }
+
+    // Se è il mio post o non è il mio post, naviga
+    if (!e.target.closest('.dropdown')) {
+      navigate(`/details/post/${post._id}`)
+      // Forza uno scroll to top dopo un brevissimo delay
+      setTimeout(() => {
+        window.scrollTo(0, 0)
+      }, 100)
+    }
+  }
 
   return (
-    <div className="card mb-3 shadow-sm">
+    <div
+      className="card mb-3 shadow-sm"
+      onClick={handlePostClick}
+      style={{ cursor: 'pointer' }}
+    >
       <div className="card-body">
         <div className="d-flex align-items-start mb-3">
           <img
-            src={post.user?.image || "https://via.placeholder.com/40"}
+            // src="https://avatar.iran.liara.run/public/boy"
+            src={post.user?.image || 'https://avatar.iran.liara.run/public'}
             alt="Profile"
             className="rounded-circle me-3"
-            style={{ width: "50px", height: "50px" }}
+            style={{ width: '50px', height: '50px' }}
           />
           <div className="flex-grow-1">
             <h6 className="mb-0 fw-bold">
               {post.user?.name} {post.user?.surname}
             </h6>
             <small className="text-muted">
-              {post.user?.title} •{" "}
+              {post.user?.title} •{' '}
               {new Date(post.createdAt).toLocaleDateString()}
             </small>
           </div>
           {myName === post.user.name && (
-            <Dropdown>
+            <Dropdown onClick={(e) => e.stopPropagation()}>
               <Dropdown.Toggle variant="light" id="dropdown-basic">
                 <i className="bi bi-three-dots"></i>
               </Dropdown.Toggle>
@@ -74,16 +98,16 @@ const SinglePost = ({ post, setCurrentPage }) => {
             alt="Post"
             className="img-fluid rounded"
             style={{
-              maxHeight: "300px",
-              width: "100%",
-              objectFit: "cover",
+              maxHeight: '300px',
+              width: '100%',
+              objectFit: 'cover',
             }}
           />
         )}
 
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
-            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{" "}
+            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}
             {numReactions} reazioni
           </small>
           <small className="text-muted">{numComments} commenti</small>
@@ -96,10 +120,10 @@ const SinglePost = ({ post, setCurrentPage }) => {
           >
             <i
               className={`bi bi-hand-thumbs-up-fill me-2 ${
-                isLiked ? "text-primary" : ""
+                isLiked ? 'text-primary' : ''
               }`}
             ></i>
-            <span className={isLiked ? "text-primary" : ""}>Mi piace</span>
+            <span className={isLiked ? 'text-primary' : ''}>Mi piace</span>
           </button>
           <button className="btn btn-light flex-fill me-1">
             <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
@@ -116,7 +140,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
             src="/profile-icon.png"
             alt="Profile"
             className="rounded-circle me-2"
-            style={{ width: "32px", height: "32px" }}
+            style={{ width: '32px', height: '32px' }}
           />
           <div className="flex-fill position-relative">
             <input
@@ -124,14 +148,14 @@ const SinglePost = ({ post, setCurrentPage }) => {
               className="form-control rounded-pill"
               placeholder="Aggiungi un commento..."
               style={{
-                paddingRight: "40px",
-                backgroundColor: "#f0f2f5",
-                border: "none",
+                paddingRight: '40px',
+                backgroundColor: '#f0f2f5',
+                border: 'none',
               }}
             />
             <button
               className="btn position-absolute end-0 top-50 translate-middle-y me-2"
-              style={{ border: "none", background: "transparent" }}
+              style={{ border: 'none', background: 'transparent' }}
             >
               <i className="bi bi-emoji-smile text-muted me-3"></i>
               <i className="bi bi-card-image"></i>
@@ -152,8 +176,8 @@ const SinglePost = ({ post, setCurrentPage }) => {
           <Button
             variant="primary"
             onClick={() => {
-              dispatch(deletePostAction(post._id));
-              handleCloseDelete;
+              dispatch(deletePostAction(post._id))
+              handleCloseDelete
             }}
             className="px-3"
           >
@@ -178,7 +202,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
         </Modal.Body>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default SinglePost;
+export default SinglePost

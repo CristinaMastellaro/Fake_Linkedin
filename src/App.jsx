@@ -3,7 +3,6 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { Container } from 'react-bootstrap'
-import Messaggistica from './components/Messaggistica'
 import Homepage from './components/Homepage'
 import ProfilePage from './components/ProfilePage'
 import Jobs from './components/Jobs'
@@ -32,11 +31,10 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/lavoro" element={<Jobs />} />
-          <Route path="/details" element={<DetailsPage />} />
+          <Route path="/details/:type/:id" element={<DetailsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
-      <Messaggistica />
     </BrowserRouter>
   )
 }
