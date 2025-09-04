@@ -14,7 +14,7 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const loggedUser = useSelector((state) => state.meInfo); // utente loggato dal Redux store
+  const loggedUser = useSelector((state) => state.meInfo);
   const loggedUserId = loggedUser?._id;
 
   const bearer = TOKEN;
