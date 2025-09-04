@@ -38,6 +38,12 @@ import {
   MODIFY_POST,
   BACK_TO_HOME,
   SET_PAGE,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
+  MODIFY_POST_REQUEST,
+  MODIFY_POST_SUCCESS,
+  MODIFY_POST_FAILURE,
   // GET_ONE_POST,
 } from "../actions";
 const initialState = {
@@ -319,9 +325,45 @@ const saveProfileMe = (state = initialState, action) => {
         ...state,
         posts: state.posts.filter((post) => post._id !== action.payload),
       };
+    case DELETE_POST_REQUEST:
+      return {
+        ...state,
+        postsLoading: true,
+        postsError: null,
+      };
+    case DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        postsLoading: false,
+        postsError: null,
+      };
+    case DELETE_POST_FAILURE:
+      return {
+        ...state,
+        postsLoading: false,
+        postsError: action.payload,
+      };
     case MODIFY_POST:
       return {
         ...state,
+      };
+    case MODIFY_POST_REQUEST:
+      return {
+        ...state,
+        postsLoading: true,
+        postsError: null,
+      };
+    case MODIFY_POST_SUCCESS:
+      return {
+        ...state,
+        postsLoading: false,
+        postsError: null,
+      };
+    case MODIFY_POST_FAILURE:
+      return {
+        ...state,
+        postsLoading: false,
+        postsError: action.payload,
       };
     // case GET_ONE_POST:
     //   return {

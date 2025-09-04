@@ -460,6 +460,7 @@ export const createPost = (postData, imageFile) => {
     }
   };
 };
+
 export const uploadPostImage = (postId, imageFile) => {
   return async (dispatch) => {
     dispatch(uploadPostImageRequest());
@@ -488,6 +489,24 @@ export const uploadPostImage = (postId, imageFile) => {
   };
 };
 
+export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
+export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
+export const DELETE_POST_FAILURE = "DELETE_POST_REQUEST";
+
+export const deletePostRequest = () => ({
+  type: DELETE_POST_REQUEST,
+});
+
+export const deletePostSuccess = (postId) => ({
+  type: DELETE_POST_SUCCESS,
+  payload: postId,
+});
+
+export const deletePostFailure = (error) => ({
+  type: DELETE_POST_FAILURE,
+  payload: error,
+});
+
 export const deletePostAction = (id, sentAlert) => {
   const bearer = TOKEN;
   console.log("id", id);
@@ -511,6 +530,24 @@ export const deletePostAction = (id, sentAlert) => {
     payload: id,
   };
 };
+
+export const MODIFY_POST_REQUEST = "MODIFY_POST_REQUEST";
+export const MODIFY_POST_SUCCESS = "MODIFY_POST_SUCCESS";
+export const MODIFY_POST_FAILURE = "MODIFY_POST_REQUEST";
+
+export const modifyPostRequest = () => ({
+  type: MODIFY_POST_REQUEST,
+});
+
+export const modifyPostSuccess = (postId) => ({
+  type: MODIFY_POST_SUCCESS,
+  payload: postId,
+});
+
+export const modifyPostFailure = (error) => ({
+  type: MODIFY_POST_FAILURE,
+  payload: error,
+});
 
 export const modifyPostAction = (id, formData, image) => {
   console.log("formData", formData);

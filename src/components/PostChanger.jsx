@@ -16,6 +16,7 @@ import {
   BiImage,
 } from "react-icons/bi";
 import changeImagePicture from "../assets/CreateImage.png";
+import { useNavigate } from "react-router-dom";
 
 const PostChanger = ({
   setAlert,
@@ -26,6 +27,7 @@ const PostChanger = ({
   changeOnlyImage,
 }) => {
   // console.log("postInfo", postInfo);
+  const navigate = useNavigate();
   const { postsLoading } = useSelector((state) => state.saveProfileMe);
   const initialText = doModify ? postInfo.text : "";
   const [formData, setFormData] = useState({
@@ -93,6 +95,9 @@ const PostChanger = ({
       await dispatch(modifyPostAction(postInfo._id, formData, imageFile));
     } else {
       await dispatch(modifyPostAction(postInfo._id, formData, imageFile));
+    }
+    if (messageDeleteImage) {
+      navigate("/");
     }
 
     handleCloseModal();
