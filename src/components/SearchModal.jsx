@@ -1,7 +1,18 @@
-import { Spinner } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Spinner } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
-export default function SearchModal({ results, searchTerm, loading, onClose }) {
+export default function SearchModal({
+  results,
+  searchTerm,
+  loading,
+  onClose,
+  onSelect,
+}) {
+  const handleItemClick = () => {
+    onClose()
+    onSelect()
+  }
+
   return (
     <div className="bg-white border rounded-3 shadow-sm p-2">
       {loading && (
@@ -16,15 +27,29 @@ export default function SearchModal({ results, searchTerm, loading, onClose }) {
         </div>
       )}
 
-      {!loading && results.map((profile) => (
-        <Link key={profile._id} to={`/profile/${profile._id}`} className="d-flex align-items-center p-2 text-decoration-none text-dark rounded-2 hover-bg-light" onClick={onClose}>
-          <img src={profile.image} alt={profile.name} className="rounded-circle me-2" width="40" height="40" />
-          <div>
-            <div className="fw-semibold">{profile.name} {profile.surname}</div>
-            <div className="small text-muted">{profile.title}</div>
-          </div>
-        </Link>
-      ))}
+      {!loading &&
+        results.map((profile) => (
+          <Link
+            key={profile._id}
+            to={`/profile/${profile._id}`}
+            className="d-flex align-items-center p-2 text-decoration-none text-dark rounded-2 hover-bg-light"
+            onClick={handleItemClick} // Chiamare la nuova funzione
+          >
+            <img
+              src={profile.image}
+              alt={profile.name}
+              className="rounded-circle me-2"
+              width="40"
+              height="40"
+            />
+            <div>
+              <div className="fw-semibold">
+                {profile.name} {profile.surname}
+              </div>
+              <div className="small text-muted">{profile.title}</div>
+            </div>
+          </Link>
+        ))}
     </div>
   )
 }
