@@ -73,10 +73,6 @@ const SinglePost = ({ post, setCurrentPage }) => {
               {new Date(post.createdAt).toLocaleDateString()}
             </small>
           </div>
-          {/* <div className="dropdown"> */}
-          {/* <button className="btn btn-link text-muted" type="button" >
-              <i className="bi bi-three-dots"></i>
-            </button> */}
           {myName === post.user.name && (
             <Dropdown onClick={(e) => e.stopPropagation()}>
               <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -92,19 +88,9 @@ const SinglePost = ({ post, setCurrentPage }) => {
               </Dropdown.Menu>
             </Dropdown>
           )}
-          {/* </div> */}
         </div>
-        {/* <Button variant="primary" onClick={handleShowDelete}>
-          Launch demo modal
-        </Button> */}
 
         <p className="card-text">{post.text}</p>
-
-        {/* <img
-          src="https://blog.differentacademy.it/wp-content/uploads/sites/2/2021/12/team-working-lavoro-squadra-copertina.jpg"
-          alt="Post content"
-          className="img-fluid mb-3"
-        /> */}
 
         {post.image && (
           <img

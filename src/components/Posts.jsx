@@ -1,25 +1,14 @@
-import {
-  Card,
-  Row,
-  Col,
-  Button,
-  Modal,
-  Form,
-  Alert,
-  Spinner,
-} from "react-bootstrap";
+import { Card, Row, Col, Button, Modal, Alert, Spinner } from "react-bootstrap";
 import { BiPlus } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-// import { fetchPosts, createPost, uploadPostImage } from "../redux/actions";
-import { fetchPosts, createPost } from "../redux/actions";
+import { fetchPosts } from "../redux/actions";
 import "../css/services.css";
 import SinglePost from "./SinglePost";
 import PostChanger from "./PostChanger";
 
 const Posts = () => {
   const dispatch = useDispatch();
-  // const { posts, postsLoading, postsError, myProfile } = useSelector(
   const { posts, postsLoading, postsError } = useSelector(
     (state) => state.saveProfileMe
   );
@@ -27,7 +16,6 @@ const Posts = () => {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     text: "",
-    // image: "",
   });
   const [imageFile, setImageFile] = useState(null);
   const [alert, setAlert] = useState(null);
@@ -39,7 +27,6 @@ const Posts = () => {
   }, [dispatch]);
 
   const handleShowModal = () => {
-    // setFormData({ text: "", image: "" });
     setFormData({ text: "" });
     setImageFile(null);
     setAlert(null);
@@ -48,50 +35,9 @@ const Posts = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    // setFormData({ text: "", image: "" });
     setFormData({ text: "" });
     setImageFile(null);
     setAlert(null);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e) => {
-    setImageFile(e.target.files[0]);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!formData.text.trim()) {
-      setAlert({
-        type: "danger",
-        message: "Il testo del post è obbligatorio.",
-      });
-      return;
-    }
-    try {
-      // console.log("formData", formData);
-      await dispatch(createPost(formData, imageFile));
-      // console.log("imageFile", imageFile);
-      // console.log("action", action);
-      // if (imageFile && action.payload && action.payload._id) {
-      //   console.log("sono dentro l'if");
-      //   await dispatch(uploadPostImage(action.payload._id, imageFile));
-      // }
-      setAlert({ type: "success", message: "Post creato con successo." });
-      dispatch(fetchPosts());
-      setCurrentPage(1); // Torna alla prima pagina dopo la creazione del post
-      handleCloseModal();
-    } catch (error) {
-      setAlert({
-        type: "danger",
-        message: error.message || "Errore nella creazione del post.",
-      });
-    }
   };
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -159,41 +105,6 @@ const Posts = () => {
                 key={post._id}
                 setCurrentPage={() => setCurrentPage}
               />
-              // <div key={post._id} className="mt-3 border-bottom pb-3">
-              //   <div className="d-flex align-items-center mb-2">
-              //     <img
-              //       src={
-              //         post.user?.image ||
-              //         myProfile?.image ||
-              //         "https://via.placeholder.com/40"
-              //       }
-              //       alt="Profile"
-              //       className="rounded-circle me-2"
-              //       style={{ width: "40px", height: "40px" }}
-              //     />
-              //     <div>
-              //       <p className="mb-0 fw-semibold">
-              //         {post.user?.name} {post.user?.surname}
-              //       </p>
-              //       <p className="mb-0 text-muted small">
-              //         {new Date(post.createdAt).toLocaleDateString()}
-              //       </p>
-              //     </div>
-              //   </div>
-              //   <p className="mb-2">{post.text}</p>
-              //   {post.image && (
-              //     <img
-              //       src={post.image}
-              //       alt="Post"
-              //       className="img-fluid rounded"
-              //       style={{
-              //         maxHeight: "300px",
-              //         width: "100%",
-              //         objectFit: "cover",
-              //       }}
-              //     />
-              //   )}
-              // </div>
             ))}
 
           {!postsLoading && posts.length > postsPerPage && (
@@ -246,27 +157,6 @@ const Posts = () => {
         </Modal.Header>
         <Modal.Body>
           {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
-          {/* <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="text">
-              <Form.Label>Testo del Post</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                name="text"
-                value={formData.text}
-                onChange={handleChange}
-                placeholder="Scrivi qualcosa..."
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="imageFile" className="mb-3">
-              <Form.Label>Immagine (opzionale)</Form.Label>
-              <Form.Control type="file" onChange={handleFileChange} />
-            </Form.Group>
-            <Button variant="primary" type="submit" disabled={postsLoading}>
-              {postsLoading ? "Pubblicando..." : "Pubblica"}
-            </Button>
-          </Form> */}
           <PostChanger
             setAlert={setAlert}
             handleCloseModal={handleCloseModal}

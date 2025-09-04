@@ -42,17 +42,12 @@ const PostChanger = ({
       return;
     }
     try {
-      // console.log("formData", formData);
       await dispatch(createPost(formData, imageFile));
       console.log("imageFile", typeof imageFile);
-      // console.log("action", action);
-      //   if (imageFile && action.payload && action.payload._id) {
-      //     console.log("sono dentro l'if");
-      //     await dispatch(uploadPostImage(action.payload._id, imageFile));
-      //   }
+
       setAlert({ type: "success", message: "Post creato con successo." });
       dispatch(fetchPosts());
-      //  // Torna alla prima pagina dopo la creazione del post
+      // Torna alla prima pagina dopo la creazione del post
       setCurrentPage(1);
       handleCloseModal();
     } catch (error) {
@@ -128,14 +123,6 @@ const PostChanger = ({
       ) : (
         ""
       )}
-      {/* {doChangeImage ? (
-        <Form.Group controlId="imageFile" className="mb-3">
-          <Form.Label>Immagine (opzionale)</Form.Label>
-          <Form.Control type="file" onChange={handleFileChange} />
-        </Form.Group>
-      ) : (
-        ""
-      )} */}
       <Button variant="primary" type="submit" disabled={postsLoading}>
         {postsLoading ? "Pubblicando..." : "Pubblica"}
       </Button>

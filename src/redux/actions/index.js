@@ -388,23 +388,6 @@ export const modifyPostAction = (id, formData, image) => {
       .catch((err) => console.log("Errore!", err));
 
     if (image) {
-      // console.log("Sei entrato nell'if dell'image");
-      // const formData = new FormData();
-      // formData.append("image", image);
-      // fetch(`https://striveschool-api.herokuapp.com/api/post/${id}`, {
-      //   method: "POST",
-      //   headers: {
-      //     Authorization: `Bearer ${TOKEN}`,
-      //   },
-      //   body: formData,
-      // })
-      //   .then((res) => {
-      //     console.log("res image modify", res);
-      //     if (!res.ok) {
-      //       throw new Error("Non siamo riusciti a modificare l'immagine");
-      //     }
-      //   })
-      //   .catch((err) => console.log("Errore!", err));
       await dispatch(uploadPostImage(id, image));
     } else {
       console.log("Non abbiamo modificato l'immagine");
@@ -474,7 +457,6 @@ export const fetchPosts = () => {
         throw new Error("Failed to fetch posts");
       }
       const posts = await response.json();
-      // console.log("posts", posts.reverse());
       posts.reverse();
       dispatch(fetchPostsSuccess(posts));
     } catch (error) {
