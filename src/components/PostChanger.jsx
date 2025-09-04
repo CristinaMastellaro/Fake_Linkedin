@@ -14,7 +14,7 @@ const PostChanger = ({
   postInfo,
   changeOnlyImage,
 }) => {
-  console.log("postInfo", postInfo);
+  // console.log("postInfo", postInfo);
   const { postsLoading } = useSelector((state) => state.saveProfileMe);
   const initialText = doModify ? postInfo.text : "";
   const [formData, setFormData] = useState({
@@ -69,14 +69,15 @@ const PostChanger = ({
     }
   };
 
-  const handleSubmitModify = (e) => {
+  const handleSubmitModify = async (e) => {
     e.preventDefault();
     console.log("formData.text", formData);
     if (changeOnlyImage) {
-      dispatch(modifyPostAction(postInfo._id, formData, imageFile));
+      await dispatch(modifyPostAction(postInfo._id, formData, imageFile));
     } else {
-      dispatch(modifyPostAction(postInfo._id, formData, imageFile));
+      await dispatch(modifyPostAction(postInfo._id, formData, imageFile));
     }
+    handleCloseModal();
   };
 
   const imageChanger = (
@@ -199,7 +200,9 @@ const PostChanger = ({
           type="submit"
           disabled={postsLoading}
           className="rounded-pill px-4"
-          onClick={() => setIsImageAdded(false)}
+          onClick={() => {
+            setIsImageAdded(false);
+          }}
         >
           {postsLoading ? "Pubblicando..." : "Pubblica"}
         </Button>

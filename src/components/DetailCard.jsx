@@ -1,45 +1,48 @@
-import { Card, Button, Spinner, Alert, Dropdown, Modal } from 'react-bootstrap'
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { deletePostAction } from '../redux/actions/index'
-import PostChanger from './PostChanger'
-
-const TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY'
+import { Card, Button, Spinner, Alert, Dropdown, Modal } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePostAction, TOKEN } from "../redux/actions/index";
+import PostChanger from "./PostChanger";
 
 const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const myName = useSelector((state) => {
-    return state.saveProfileMe.myProfile.name
-  })
-  const isMyPost = myName === post?.user?.name
+    return state.saveProfileMe.myProfile.name;
+  });
+  const isMyPost = myName === post?.user?.name;
+
+  // Per quando il post viene modificato
+  // const modifiedPost = (state) => {
+  //   return state.singlePost;
+  // };
+  const [isModified, setIsModified] = useState(false);
 
   // Stati per modifica/elimina
-  const [show, setShowDelete] = useState(false)
-  const [showModify, setShowModify] = useState(false)
-  const [alert, setAlert] = useState(null)
+  const [show, setShowDelete] = useState(false);
+  const [showModify, setShowModify] = useState(false);
+  const [alert, setAlert] = useState(null);
 
   // Stati like/reazioni e commenti
-  const [isLiked, setIsLiked] = useState(false)
+  const [isLiked, setIsLiked] = useState(false);
   const [reactions, setReactions] = useState(
     () => Math.floor(Math.random() * 99) + 2 // 2–100
-  )
+  );
   const [comments, setComments] = useState(
     () => Math.floor(Math.random() * 99) + 2 // 2–100
-  )
+  );
 
-  const [item, setItem] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const navigate = useNavigate()
+  const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchItemDetails = async () => {
       if (!itemId || !itemType) {
-        setError('ID o tipo elemento mancante')
-        setLoading(false)
-        return
+        setError("ID o tipo elemento mancante");
+        setLoading(false);
+        return;
       }
 
       try {
@@ -48,17 +51,18 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
           {
             headers: {
               Authorization: `Bearer ${TOKEN}`,
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           }
-        )
+        );
 
         if (!postResponse.ok) {
-          throw new Error(`HTTP error! status: ${postResponse.status}`)
+          throw new Error(`HTTP error! status: ${postResponse.status}`);
         }
 
-        const postData = await postResponse.json()
-        setItem(postData)
+        const postData = await postResponse.json();
+        setItem(postData);
+        console.log("postData", postData);
 
         if (postData.user && postData.user._id) {
           try {
@@ -67,46 +71,49 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
               {
                 headers: {
                   Authorization: `Bearer ${TOKEN}`,
-                  'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                 },
               }
-            )
+            );
 
             if (userResponse.ok) {
-              const userData = await userResponse.json()
+              const userData = await userResponse.json();
               setItem((prev) => ({
                 ...prev,
                 user: {
                   ...prev.user,
                   ...userData,
                 },
-              }))
+              }));
             }
           } catch (userError) {
-            console.error('Error fetching user data:', userError)
+            console.error("Error fetching user data:", userError);
           }
         }
       } catch (err) {
-        console.error('Fetch error:', err)
-        setError(err.message)
+        console.error("Fetch error:", err);
+        setError(err.message);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchItemDetails()
-  }, [itemId, itemType])
+    fetchItemDetails();
+  }, [itemId, itemType, isModified]);
 
   const handleLikeClick = () => {
-    const increment = Math.floor(Math.random() * 15) + 1
-    setReactions((prev) => prev + increment)
-    setIsLiked(!isLiked)
-  }
+    const increment = Math.floor(Math.random() * 15) + 1;
+    setReactions((prev) => prev + increment);
+    setIsLiked(!isLiked);
+  };
 
-  const handleCloseDelete = () => setShowDelete(false)
-  const handleShowDelete = () => setShowDelete(true)
-  const handleCloseModify = () => setShowModify(false)
-  const handleShowModify = () => setShowModify(true)
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
+  const handleCloseModify = () => {
+    setIsModified(true);
+    setShowModify(false);
+  };
+  const handleShowModify = () => setShowModify(true);
 
   if (loading) {
     return (
@@ -115,7 +122,7 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
           <span className="visually-hidden">Caricamento...</span>
         </Spinner>
       </Card>
-    )
+    );
   }
 
   if (error) {
@@ -127,7 +134,7 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
           Torna indietro
         </Button>
       </Alert>
-    )
+    );
   }
 
   if (!item) {
@@ -137,15 +144,15 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
         <p>Il contenuto richiesto non è disponibile.</p>
         <Button variant="outline-warning" onClick={() => navigate(-1)}></Button>
       </Alert>
-    )
+    );
   }
 
   const handleGoBack = () => {
-    navigate(-1)
+    navigate(-1);
     setTimeout(() => {
-      window.scrollTo(0, 0)
-    }, 100)
-  }
+      window.scrollTo(0, 0);
+    }, 100);
+  };
 
   return (
     <Card className="shadow">
@@ -154,19 +161,20 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
           src={
             post?.user?.image ||
             item.user?.image ||
-            'https://avatar.iran.liara.run/public'
+            // modifiedPost.user?.image ||
+            "https://avatar.iran.liara.run/public"
           }
           alt="Profile"
           className="rounded-circle me-3"
-          style={{ width: '50px', height: '50px' }}
+          style={{ width: "50px", height: "50px" }}
         />
         <div className="flex-grow-1">
           <h5 className="mb-0">
-            {post?.user?.name || item.user?.name}{' '}
+            {post?.user?.name || item.user?.name}{" "}
             {post?.user?.surname || item.user?.surname}
           </h5>
           <small className="text-muted">
-            {post?.user?.title || item.user?.title || 'Utente LinkedIn'}
+            {post?.user?.title || item.user?.title || "Utente LinkedIn"}
           </small>
         </div>
         {isMyPost && (
@@ -192,13 +200,13 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
               src={item.image}
               alt="Post content"
               className="img-fluid rounded"
-              style={{ maxHeight: '400px' }}
+              style={{ maxHeight: "400px" }}
             />
           </div>
         )}
         <div className="text-muted small">
           <p>
-            Pubblicato il: {new Date(item.createdAt).toLocaleString('it-IT')}
+            Pubblicato il: {new Date(item.createdAt).toLocaleString("it-IT")}
           </p>
         </div>
       </Card.Body>
@@ -206,7 +214,7 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
       <div className="card-body ">
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
-            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}
+            <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{" "}
             {reactions} reazioni
           </small>
           <small className="text-muted">{comments} commenti</small>
@@ -219,10 +227,10 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
           >
             <i
               className={`bi bi-hand-thumbs-up-fill me-2 ${
-                isLiked ? 'text-primary' : ''
+                isLiked ? "text-primary" : ""
               }`}
             ></i>
-            <span className={isLiked ? 'text-primary' : ''}>Mi piace</span>
+            <span className={isLiked ? "text-primary" : ""}>Mi piace</span>
           </button>
           <button className="btn btn-light flex-fill me-1">
             <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
@@ -240,7 +248,7 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
             src="/profile-icon.png"
             alt="Profile"
             className="rounded-circle me-2"
-            style={{ width: '32px', height: '32px' }}
+            style={{ width: "32px", height: "32px" }}
           />
           <div className="flex-fill position-relative">
             <input
@@ -248,14 +256,14 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
               className="form-control rounded-pill"
               placeholder="Aggiungi un commento..."
               style={{
-                paddingRight: '40px',
-                backgroundColor: '#f0f2f5',
-                border: 'none',
+                paddingRight: "40px",
+                backgroundColor: "#f0f2f5",
+                border: "none",
               }}
             />
             <button
               className="btn position-absolute end-0 top-50 translate-middle-y me-2"
-              style={{ border: 'none', background: 'transparent' }}
+              style={{ border: "none", background: "transparent" }}
             >
               <i className="bi bi-emoji-smile text-muted me-3"></i>
               <i className="bi bi-card-image"></i>
@@ -264,7 +272,7 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
         </div>
       </div>
 
-      <Card.Footer className="bg-white py-3">
+      <Card.Footer className="bg-white py-3 border-top-0">
         <Button variant="outline-primary" onClick={handleGoBack}>
           <i className="bi bi-arrow-left me-2"></i>
           Torna indietro
@@ -284,9 +292,9 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
           <Button
             variant="primary"
             onClick={() => {
-              dispatch(deletePostAction(item._id))
-              handleCloseDelete()
-              handleGoBack()
+              dispatch(deletePostAction(item._id));
+              handleCloseDelete();
+              handleGoBack();
             }}
             className="px-3"
           >
@@ -311,7 +319,7 @@ const DetailCard = ({ itemId, itemType, post, setCurrentPage }) => {
         </Modal.Body>
       </Modal>
     </Card>
-  )
-}
+  );
+};
 
-export default DetailCard
+export default DetailCard;
