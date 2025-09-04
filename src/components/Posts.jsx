@@ -2,7 +2,7 @@ import { Card, Row, Col, Button, Modal, Alert, Spinner } from "react-bootstrap";
 import { BiPlus } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchPosts } from "../redux/actions";
+import { createPost, fetchPosts } from "../redux/actions";
 import "../css/services.css";
 import SinglePost from "./SinglePost";
 import PostChanger from "./PostChanger";
@@ -25,6 +25,25 @@ const Posts = () => {
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
+
+  const createPostOnlyText = async () => {
+    await dispatch(createPost(formData, ""));
+
+    setAlert({ type: "success", message: "Post creato con successo." });
+    dispatch(fetchPosts());
+    // Torna alla prima pagina dopo la creazione del post
+    setCurrentPage(1);
+    handleCloseCreate();
+  };
+
+  // show={showModalCreate} onHide={handleCloseCreate}
+  const [showModalCreate, setShowModalCreate] = useState(false);
+
+  const handleCloseCreate = () => {
+    setShowModalCreate(false);
+    setFormData({ text: "" });
+    setAlert(null);
+  };
 
   const handleShowModal = () => {
     setFormData({ text: "" });
@@ -67,18 +86,70 @@ const Posts = () => {
 
   return (
     <>
+      <div className="card mb-3 shadow-sm">
+        <div className="card-body">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setShowModalCreate(true);
+            }}
+          >
+            <div className="d-flex align-items-center mb-3">
+              <img
+                src="/profile-icon.png"
+                alt="Profile"
+                className="rounded-circle me-3"
+                style={{ width: "50px", height: "50px" }}
+              />
+              <input
+                type="text"
+                className="form-control rounded-pill"
+                placeholder="Crea un post"
+                value={formData.text}
+                onChange={(e) => {
+                  setFormData({ text: e.target.value });
+                }}
+                style={{ backgroundColor: "#f3f2ef", border: "none" }}
+              />
+            </div>
+          </form>
+          <div className="d-flex justify-content-around">
+            <button
+              className="btn btn-light d-flex align-items-center"
+              onClick={handleShowModal}
+            >
+              <i className="bi bi-camera-video text-primary me-2"></i>
+              Video
+            </button>
+            <button
+              className="btn btn-light d-flex align-items-center"
+              onClick={handleShowModal}
+            >
+              <i className="bi bi-image text-success me-2"></i>
+              Foto
+            </button>
+            <button
+              className="btn btn-light d-flex align-items-center"
+              onClick={handleShowModal}
+            >
+              <i className="bi bi-pencil-square text-warning me-2"></i>
+              Scrivi un articolo
+            </button>
+          </div>
+        </div>
+      </div>
       <Card className="border border-1 rounded-3 my-4 position-relative">
         <Card.Body className="border-bottom container">
-          <Row className="mb-3">
-            <Col xs={10}>
-              <Card.Title>Post</Card.Title>
-            </Col>
-            <Col xs={2} className="d-flex gap-2 justify-content-end">
+          {/* <Row className="mb-3">
+            <Col xs={10}> */}
+          <Card.Title>Post</Card.Title>
+          {/* </Col> */}
+          {/* <Col xs={2} className="d-flex gap-2 justify-content-end">
               <Button variant="light" onClick={handleShowModal}>
                 <BiPlus className="fs-3" />
               </Button>
-            </Col>
-          </Row>
+            </Col> */}
+          {/* </Row> */}
 
           {postsLoading && (
             <div className="d-flex justify-content-center my-3">
@@ -163,6 +234,27 @@ const Posts = () => {
             setCurrentPage={() => setCurrentPage}
             doModify={false}
           />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showModalCreate} onHide={handleCloseCreate} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Vuoi creare un nuovo post?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
+          <div className="mb-4">
+            <span className="fw-semibold">Contenuto</span>: <br />
+            {formData.text}
+          </div>
+          <div className="d-flex justify-content-end gap-2">
+            <Button variant="danger" onClick={handleCloseCreate}>
+              No
+            </Button>
+            <Button variant="success px-3" onClick={createPostOnlyText}>
+              Sì
+            </Button>
+          </div>
         </Modal.Body>
       </Modal>
     </>

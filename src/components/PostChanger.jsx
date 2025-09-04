@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, fetchPosts, modifyPostAction } from "../redux/actions";
+import "../css/postChanger.css";
+import { BiImageAdd, BiSmile, BiCalendar } from "react-icons/bi";
 
 const PostChanger = ({
   setAlert,
@@ -43,7 +45,6 @@ const PostChanger = ({
     }
     try {
       await dispatch(createPost(formData, imageFile));
-      console.log("imageFile", typeof imageFile);
 
       setAlert({ type: "success", message: "Post creato con successo." });
       dispatch(fetchPosts());
@@ -67,14 +68,15 @@ const PostChanger = ({
   return (
     <Form onSubmit={doModify ? handleSubmitModify : handleSubmitCreate}>
       <Form.Group className="mb-3" controlId="text">
-        <Form.Label>Testo del Post</Form.Label>
+        {/* <Form.Label>Testo del Post</Form.Label> */}
         <Form.Control
           as="textarea"
-          rows={4}
+          rows={8}
           name="text"
           value={formData.text}
           onChange={handleChange}
-          placeholder="Scrivi qualcosa..."
+          // placeholder="Scrivi qualcosa..."
+          placeholder="Di cosa vorresti parlare?"
           required
         />
       </Form.Group>
@@ -110,10 +112,27 @@ const PostChanger = ({
       {doModify ? (
         ""
       ) : (
-        <Form.Group controlId="imageFile" className="mb-3">
-          <Form.Label>Immagine (opzionale)</Form.Label>
-          <Form.Control type="file" onChange={handleFileChange} />
-        </Form.Group>
+        <>
+          <BiSmile className="icons-form mt-0 ms-3" />
+          <div className="mb-2 d-flex">
+            <div>
+              <label for="file-upload" class="custom-file-upload">
+                <BiImageAdd className="icons-form" />
+              </label>
+              <input
+                id="file-upload"
+                type="file"
+                // className="fs-3"
+                onChange={handleFileChange}
+              />
+            </div>
+            <BiCalendar className="icons-form" />
+          </div>
+        </>
+        // <Form.Group controlId="imageFile" className="mb-3">
+        //   <Form.Label>Immagine (opzionale)</Form.Label>
+        //   <Form.Control type="file" onChange={handleFileChange} />
+        // </Form.Group>
       )}
       {doChangeImage ? (
         <Form.Group controlId="imageFile" className="mb-3">
