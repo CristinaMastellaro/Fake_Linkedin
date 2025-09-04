@@ -13,8 +13,19 @@ const SinglePost = ({ post, setCurrentPage }) => {
   });
 
   const [alert, setAlert] = useState(null);
+
+  // Stati like/reazioni e commenti
   const [isLiked, setIsLiked] = useState(false);
+  const [reactions, setReactions] = useState(
+    () => Math.floor(Math.random() * 99) + 2 // 2–100
+  );
+  const [comments, setComments] = useState(
+    () => Math.floor(Math.random() * 99) + 2 // 2–100
+  );
+
   const handleLikeClick = () => {
+    const increment = Math.floor(Math.random() * 15) + 1;
+    setReactions((prev) => prev + increment);
     setIsLiked(!isLiked);
   };
 
@@ -28,22 +39,27 @@ const SinglePost = ({ post, setCurrentPage }) => {
   const handleCloseModify = () => setShowModify(false);
   const handleShowModify = () => setShowModify(true);
 
-  const numReactions = Math.floor(Math.random() * 200);
-  const numComments = Math.floor(Math.random() * 100);
-
   const handlePostClick = (e) => {
-    if (e.target.closest(".dropdown") || e.target.closest(".dropdown-menu")) {
+    if (
+      e.target.closest(".dropdown") ||
+      e.target.closest(".dropdown-menu") ||
+      e.target.closest(".profile-link")
+    ) {
       e.stopPropagation();
       return;
     }
+    navigate(`/details/post/${post._id}`);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
+  };
 
-    if (!e.target.closest(".dropdown")) {
-      navigate(`/details/post/${post._id}`);
-
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 100);
-    }
+  const handleProfileClick = (e) => {
+    e.stopPropagation();
+    navigate(`/profile/${post.user._id}`);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
   };
 
   return (
@@ -51,14 +67,24 @@ const SinglePost = ({ post, setCurrentPage }) => {
       <div onClick={handlePostClick} style={{ cursor: "pointer" }}>
         <div className="card-body">
           <div className="d-flex align-items-start mb-3">
-            <img
-              src={post.user?.image || "https://avatar.iran.liara.run/public"}
-              alt="Profile"
-              className="rounded-circle me-3"
-              style={{ width: "50px", height: "50px" }}
-            />
+            <div
+              className="profile-link"
+              onClick={handleProfileClick}
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                src={post.user?.image || "https://avatar.iran.liara.run/public"}
+                alt="Profile"
+                className="rounded-circle me-3"
+                style={{ width: "50px", height: "50px" }}
+              />
+            </div>
             <div className="flex-grow-1">
-              <h6 className="mb-0 fw-bold">
+              <h6
+                className="mb-0 fw-bold profile-link"
+                onClick={handleProfileClick}
+                style={{ cursor: "pointer" }}
+              >
                 {post.user?.name} {post.user?.surname}
               </h6>
               <small className="text-muted">
@@ -82,22 +108,24 @@ const SinglePost = ({ post, setCurrentPage }) => {
               </Dropdown>
             )}
           </div>
-          <p className={"T" !== post.text ? "card-text" : "d-none"}>
-            {post.text}
-          </p>
+          <div>
+            <p className={"T" !== post.text ? "card-text" : "d-none"}>
+              {post.text}
+            </p>
 
-          {post.image && (
-            <img
-              src={post.image}
-              alt="Post"
-              className="img-fluid rounded"
-              style={{
-                maxHeight: "300px",
-                width: "100%",
-                objectFit: "cover",
-              }}
-            />
-          )}
+            {post.image && (
+              <img
+                src={post.image}
+                alt="Post"
+                className="img-fluid rounded"
+                style={{
+                  maxHeight: "300px",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            )}
+          </div>
         </div>
       </div>
 
@@ -105,9 +133,9 @@ const SinglePost = ({ post, setCurrentPage }) => {
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
             <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{" "}
-            {numReactions} reazioni
+            {reactions} reazioni
           </small>
-          <small className="text-muted">{numComments} commenti</small>
+          <small className="text-muted">{comments} commenti</small>
         </div>
 
         <div className="d-flex justify-content-around mt-2 pt-2 border-top">
@@ -173,7 +201,7 @@ const SinglePost = ({ post, setCurrentPage }) => {
           <Button
             variant="primary"
             onClick={() => {
-              dispatch(deletePostAction(post._id));
+              dispatch(deletePostAction(post._id, true));
               handleCloseDelete;
             }}
             className="px-3"

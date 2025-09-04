@@ -24,7 +24,7 @@
 }
 
 .picture-profile-side {
-  background-image: url("https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg");
+  background-image: url('https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg');
   background-position: center;
   background-size: cover;
   position: absolute;
@@ -38,6 +38,19 @@
 @media screen and (min-width: 992px) {
   .side-img {
     height: 60px;
+  }
+
+  .sticky-sidebar {
+    position: sticky;
+    top: 80px;
+    z-index: 2;
+  }
+
+  @media (max-width: 768px) {
+    .sticky-sidebar {
+      position: static;
+      top: unset;
+    }
   }
 
   .picture-profile-side {

@@ -364,40 +364,7 @@ export const UPLOAD_POST_IMAGE_FAILURE = "UPLOAD_POST_IMAGE_FAILURE";
 
 export const DELETE_POST = "DELETE_POST";
 export const MODIFY_POST = "MODIFY_POST";
-
-export const modifyPostAction = (id, formData, image) => {
-  console.log("formData", formData);
-  console.log("image", image);
-  return async (dispatch) => {
-    // Modifica il testo del post
-    fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${TOKEN}`,
-        "Content-Type": "text/plain",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => {
-        console.log("Sei entrato nel modificatore!");
-        console.log("res", res);
-        if (!res.ok) {
-          throw new Error("Non siamo riusciti a modificare il testo del post");
-        }
-      })
-      .catch((err) => console.log("Errore!", err));
-
-    if (image) {
-      await dispatch(uploadPostImage(id, image));
-    } else {
-      console.log("Non abbiamo modificato l'immagine");
-    }
-    dispatch(fetchPosts());
-    return {
-      type: MODIFY_POST,
-    };
-  };
-};
+// export const GET_ONE_POST = "GET_ONE_POST";
 
 export const fetchPostsRequest = () => ({
   type: FETCH_POSTS_REQUEST,
@@ -493,6 +460,7 @@ export const createPost = (postData, imageFile) => {
     }
   };
 };
+
 export const uploadPostImage = (postId, imageFile) => {
   return async (dispatch) => {
     dispatch(uploadPostImageRequest());
@@ -521,7 +489,25 @@ export const uploadPostImage = (postId, imageFile) => {
   };
 };
 
-export const deletePostAction = (id) => {
+export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
+export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
+export const DELETE_POST_FAILURE = "DELETE_POST_REQUEST";
+
+export const deletePostRequest = () => ({
+  type: DELETE_POST_REQUEST,
+});
+
+export const deletePostSuccess = (postId) => ({
+  type: DELETE_POST_SUCCESS,
+  payload: postId,
+});
+
+export const deletePostFailure = (error) => ({
+  type: DELETE_POST_FAILURE,
+  payload: error,
+});
+
+export const deletePostAction = (id, sentAlert) => {
   const bearer = TOKEN;
   console.log("id", id);
   fetch("https://striveschool-api.herokuapp.com/api/posts/" + id, {
@@ -531,7 +517,7 @@ export const deletePostAction = (id) => {
     },
   })
     .then((res) => {
-      if (res.ok) {
+      if (res.ok && sentAlert) {
         alert("Post cancellato!");
       } else {
         throw new Error("Non siamo riusciti a cancellare il post");
@@ -544,6 +530,78 @@ export const deletePostAction = (id) => {
     payload: id,
   };
 };
+
+export const MODIFY_POST_REQUEST = "MODIFY_POST_REQUEST";
+export const MODIFY_POST_SUCCESS = "MODIFY_POST_SUCCESS";
+export const MODIFY_POST_FAILURE = "MODIFY_POST_REQUEST";
+
+export const modifyPostRequest = () => ({
+  type: MODIFY_POST_REQUEST,
+});
+
+export const modifyPostSuccess = (postId) => ({
+  type: MODIFY_POST_SUCCESS,
+  payload: postId,
+});
+
+export const modifyPostFailure = (error) => ({
+  type: MODIFY_POST_FAILURE,
+  payload: error,
+});
+
+export const modifyPostAction = (id, formData, image) => {
+  console.log("formData", formData);
+  console.log("image", image);
+  return async (dispatch) => {
+    // Modifica il testo del post
+    fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => {
+        console.log("Sei entrato nel modificatore!");
+        console.log("res", res);
+        if (!res.ok) {
+          throw new Error("Non siamo riusciti a modificare il testo del post");
+        }
+      })
+      .catch((err) => console.log("Errore!", err));
+
+    if (image) {
+      await dispatch(uploadPostImage(id, image));
+    } else {
+      console.log("Non abbiamo modificato l'immagine");
+    }
+    dispatch(fetchPosts());
+    return {
+      type: MODIFY_POST,
+    };
+  };
+};
+
+// export const getOnePost = (id) => {
+//   fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
+//     headers: { Authorization: `Bearer ${TOKEN}` },
+//   })
+//     .then((res) => {
+//       if (res.ok) {
+//         return res.json();
+//       } else {
+//         throw new Error("Non siamo riusciti a caricare il post");
+//       }
+//     })
+//     .then((data) => {
+//       return {
+//         type: GET_ONE_POST,
+//         payload: data,
+//       };
+//     })
+//     .catch((err) => console.log("Errore!", err));
+// };
 
 export const UPDATE_PROFILE_REQUEST = "UPDATE_PROFILE_REQUEST";
 export const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
@@ -590,5 +648,20 @@ export const updateProfile = (profileData) => {
     } catch (error) {
       dispatch(updateProfileFailure(error.message));
     }
+  };
+};
+
+export const BACK_TO_HOME = "BACK_TO_HOME";
+export const SET_PAGE = "SET_PAGE";
+
+export const backToHomeAction = () => ({
+  type: BACK_TO_HOME,
+  payload: 1,
+});
+
+export const setPageAction = (page) => {
+  return {
+    type: SET_PAGE,
+    payload: page,
   };
 };

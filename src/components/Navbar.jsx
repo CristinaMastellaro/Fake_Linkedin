@@ -21,15 +21,17 @@ import {
 } from 'react-bootstrap-icons'
 import { useState, useEffect, useRef } from 'react'
 import { useLocation, Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import SearchModal from './SearchModal'
 import '../css/Navbar.css'
-import { TOKEN } from '../redux/actions'
+import { setPageAction, TOKEN } from '../redux/actions'
 
 export default function CustomNavbar() {
   const [addFlex, setAddFlex] = useState(false)
   const location = useLocation()
   const { myProfile } = useSelector((state) => state.saveProfileMe)
+
+  const dispatch = useDispatch()
 
   // stati per la ricerca
   const [searchTerm, setSearchTerm] = useState('')
@@ -80,6 +82,12 @@ export default function CustomNavbar() {
     return () => clearTimeout(timeout)
   }, [searchTerm])
 
+  const handleResetSearch = () => {
+    setSearchTerm('')
+    setResults([])
+    setShowModal(false)
+  }
+
   return (
     <Navbar
       bg="light"
@@ -98,6 +106,11 @@ export default function CustomNavbar() {
               src="/linkedin-icon.jpg"
               alt="icona-linkedin"
               style={{ width: 35, height: 35 }}
+              onClick={() => {
+                dispatch(setPageAction(1))
+                window.scrollTo({ top: 0, left: 0 })
+                handleResetSearch()
+              }}
             />
           </Link>
 
@@ -105,7 +118,10 @@ export default function CustomNavbar() {
           <Form
             className="search-form"
             ref={searchRef}
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleResetSearch()
+            }}
           >
             <i className="bi bi-search search-icon"></i>
             <FormControl
@@ -142,6 +158,7 @@ export default function CustomNavbar() {
                 searchTerm={searchTerm}
                 loading={loading}
                 onClose={() => setShowModal(false)}
+                onSelect={handleResetSearch}
               />
             </div>
           )}
@@ -162,6 +179,10 @@ export default function CustomNavbar() {
                 }
                 to="/"
                 as={Link}
+                onClick={() => {
+                  dispatch(setPageAction(1))
+                  window.scrollTo({ top: 0, left: 0 })
+                }}
               >
                 <HouseFill size={22} />
                 <span className="small">Home</span>

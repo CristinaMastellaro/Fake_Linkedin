@@ -10,7 +10,11 @@ const Info = () => {
   const [canModify, _] = useState(id === "" || id === undefined);
 
   const [showModal, setShowModal] = useState(false);
-  const myInfo = useSelector((state) => state.saveProfileMe.myProfile);
+  let myInfo;
+  const info = useSelector((state) => state.saveProfileMe.myProfile);
+  const otherInfo = useSelector((state) => state.saveProfileMe.otherProfile);
+
+  myInfo = id ? otherInfo : info;
   const dispatch = useDispatch();
 
   const [editedBio, setEditedBio] = useState(myInfo?.bio || "");

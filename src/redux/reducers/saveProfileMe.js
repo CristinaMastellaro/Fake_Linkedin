@@ -36,8 +36,16 @@ import {
   UPDATE_PROFILE_FAILURE,
   DELETE_POST,
   MODIFY_POST,
+  BACK_TO_HOME,
+  SET_PAGE,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
+  MODIFY_POST_REQUEST,
+  MODIFY_POST_SUCCESS,
+  MODIFY_POST_FAILURE,
+  // GET_ONE_POST,
 } from "../actions";
-
 const initialState = {
   myProfile: {
     area: "",
@@ -52,18 +60,20 @@ const initialState = {
     username: "",
   },
   otherProfile: null,
+  setPageHome: 1,
   experiences: [],
   experiencesLoading: false,
   experiencesError: null,
   posts: [],
+  // singlePost: null,
   postsLoading: false,
   postsError: null,
   loading: false,
   error: null,
 };
-
 const saveProfileMe = (state = initialState, action) => {
   switch (action.type) {
+    // PROFILE ACTIONS
     case FETCH_PROFILE_REQUEST:
       return {
         ...state,
@@ -75,6 +85,12 @@ const saveProfileMe = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
+      };
+    case FETCH_PROFILE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
     case SAVE_ME_INFO:
       return {
@@ -90,13 +106,48 @@ const saveProfileMe = (state = initialState, action) => {
         otherProfile: action.payload,
         error: null,
       };
-    case FETCH_PROFILE_FAILURE:
+    case UPDATE_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        myProfile: action.payload,
+        error: null,
+      };
+    case UPDATE_PROFILE_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-
+    case UPLOAD_PROFILE_IMAGE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case UPLOAD_PROFILE_IMAGE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        myProfile: {
+          ...state.myProfile,
+          image: action.payload,
+        },
+        error: null,
+      };
+    case UPLOAD_PROFILE_IMAGE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    // EXPERIENCE ACTIONS
     case FETCH_EXPERIENCES_REQUEST:
       return {
         ...state,
@@ -116,7 +167,6 @@ const saveProfileMe = (state = initialState, action) => {
         experiencesLoading: false,
         experiencesError: action.payload,
       };
-
     case CREATE_EXPERIENCE_REQUEST:
       return {
         ...state,
@@ -136,7 +186,6 @@ const saveProfileMe = (state = initialState, action) => {
         experiencesLoading: false,
         experiencesError: action.payload,
       };
-
     case UPDATE_EXPERIENCE_REQUEST:
       return {
         ...state,
@@ -158,7 +207,6 @@ const saveProfileMe = (state = initialState, action) => {
         experiencesLoading: false,
         experiencesError: action.payload,
       };
-
     case DELETE_EXPERIENCE_REQUEST:
       return {
         ...state,
@@ -180,7 +228,6 @@ const saveProfileMe = (state = initialState, action) => {
         experiencesLoading: false,
         experiencesError: action.payload,
       };
-
     case UPLOAD_EXPERIENCE_IMAGE_REQUEST:
       return {
         ...state,
@@ -193,7 +240,10 @@ const saveProfileMe = (state = initialState, action) => {
         experiencesLoading: false,
         experiences: state.experiences.map((exp) =>
           exp._id === action.payload.experienceId
-            ? { ...exp, image: action.payload.imageUrl }
+            ? {
+                ...exp,
+                image: action.payload.imageUrl,
+              }
             : exp
         ),
         experiencesError: null,
@@ -204,27 +254,7 @@ const saveProfileMe = (state = initialState, action) => {
         experiencesLoading: false,
         experiencesError: action.payload,
       };
-
-    case UPLOAD_PROFILE_IMAGE_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case UPLOAD_PROFILE_IMAGE_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        myProfile: { ...state.myProfile, image: action.payload },
-        error: null,
-      };
-    case UPLOAD_PROFILE_IMAGE_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-
+    // POST ACTIONS
     case FETCH_POSTS_REQUEST:
       return {
         ...state,
@@ -244,7 +274,6 @@ const saveProfileMe = (state = initialState, action) => {
         postsLoading: false,
         postsError: action.payload,
       };
-
     case CREATE_POST_REQUEST:
       return {
         ...state,
@@ -265,7 +294,6 @@ const saveProfileMe = (state = initialState, action) => {
         postsLoading: false,
         postsError: action.payload,
       };
-
     case UPLOAD_POST_IMAGE_REQUEST:
       return {
         ...state,
@@ -278,7 +306,10 @@ const saveProfileMe = (state = initialState, action) => {
         postsLoading: false,
         posts: state.posts.map((post) =>
           post._id === action.payload.postId
-            ? { ...post, image: action.payload.imageUrl }
+            ? {
+                ...post,
+                image: action.payload.imageUrl,
+              }
             : post
         ),
         postsError: null,
@@ -294,33 +325,63 @@ const saveProfileMe = (state = initialState, action) => {
         ...state,
         posts: state.posts.filter((post) => post._id !== action.payload),
       };
+    case DELETE_POST_REQUEST:
+      return {
+        ...state,
+        postsLoading: true,
+        postsError: null,
+      };
+    case DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        postsLoading: false,
+        postsError: null,
+      };
+    case DELETE_POST_FAILURE:
+      return {
+        ...state,
+        postsLoading: false,
+        postsError: action.payload,
+      };
     case MODIFY_POST:
       return {
         ...state,
       };
-    case UPDATE_PROFILE_REQUEST:
+    case MODIFY_POST_REQUEST:
       return {
         ...state,
-        loading: true,
-        error: null,
+        postsLoading: true,
+        postsError: null,
       };
-    case UPDATE_PROFILE_SUCCESS:
+    case MODIFY_POST_SUCCESS:
       return {
         ...state,
-        loading: false,
-        myProfile: action.payload,
-        error: null,
+        postsLoading: false,
+        postsError: null,
       };
-    case UPDATE_PROFILE_FAILURE:
+    case MODIFY_POST_FAILURE:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        postsLoading: false,
+        postsError: action.payload,
       };
-
+    // case GET_ONE_POST:
+    //   return {
+    //     ...state,
+    //     singlePost: action.payload,
+    //   };
+    case BACK_TO_HOME:
+      return {
+        ...state,
+        setPageHome: action.payload,
+      };
+    case SET_PAGE:
+      return {
+        ...state,
+        setPageHome: action.payload,
+      };
     default:
       return state;
   }
 };
-
 export default saveProfileMe;
