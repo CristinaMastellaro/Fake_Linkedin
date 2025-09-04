@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { Dropdown, Modal, Button, Alert } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deletePostAction } from "../redux/actions";
 import PostChanger from "./PostChanger";
+import "../css/singlePost.css";
 
 const SinglePost = ({ post, setCurrentPage }) => {
+  const myName = useSelector((state) => {
+    return state.saveProfileMe.myProfile.name;
+  });
+  console.log("myName", myName);
+  console.log("post.user?.name", post.user?.name);
   const [alert, setAlert] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const handleLikeClick = () => {
@@ -29,7 +35,6 @@ const SinglePost = ({ post, setCurrentPage }) => {
       <div className="card-body">
         <div className="d-flex align-items-start mb-3">
           <img
-            // src="https://avatar.iran.liara.run/public/boy"
             src={post.user?.image || "https://via.placeholder.com/40"}
             alt="Profile"
             className="rounded-circle me-3"
@@ -44,35 +49,24 @@ const SinglePost = ({ post, setCurrentPage }) => {
               {new Date(post.createdAt).toLocaleDateString()}
             </small>
           </div>
-          {/* <div className="dropdown"> */}
-          {/* <button className="btn btn-link text-muted" type="button" >
-              <i className="bi bi-three-dots"></i>
-            </button> */}
-          <Dropdown>
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              <i className="bi bi-three-dots"></i>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={handleShowModify}>Modifica</Dropdown.Item>
-              <Dropdown.Item variant="primary" onClick={handleShowDelete}>
-                Elimina
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          {/* </div> */}
+          {myName === post.user.name && (
+            <Dropdown>
+              <Dropdown.Toggle variant="light" id="dropdown-basic">
+                <i className="bi bi-three-dots"></i>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={handleShowModify}>
+                  Modifica
+                </Dropdown.Item>
+                <Dropdown.Item variant="primary" onClick={handleShowDelete}>
+                  Elimina
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
         </div>
-        {/* <Button variant="primary" onClick={handleShowDelete}>
-          Launch demo modal
-        </Button> */}
 
         <p className="card-text">{post.text}</p>
-
-        {/* <img
-          src="https://blog.differentacademy.it/wp-content/uploads/sites/2/2021/12/team-working-lavoro-squadra-copertina.jpg"
-          alt="Post content"
-          className="img-fluid mb-3"
-        /> */}
 
         {post.image && (
           <img

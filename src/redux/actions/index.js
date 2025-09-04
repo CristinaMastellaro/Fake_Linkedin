@@ -365,8 +365,10 @@ export const UPLOAD_POST_IMAGE_FAILURE = "UPLOAD_POST_IMAGE_FAILURE";
 export const DELETE_POST = "DELETE_POST";
 export const MODIFY_POST = "MODIFY_POST";
 
-export const modifyPostAction = (id, text, image) => {
-  return (dispatch) => {
+export const modifyPostAction = (id, formData, image) => {
+  console.log("formData", formData);
+  console.log("image", image);
+  return async (dispatch) => {
     // Modifica il testo del post
     fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
       method: "PUT",
@@ -374,7 +376,7 @@ export const modifyPostAction = (id, text, image) => {
         Authorization: `Bearer ${TOKEN}`,
         "Content-Type": "text/plain",
       },
-      body: JSON.stringify(text),
+      body: JSON.stringify(formData),
     })
       .then((res) => {
         console.log("Sei entrato nel modificatore!");
@@ -386,29 +388,13 @@ export const modifyPostAction = (id, text, image) => {
       .catch((err) => console.log("Errore!", err));
 
     if (image) {
-      const formData = new FormData();
-      formData.append("image", image);
-      fetch(`https://striveschool-api.herokuapp.com/api/post/${id}`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-        body: formData,
-      })
-        .then((res) => {
-          console.log("res image modify", res);
-          if (!res.ok) {
-            throw new Error("Non siamo riusciti a modificare l'immagine");
-          }
-        })
-        .catch((err) => console.log("Errore!", err));
+      await dispatch(uploadPostImage(id, image));
     } else {
       console.log("Non abbiamo modificato l'immagine");
     }
     dispatch(fetchPosts());
     return {
       type: MODIFY_POST,
-      payload: { text: text, image: image },
     };
   };
 };
@@ -471,7 +457,6 @@ export const fetchPosts = () => {
         throw new Error("Failed to fetch posts");
       }
       const posts = await response.json();
-      // console.log("posts", posts.reverse());
       posts.reverse();
       dispatch(fetchPostsSuccess(posts));
     } catch (error) {
