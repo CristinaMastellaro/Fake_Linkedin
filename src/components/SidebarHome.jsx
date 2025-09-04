@@ -112,7 +112,7 @@ function SidebarHome() {
             Promosso <i className='bi bi-three-dots'></i>
           </p>
           <img
-            src='https://png.pngtree.com/background/20230408/original/pngtree-mountain-view-in-the-morning-picture-image_2336856.jpg'
+            src='https://images.ctfassets.net/nnkxuzam4k38/219VUMa1SOxASKqCE2OgT4/be1c810344587bd7f6f203337d23602a/ranger-4df6c1b6.png'
             className='side-img'
           />
           <div className='company-profile-side'></div>
