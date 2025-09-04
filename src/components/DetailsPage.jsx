@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import '../css/footerHome.css'
 import MyFooter from './MyFooter'
+import { useSelector } from 'react-redux'
 
 const DetailsPage = () => {
   const [showFooter, setShowFooter] = useState(false)
@@ -21,6 +22,10 @@ const DetailsPage = () => {
     console.log('Detail params:', { type, id })
   }, [type, id])
 
+  // Recupera il post corrente dallo store
+  const posts = useSelector((state) => state.saveProfileMe.posts)
+  const currentPost = posts.find((post) => post._id === id)
+
   return (
     <>
       <Container className="DetailsPage bg-light min-vh-100 py-4">
@@ -31,7 +36,12 @@ const DetailsPage = () => {
             </div>
           </Col>
           <Col xs={12} md={8} lg={6}>
-            <DetailCard itemId={id} itemType={type} />
+            <DetailCard
+              itemId={id}
+              itemType={type}
+              post={currentPost}
+              setCurrentPage={() => {}} // Funzione vuota poiché non necessitiamo della paginazione qui
+            />
           </Col>
           <Col xs={12} lg={3}>
             <div style={{ position: 'sticky', top: '76px' }}>

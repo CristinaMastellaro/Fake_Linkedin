@@ -33,16 +33,14 @@ const SinglePost = ({ post, setCurrentPage }) => {
   const numComments = Math.floor(Math.random() * 100)
 
   const handlePostClick = (e) => {
-    // Se il click è sul dropdown o sui suoi elementi, non navigare
     if (e.target.closest('.dropdown') || e.target.closest('.dropdown-menu')) {
       e.stopPropagation()
       return
     }
 
-    // Se è il mio post o non è il mio post, naviga
     if (!e.target.closest('.dropdown')) {
       navigate(`/details/post/${post._id}`)
-      // Forza uno scroll to top dopo un brevissimo delay
+
       setTimeout(() => {
         window.scrollTo(0, 0)
       }, 100)
@@ -50,61 +48,60 @@ const SinglePost = ({ post, setCurrentPage }) => {
   }
 
   return (
-    <div
-      className="card mb-3 shadow-sm"
-      onClick={handlePostClick}
-      style={{ cursor: 'pointer' }}
-    >
-      <div className="card-body">
-        <div className="d-flex align-items-start mb-3">
-          <img
-            // src="https://avatar.iran.liara.run/public/boy"
-            src={post.user?.image || 'https://avatar.iran.liara.run/public'}
-            alt="Profile"
-            className="rounded-circle me-3"
-            style={{ width: '50px', height: '50px' }}
-          />
-          <div className="flex-grow-1">
-            <h6 className="mb-0 fw-bold">
-              {post.user?.name} {post.user?.surname}
-            </h6>
-            <small className="text-muted">
-              {post.user?.title} •{' '}
-              {new Date(post.createdAt).toLocaleDateString()}
-            </small>
+    <div className="card mb-3 shadow-sm">
+      <div onClick={handlePostClick} style={{ cursor: 'pointer' }}>
+        <div className="card-body">
+          <div className="d-flex align-items-start mb-3">
+            <img
+              src={post.user?.image || 'https://avatar.iran.liara.run/public'}
+              alt="Profile"
+              className="rounded-circle me-3"
+              style={{ width: '50px', height: '50px' }}
+            />
+            <div className="flex-grow-1">
+              <h6 className="mb-0 fw-bold">
+                {post.user?.name} {post.user?.surname}
+              </h6>
+              <small className="text-muted">
+                {post.user?.title} •{' '}
+                {new Date(post.createdAt).toLocaleDateString()}
+              </small>
+            </div>
+            {myName === post.user.name && (
+              <Dropdown onClick={(e) => e.stopPropagation()}>
+                <Dropdown.Toggle variant="light" id="dropdown-basic">
+                  <i className="bi bi-three-dots"></i>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={handleShowModify}>
+                    Modifica
+                  </Dropdown.Item>
+                  <Dropdown.Item variant="primary" onClick={handleShowDelete}>
+                    Elimina
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            )}
           </div>
-          {myName === post.user.name && (
-            <Dropdown onClick={(e) => e.stopPropagation()}>
-              <Dropdown.Toggle variant="light" id="dropdown-basic">
-                <i className="bi bi-three-dots"></i>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={handleShowModify}>
-                  Modifica
-                </Dropdown.Item>
-                <Dropdown.Item variant="primary" onClick={handleShowDelete}>
-                  Elimina
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+
+          <p className="card-text">{post.text}</p>
+
+          {post.image && (
+            <img
+              src={post.image}
+              alt="Post"
+              className="img-fluid rounded"
+              style={{
+                maxHeight: '300px',
+                width: '100%',
+                objectFit: 'cover',
+              }}
+            />
           )}
         </div>
+      </div>
 
-        <p className="card-text">{post.text}</p>
-
-        {post.image && (
-          <img
-            src={post.image}
-            alt="Post"
-            className="img-fluid rounded"
-            style={{
-              maxHeight: '300px',
-              width: '100%',
-              objectFit: 'cover',
-            }}
-          />
-        )}
-
+      <div className="card-body ">
         <div className="d-flex justify-content-between align-items-center pt-2">
           <small className="text-muted">
             <i className="bi bi-hand-thumbs-up-fill text-primary"></i>{' '}
