@@ -7,19 +7,17 @@ import { Row, Col, Spinner } from 'react-bootstrap';
 import MiniHero from '../components/MiniHero';
 import MyFooter from './MyFooter';
 import Messaggistica from './Messaggistica';
-import { SAVE_ME_INFO, SAVE_OTHER_INFO } from '../redux/actions';
+import { SAVE_ME_INFO, SAVE_OTHER_INFO, TOKEN } from '../redux/actions';
 
 const ProfilePage = () => {
-  const { id } = useParams(); // id = undefined se sei su /profile
+  const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
-
   const loggedUser = useSelector((state) => state.meInfo); // utente loggato dal Redux store
   const loggedUserId = loggedUser?._id;
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const bearer = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY';
+  const bearer = TOKEN;
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -53,20 +51,21 @@ const ProfilePage = () => {
     };
 
     fetchProfileData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, dispatch]);
 
   if (loading)
     return (
-      <div className="d-flex justify-content-center align-items-center min-vh-100">
-        <Spinner animation="border" />
-        <span className="ms-2">Caricamento profilo...</span>
+      <div className='d-flex justify-content-center align-items-center min-vh-100'>
+        <Spinner animation='border' />
+        <span className='ms-2'>Caricamento profilo...</span>
       </div>
     );
 
   if (error)
     return (
-      <div className="d-flex justify-content-center align-items-center min-vh-100">
-        <div className="text-center">
+      <div className='d-flex justify-content-center align-items-center min-vh-100'>
+        <div className='text-center'>
           <h4>Errore nel caricamento</h4>
           <p>{error}</p>
         </div>
@@ -84,7 +83,7 @@ const ProfilePage = () => {
           <SidebarProfilo />
         </Col>
       </Row>
-      <div className="mt-5">
+      <div className='mt-5'>
         <Messaggistica />
         <MyFooter />
       </div>

@@ -12,3 +12,16 @@
   color: #0a66c2;
   text-decoration: underline;
 }
+
+.link {
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.link:hover {
+  background-color: rgb(237, 236, 236);
+}
+
+.blur-img {
+  filter: blur(1.7px);
+}
