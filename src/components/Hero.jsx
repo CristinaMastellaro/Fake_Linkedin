@@ -222,12 +222,12 @@ const Hero = () => {
           <Col
             xs={6}
             lg={6}
-            className="d-flex gap-2 d-none d-md-block justify-content-end"
+            className="d-flex gap-2 d-none d-md-block justify-content-end ps-5"
           >
             <img
               src="https://seeklogo.com/images/U/universita-degli-studi-di-padova-logo-D71B2107E1-seeklogo.com.png"
               alt="Logo uni"
-              className="logo-uni"
+              className="logo-uni ms-5"
             />
             <span className="fw-semibold ms-1">
               {profileData && profileData.area

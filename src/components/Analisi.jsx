@@ -1,7 +1,7 @@
-import { Card } from "react-bootstrap";
-import { FaEye } from "react-icons/fa";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { BiLineChart, BiRightArrowAlt } from "react-icons/bi";
+import { Card } from 'react-bootstrap'
+import { FaEye } from 'react-icons/fa'
+import { FaPeopleGroup } from 'react-icons/fa6'
+import { BiLineChart, BiRightArrowAlt } from 'react-icons/bi'
 
 const Analisi = () => {
   return (
@@ -32,7 +32,7 @@ const Analisi = () => {
         Mostra tutte le analisi <BiRightArrowAlt className="ms-1" />
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default Analisi;
+export default Analisi

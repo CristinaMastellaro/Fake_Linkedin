@@ -1,16 +1,16 @@
-import { Card, Tab, Tabs, Row, Col } from "react-bootstrap";
-import { BiRightArrowAlt, BiCheck } from "react-icons/bi";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import "../css/interests.css";
+import { Card, Tab, Tabs, Row, Col } from 'react-bootstrap'
+import { BiRightArrowAlt, BiCheck } from 'react-icons/bi'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import '../css/interests.css'
 
 const Interests = () => {
-  const { id } = useParams();
+  const { id } = useParams()
   const { myProfile, otherProfile } = useSelector(
     (state) => state.saveProfileMe
-  );
+  )
 
-  const profileData = id ? otherProfile : myProfile;
+  const profileData = id ? otherProfile : myProfile
 
   // Utilizzo dati dinamici basati sul profilo corrente
   const interests = profileData
@@ -19,33 +19,33 @@ const Interests = () => {
           {
             id: 1,
             name: profileData.area
-              ? `Tech Company di ${profileData.area.split(",")[0]}`
-              : "Tesla",
-            followers: "12.263.567 follower",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png",
-            status: "Già segui",
+              ? `Tech Company di ${profileData.area.split(',')[0]}`
+              : 'Tesla',
+            followers: '12.263.567 follower',
+            logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png',
+            status: 'Già segui',
           },
         ],
         education: [
           {
             id: 1,
             name: profileData.area
-              ? `Università di ${profileData.area.split(",")[0]}`
-              : "Università degli Studi di Padova",
-            followers: "307.282 follower",
-            logo: "https://seeklogo.com/images/U/universita-degli-studi-di-padova-logo-D71B2107E1-seeklogo.com.png",
-            status: "Aggiungi foto",
+              ? `Università di ${profileData.area.split(',')[0]}`
+              : 'Università degli Studi di Padova',
+            followers: '307.282 follower',
+            logo: 'https://seeklogo.com/images/U/universita-degli-studi-di-padova-logo-D71B2107E1-seeklogo.com.png',
+            status: 'Aggiungi foto',
           },
         ],
         groups: [
           {
             id: 1,
             name: profileData.title
-              ? profileData.title.split(" ")[0]
-              : "JavaScript",
-            followers: "1.495.258 utenti",
-            logo: "https://logos-world.net/wp-content/uploads/2023/02/JavaScript-Emblem.png",
-            status: "Già iscritto",
+              ? profileData.title.split(' ')[0]
+              : 'JavaScript',
+            followers: '1.495.258 utenti',
+            logo: 'https://logos-world.net/wp-content/uploads/2023/02/JavaScript-Emblem.png',
+            status: 'Già iscritto',
           },
         ],
       }
@@ -53,7 +53,7 @@ const Interests = () => {
         companies: [],
         education: [],
         groups: [],
-      };
+      }
 
   return (
     <Card className="border border-1 rounded-4 m-4 position-relative shadow">
@@ -151,7 +151,7 @@ const Interests = () => {
         <BiRightArrowAlt className="ms-1" />
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default Interests;
+export default Interests
