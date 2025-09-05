@@ -48,7 +48,8 @@ const Experiences = () => {
   //   area: "",
   // });
   // const [imageFile, setImageFile] = useState(null);
-  // const [alert, setAlert] = useState(null);
+  const [alert, setAlert] = useState(null);
+  const [singleExperience, setSingleExperience] = useState(null);
 
   useEffect(() => {
     if (userId) {
@@ -57,47 +58,50 @@ const Experiences = () => {
   }, [userId, dispatch]);
 
   const handleShowModal = (experience = null) => {
-    if (experience) {
-      setEditingExperience(experience);
-      setFormData({
-        role: experience.role || "",
-        company: experience.company || "",
-        startDate: experience.startDate
-          ? experience.startDate.slice(0, 10)
-          : "",
-        endDate: experience.endDate ? experience.endDate.slice(0, 10) : "",
-        description: experience.description || "",
-        area: experience.area || "",
-      });
-    } else {
-      setEditingExperience(null);
-      setFormData({
-        role: "",
-        company: "",
-        startDate: "",
-        endDate: "",
-        description: "",
-        area: "",
-      });
-    }
-    setImageFile(null);
-    setAlert(null);
+    setSingleExperience(experience);
+    setEditingExperience(experience);
+    // if (experience) {
+    //   setEditingExperience(experience);
+    //   setFormData({
+    //     role: experience.role || "",
+    //     company: experience.company || "",
+    //     startDate: experience.startDate
+    //       ? experience.startDate.slice(0, 10)
+    //       : "",
+    //     endDate: experience.endDate ? experience.endDate.slice(0, 10) : "",
+    //     description: experience.description || "",
+    //     area: experience.area || "",
+    //   });
+    // } else {
+    //   setEditingExperience(null);
+    //   setFormData({
+    //     role: "",
+    //     company: "",
+    //     startDate: "",
+    //     endDate: "",
+    //     description: "",
+    //     area: "",
+    //   });
+    // }
+    // setImageFile(null);
+    // setAlert(null);
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
+    dispatch(fetchExperiences(userId));
     setShowModal(false);
-    setEditingExperience(null);
-    setFormData({
-      role: "",
-      company: "",
-      startDate: "",
-      endDate: "",
-      description: "",
-      area: "",
-    });
-    setImageFile(null);
-    setAlert(null);
+    // setEditingExperience(null);
+    // setFormData({
+    //   role: "",
+    //   company: "",
+    //   startDate: "",
+    //   endDate: "",
+    //   description: "",
+    //   area: "",
+    // });
+    // setImageFile(null);
+    // setAlert(null);
   };
 
   // const handleChange = (e) => {
@@ -207,7 +211,7 @@ const Experiences = () => {
                   <div className="mb-2">
                     <p className="mb-0 fw-semibold">{exp.role}</p>
                     <p className="mb-0">
-                      {exp.company} · {exp.type || ""}
+                      {exp.company} {exp.type || ""}
                     </p>
                     <p className="mb-0 opacity-50">
                       {exp.startDate?.slice(0, 10)} -{" "}
@@ -239,8 +243,6 @@ const Experiences = () => {
             ))}
         </Card.Body>
       </Card>
-
-      <ExperienceForm />
 
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
@@ -323,7 +325,11 @@ const Experiences = () => {
               {experiencesLoading ? "Salvataggio..." : "Salva"}
             </Button>
           </Form> */}
-          <ExperienceForm handleCloseModal={handleCloseModal} userId={userId} />
+          <ExperienceForm
+            handleCloseModal={handleCloseModal}
+            userId={userId}
+            experience={singleExperience}
+          />
         </Modal.Body>
       </Modal>
     </>

@@ -1,9 +1,46 @@
-import { useState } from "react";
-import { Form, Alert } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { Form, Alert, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createExperience,
+  updateExperience,
+  uploadExperienceImage,
+} from "../redux/actions";
 
-const ExperienceForm = ({ handleCloseModal }) => {
+const ExperienceForm = ({ handleCloseModal, userId, experience }) => {
+  const { experiencesLoading } = useSelector((state) => state.saveProfileMe);
+
   const dispatch = useDispatch();
+  const [editingExperience, setEditingExperience] = useState(null);
+
+  useEffect(() => {
+    console.log("experience", experience);
+    if (experience) {
+      setEditingExperience(experience);
+      setFormData({
+        role: experience.role || "",
+        company: experience.company || "",
+        startDate: experience.startDate
+          ? experience.startDate.slice(0, 10)
+          : "",
+        endDate: experience.endDate ? experience.endDate.slice(0, 10) : "",
+        description: experience.description || "",
+        area: experience.area || "",
+      });
+    } else {
+      setEditingExperience(null);
+      setFormData({
+        role: "",
+        company: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+        area: "",
+      });
+    }
+    setImageFile(null);
+    setAlert(null);
+  }, []);
 
   const [formData, setFormData] = useState({
     role: "",
@@ -49,7 +86,7 @@ const ExperienceForm = ({ handleCloseModal }) => {
         }
       }
       setAlert({ type: "success", message: "Experience saved successfully." });
-      dispatch(fetchExperiences(userId));
+      //   dispatch(fetchExperiences(userId));
       handleCloseModal();
     } catch (error) {
       setAlert({
