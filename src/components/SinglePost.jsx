@@ -159,8 +159,8 @@ const SinglePost = ({ post, setCurrentPage }) => {
             <i className="bi bi-arrow-repeat me-2 d-none d-xl-inline"></i>
             Condividi
           </button>
-          <button class="btn btn-light">
-            <i class="bi bi-send me-2 d-none d-xl-inline"></i>Invia
+          <button className="btn btn-light">
+            <i className="bi bi-send me-2 d-none d-xl-inline"></i>Invia
           </button>
         </div>
         <div className="d-flex align-items-center mt-2 pt-2 ">
