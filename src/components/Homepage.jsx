@@ -20,6 +20,7 @@ const Homepage = () => {
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 100);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Si attiva solo al mount del componente
 
   // Gestisce il click fuori dal footer per chiuderlo
