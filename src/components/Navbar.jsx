@@ -32,7 +32,6 @@ export default function CustomNavbar() {
   const { myProfile } = useSelector((state) => state.saveProfileMe)
 
   const page = useSelector((state) => state.saveProfileMe.navigationPage)
-  console.log('pageNav', page)
 
   const dispatch = useDispatch()
 
