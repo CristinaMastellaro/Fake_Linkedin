@@ -45,7 +45,9 @@ import {
   MODIFY_POST_SUCCESS,
   MODIFY_POST_FAILURE,
   SET_NAVIGATION,
-  // GET_ONE_POST,
+  ALL_THE_COMMENTS_SUCCESS,
+  CREATE_COMMENT_SUCCESS,
+  ALL_THE_PROFILE_SUCCESS,
 } from "../actions";
 const initialState = {
   myProfile: {
@@ -61,11 +63,13 @@ const initialState = {
     username: "",
   },
   otherProfile: null,
+  profiles: [],
   setPageHome: 1,
   experiences: [],
   experiencesLoading: false,
   experiencesError: null,
   navigationPage: "",
+  allTheComments: [],
   posts: [],
   postsLoading: false,
   postsError: null,
@@ -385,6 +389,20 @@ const saveProfileMe = (state = initialState, action) => {
       return {
         ...state,
         navigationPage: action.payload,
+      };
+    case ALL_THE_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        allTheComments: action.payload,
+      };
+    case CREATE_COMMENT_SUCCESS:
+      return {
+        ...state,
+      };
+    case ALL_THE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        profiles: action.payload,
       };
     default:
       return state;

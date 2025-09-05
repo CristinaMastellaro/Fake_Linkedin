@@ -6,8 +6,13 @@ import Messaggistica from "./Messaggistica";
 import { useState, useEffect, useRef } from "react";
 import "../css/footerHome.css";
 import MyFooter from "./MyFooter";
-import { useDispatch } from "react-redux";
-import { setNavigationAction } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  allTheCommentsAction,
+  allTheProfiles,
+  setNavigationAction,
+  TOKEN_COMMENTS,
+} from "../redux/actions";
 
 const Homepage = () => {
   const [showFooter, setShowFooter] = useState(false);
@@ -15,7 +20,9 @@ const Homepage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(allTheCommentsAction());
     dispatch(setNavigationAction("/"));
+    dispatch(allTheProfiles());
     // Reset dello scroll quando il componente viene montato
     setTimeout(() => {
       window.scrollTo(0, 0);
@@ -44,17 +51,17 @@ const Homepage = () => {
 
   return (
     <>
-      <Container className='homepage min-vh-100 py-4'>
-        <Row className='justify-content-center'>
+      <Container className="homepage min-vh-100 py-4">
+        <Row className="justify-content-center">
           <Col xs={12} md={4} lg={3}>
-            <div className='sticky-sidebar'>
+            <div className="sticky-sidebar">
               <LeftSidebarHome />
             </div>
             <div className="d-block d-lg-none mt-3">
               <SidebarHome />
             </div>
           </Col>
-          <Col xs={12} lg={6}>
+          <Col xs={12} md={8} lg={6}>
             <HomeMain />
           </Col>
           <Col xs={12} lg={3}>

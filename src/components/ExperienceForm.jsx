@@ -160,10 +160,10 @@ const ExperienceForm = ({ handleCloseModal, userId, experience }) => {
             required
           />
         </Form.Group>
-        <Form.Group controlId="imageFile" className="mb-3">
+        {/* <Form.Group controlId="imageFile" className="mb-3">
           <Form.Label>Immagine</Form.Label>
           <Form.Control type="file" onChange={handleFileChange} />
-        </Form.Group>
+        </Form.Group> */}
         <Button variant="primary" type="submit" disabled={experiencesLoading}>
           {experiencesLoading ? "Salvataggio..." : "Salva"}
         </Button>

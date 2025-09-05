@@ -2,6 +2,8 @@ export const SAVE_ME_INFO = "SAVE_ME_INFO";
 export const SAVE_OTHER_INFO = "SAVE_OTHER_INFO";
 export const TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
+export const TOKEN_COMMENTS =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGJhZDJlNDkxMjgyMTAwMTU0NGRiNzUiLCJpYXQiOjE3NTcwNzQxNDgsImV4cCI6MTc1ODI4Mzc0OH0.X04nV6sR3sJ2S_PcslJhS9cshS9uGPMo11oajA49VFo";
 
 export const saveMeInfoAction = (data) => {
   return {
@@ -583,26 +585,6 @@ export const modifyPostAction = (id, formData, image) => {
   };
 };
 
-// export const getOnePost = (id) => {
-//   fetch(`https://striveschool-api.herokuapp.com/api/posts/${id}`, {
-//     headers: { Authorization: `Bearer ${TOKEN}` },
-//   })
-//     .then((res) => {
-//       if (res.ok) {
-//         return res.json();
-//       } else {
-//         throw new Error("Non siamo riusciti a caricare il post");
-//       }
-//     })
-//     .then((data) => {
-//       return {
-//         type: GET_ONE_POST,
-//         payload: data,
-//       };
-//     })
-//     .catch((err) => console.log("Errore!", err));
-// };
-
 export const UPDATE_PROFILE_REQUEST = "UPDATE_PROFILE_REQUEST";
 export const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
 export const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
@@ -668,9 +650,107 @@ export const setPageAction = (page) => {
 
 export const SET_NAVIGATION = "SET_NAVIGATION";
 export const setNavigationAction = (page) => {
-  // console.log("page", page);
   return {
     type: SET_NAVIGATION,
     payload: page,
+  };
+};
+
+export const ALL_THE_COMMENTS = "ALL_THE_COMMENTS";
+export const allTheCommentsAction = () => {
+  return (dispatch) => {
+    fetch("https://striveschool-api.herokuapp.com/api/comments/", {
+      headers: {
+        Authorization: `Bearer ${TOKEN_COMMENTS}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Non siamo riusciti a recuperare i commenti");
+        }
+      })
+      .then((data) => {
+        console.log("data", data);
+        dispatch(allTheCommentsSuccess(data));
+      })
+      .catch((err) => {
+        console.log("Errore!", err);
+      });
+  };
+};
+
+export const ALL_THE_COMMENTS_SUCCESS = "ALL_THE_COMMENTS_SUCCESS";
+export const allTheCommentsSuccess = (comments) => {
+  return {
+    type: ALL_THE_COMMENTS_SUCCESS,
+    payload: comments,
+  };
+};
+
+export const CREATE_COMMENT = "CREATE_COMMENT";
+export const CREATE_COMMENT_SUCCESS = "CREATE_COMMENT_SUCCESS";
+export const createComment = (elementId, comment) => {
+  return (dispatch) => {
+    fetch("https://striveschool-api.herokuapp.com/api/comments/", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${TOKEN_COMMENTS}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ comment: comment, rate: 5, elementId: elementId }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Non siamo riusciti a recuperare i commenti");
+        } else {
+          alert("Creato commento!");
+        }
+        dispatch(createCommentSuccesAction);
+      })
+      .catch((err) => {
+        console.log("Errore!", err);
+      });
+  };
+};
+
+export const createCommentSuccesAction = () => {
+  return {
+    type: CREATE_COMMENT_SUCCESS,
+  };
+};
+
+export const ALL_THE_PROFILES = "ALL_THE_PROFILES";
+export const allTheProfiles = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/profile/",
+        {
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch posts");
+      }
+      const profiles = await response.json();
+      console.log("Sono dentro profiles");
+
+      dispatch(allTheProfileSuccess(profiles));
+    } catch (err) {
+      console.log("Errore", err);
+    }
+  };
+};
+
+export const ALL_THE_PROFILE_SUCCESS = "ALL_THE_PROFILE_SUCCESS";
+export const allTheProfileSuccess = (profiles) => {
+  // console.log("profiles", profiles);
+  return {
+    type: ALL_THE_PROFILE_SUCCESS,
+    payload: profiles,
   };
 };
