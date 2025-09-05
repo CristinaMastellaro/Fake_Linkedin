@@ -665,3 +665,12 @@ export const setPageAction = (page) => {
     payload: page,
   };
 };
+
+export const SET_NAVIGATION = "SET_NAVIGATION";
+export const setNavigationAction = (page) => {
+  // console.log("page", page);
+  return {
+    type: SET_NAVIGATION,
+    payload: page,
+  };
+};

@@ -1,22 +1,32 @@
 import { Container, Row, Col } from "react-bootstrap";
 import "../css/hero.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { fetchProfile } from "../redux/actions";
 
 const MiniHero = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+
+  // prendiamo i dati dallo stesso slice della Hero
+  const { myProfile, otherProfile } = useSelector((state) => state.saveProfileMe);
+
+  // decidi quale profilo mostrare
+  const profile = id ? otherProfile : myProfile;
+
   const [showMiniHero, setShow] = useState("");
 
-  const myInfo = useSelector((state) => state.saveProfileMe?.myProfile);
-  const otherInfo = useSelector((state) => state.saveProfileOther?.otherProfile);
+  // quando cambia l’id, facciamo la fetch
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchProfile(id)); // profilo di un altro utente
+    } else {
+      dispatch(fetchProfile()); // il mio profilo
+    }
+  }, [id, dispatch]);
 
-  const isOwner = !id || (myInfo && id === myInfo._id);
-
-  const profile = isOwner
-    ? myInfo || { name: "Caricamento...", surname: "", title: "", image: "" }
-    : otherInfo || { name: "Caricamento...", surname: "", title: "", image: "" };
-
+  // effetto scroll
   useEffect(() => {
     const handleScroll = () => {
       const positionY = window.scrollY;
@@ -41,16 +51,16 @@ const MiniHero = () => {
         <Col xs={5}>
           <div className="d-flex gap-1">
             <img
-              src={profile.image || "/profile-icon.png"}
+              src={profile?.image || "/profile-icon.png"}
               alt="Profile"
               style={{ height: "25px", width: "25px" }}
               className="mt-1 me-1 rounded-circle"
             />
             <div>
               <p className="mb-0 fw-semibold small">
-                {profile.name} {profile.surname}
+                {profile?.name || "Caricamento..."} {profile?.surname || ""}
               </p>
-              <p className="small mb-0">{profile.title}</p>
+              <p className="small mb-0">{profile?.title || ""}</p>
             </div>
           </div>
         </Col>
@@ -58,7 +68,7 @@ const MiniHero = () => {
         {/* Destra */}
         <Col xs={7} className="d-flex justify-content-end">
           <div className="d-flex flex-nowrap gap-2 align-items-center">
-            {isOwner ? (
+            {!id ? (
               <>
                 <div className="badge-info border-black small px-1">Risorse</div>
                 <div className="badge-info myBlue small px-1">
@@ -70,8 +80,8 @@ const MiniHero = () => {
               </>
             ) : (
               <>
-                <div className="badge-info border-black small px-1">Segui</div>
-                <div className="badge-info myBlue small px-1">Messaggio</div>
+                <div className="badge-info border-black small px-2">Altro</div>
+                <div className="badge-info myBlue small px-2">Messaggio</div>
               </>
             )}
           </div>

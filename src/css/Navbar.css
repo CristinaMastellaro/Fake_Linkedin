@@ -38,11 +38,6 @@
   flex: column;
 }
 
-.nav-item-hover,
-.active {
-  color: #000 !important;
-}
-
 .dropdown-menu {
   max-width: 22vw;
   max-height: 75vh;
