@@ -79,7 +79,7 @@ function MyFooter() {
                 Trasparenza sui contenuti consigliati
               </div>
               <p className='text-secondary small'>
-                Scopri di piÃ¹ sui contenuti consigliati.
+                Scopri di più sui contenuti consigliati.
               </p>
             </div>
           </div>
