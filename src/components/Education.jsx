@@ -164,7 +164,7 @@ const Education = () => {
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{editingEducation ? 'Modifica Titolo di studio' : 'Aggiungi Titolo di studio'}</Modal.Title>
+          <Modal.Title>{editingEducation ? 'Modifica' : 'Aggiungi Titolo di studio'}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -203,7 +203,6 @@ const Education = () => {
             )}
           </div>
           <div>
-            <Button variant="secondary" onClick={handleClose}>Annulla</Button>
             <Button variant="primary" onClick={handleSave}>Salva</Button>
           </div>
         </Modal.Footer>
