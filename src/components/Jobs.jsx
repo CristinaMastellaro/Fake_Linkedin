@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Row,
@@ -8,112 +8,115 @@ import {
   Button,
   Spinner,
   Alert,
-} from "react-bootstrap";
-import Messaggistica from "./Messaggistica";
+} from 'react-bootstrap'
+import Messaggistica from './Messaggistica'
 
 const Jobs = () => {
-  const [allJobs, setAllJobs] = useState([]);
-  const [filteredJobs, setFilteredJobs] = useState([]);
-  const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [query, setQuery] = useState("");
-  const [company, setCompany] = useState("");
-  const [category, setCategory] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [expandedJobs, setExpandedJobs] = useState(new Set());
-  const jobsPerPage = 12;
+  const [allJobs, setAllJobs] = useState([])
+  const [filteredJobs, setFilteredJobs] = useState([])
+  const [jobs, setJobs] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [query, setQuery] = useState('')
+  const [company, setCompany] = useState('')
+  const [category, setCategory] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [expandedJobs, setExpandedJobs] = useState(new Set())
+  const jobsPerPage = 12
 
   const fetchAllJobs = async () => {
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
     try {
-      const params = new URLSearchParams();
+      const params = new URLSearchParams()
 
-      if (company) params.append("company", company);
-      if (category) params.append("category", category);
+      if (company) params.append('company', company)
+      if (category) params.append('category', category)
 
       const response = await fetch(
         `https://strive-benchmark.herokuapp.com/api/jobs?${params}`
-      );
+      )
       if (!response.ok) {
-        throw new Error("Failed to fetch jobs");
+        throw new Error('Failed to fetch jobs')
       }
-      const data = await response.json();
-      const jobsData = data.data || data;
-      setAllJobs(jobsData);
+      const data = await response.json()
+      const jobsData = data.data || data
+      setAllJobs(jobsData)
 
-      filterJobs(jobsData);
+      filterJobs(jobsData)
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const filterJobs = (jobsArray = allJobs) => {
-    let filtered = jobsArray;
+    let filtered = jobsArray
 
     if (query) {
-      const q = query.toLowerCase();
+      const q = query.toLowerCase()
       filtered = filtered.filter(
         (job) =>
           job.title.toLowerCase().includes(q) ||
           (job.skills && job.skills.toLowerCase().includes(q))
-      );
+      )
     }
 
-    setTotalPages(Math.ceil(filtered.length / jobsPerPage));
-    updatePageJobs(1, filtered);
-  };
+    setTotalPages(Math.ceil(filtered.length / jobsPerPage))
+    updatePageJobs(1, filtered)
+  }
 
   const updatePageJobs = (page, jobsArray = allJobs) => {
-    const startIndex = (page - 1) * jobsPerPage;
-    const endIndex = startIndex + jobsPerPage;
-    const pageJobs = jobsArray.slice(startIndex, endIndex);
-    setJobs(pageJobs);
-    setCurrentPage(page);
-  };
+    const startIndex = (page - 1) * jobsPerPage
+    const endIndex = startIndex + jobsPerPage
+    const pageJobs = jobsArray.slice(startIndex, endIndex)
+    setJobs(pageJobs)
+    setCurrentPage(page)
+  }
 
   useEffect(() => {
-    fetchAllJobs();
-  }, []);
+    fetchAllJobs()
+  }, [])
 
   useEffect(() => {
-    fetchAllJobs();
-  }, [company, category]);
+    fetchAllJobs()
+  }, [company, category])
 
   useEffect(() => {
     if (allJobs.length > 0) {
-      filterJobs();
+      filterJobs()
     }
-  }, [query]);
+  }, [query])
 
   const handleSearch = (e) => {
-    e.preventDefault();
-    fetchAllJobs();
-  };
+    e.preventDefault()
+    fetchAllJobs()
+  }
 
   const handlePageChange = (page) => {
-    updatePageJobs(page);
-  };
+    updatePageJobs(page)
+  }
 
   const toggleDescription = (jobId) => {
     setExpandedJobs((prev) => {
-      const newSet = new Set(prev);
+      const newSet = new Set(prev)
       if (newSet.has(jobId)) {
-        newSet.delete(jobId);
+        newSet.delete(jobId)
       } else {
-        newSet.add(jobId);
+        newSet.add(jobId)
       }
-      return newSet;
-    });
-  };
+      return newSet
+    })
+  }
 
   return (
-    <Container className="mt-4">
-      <h1 className="mb-4">Job Listings</h1>
+    <Container
+      className="mt-4"
+      style={{ minHeight: '93.5vh', paddingBottom: '1rem' }}
+    >
+      <h1 className="py-4">Job Listings</h1>
 
       {/* Search Form */}
       <Card className="mb-4 shadow">
@@ -191,32 +194,32 @@ const Jobs = () => {
                       {job.company_name}
                     </Card.Subtitle>
                     <Card.Text>
-                      <strong>Location:</strong>{" "}
-                      {job.candidate_required_location || "Not specified"}
+                      <strong>Location:</strong>{' '}
+                      {job.candidate_required_location || 'Not specified'}
                     </Card.Text>
                     <Card.Text>
-                      <strong>Category:</strong>{" "}
-                      {job.category || "Not specified"}
+                      <strong>Category:</strong>{' '}
+                      {job.category || 'Not specified'}
                     </Card.Text>
                     <Card.Text>
-                      <strong>Type:</strong> {job.job_type || "Not specified"}
+                      <strong>Type:</strong> {job.job_type || 'Not specified'}
                     </Card.Text>
                     <Card.Text>
-                      <strong>Salary:</strong>{" "}
-                      {job.salary_range || "Not specified"}
+                      <strong>Salary:</strong>{' '}
+                      {job.salary_range || 'Not specified'}
                     </Card.Text>
                     <div className="flex-grow-1 mb-2">
                       <Card.Text
                         className={
-                          expandedJobs.has(job._id) ? "" : "text-truncate"
+                          expandedJobs.has(job._id) ? '' : 'text-truncate'
                         }
                         style={{
                           maxHeight: expandedJobs.has(job._id)
-                            ? "none"
-                            : "4.8em",
+                            ? 'none'
+                            : '4.8em',
                           overflow: expandedJobs.has(job._id)
-                            ? "visible"
-                            : "hidden",
+                            ? 'visible'
+                            : 'hidden',
                         }}
                         dangerouslySetInnerHTML={{ __html: job.description }}
                       />
@@ -227,7 +230,7 @@ const Jobs = () => {
                         className="p-0 mb-2 d-block text-start"
                         onClick={() => toggleDescription(job._id)}
                       >
-                        {expandedJobs.has(job._id) ? "Show less" : "Show more"}
+                        {expandedJobs.has(job._id) ? 'Show less' : 'Show more'}
                       </Button>
                       <Button
                         variant="primary"
@@ -249,32 +252,32 @@ const Jobs = () => {
             <div className="d-flex justify-content-center align-items-center mt-6 mb-4">
               <div
                 className="d-flex align-items-center"
-                style={{ gap: "0.5rem" }}
+                style={{ gap: '0.5rem' }}
               >
                 {/* Gruppo Sinistro: Prima Pagina + Pagina Precedente */}
                 <div
                   className="d-flex align-items-center"
-                  style={{ gap: "0.25rem" }}
+                  style={{ gap: '0.25rem' }}
                 >
                   <Button
                     variant="outline-primary"
                     onClick={() => handlePageChange(1)}
                     disabled={currentPage === 1}
                     className="d-flex align-items-center justify-content-center"
-                    style={{ width: "2.5rem", height: "2.5rem", padding: 0 }}
+                    style={{ width: '2.5rem', height: '2.5rem', padding: 0 }}
                     aria-label="Prima Pagina"
                   >
-                    <span style={{ fontSize: "1.5rem" }}>⇤</span>
+                    <span style={{ fontSize: '1.5rem' }}>⇤</span>
                   </Button>
                   <Button
                     variant="outline-primary"
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
                     className="d-flex align-items-center justify-content-center"
-                    style={{ width: "2.5rem", height: "2.5rem", padding: 0 }}
+                    style={{ width: '2.5rem', height: '2.5rem', padding: 0 }}
                     aria-label="Pagina Precedente"
                   >
-                    <span style={{ fontSize: "1.5rem" }}>←</span>
+                    <span style={{ fontSize: '1.5rem' }}>←</span>
                   </Button>
                 </div>
 
@@ -286,27 +289,27 @@ const Jobs = () => {
                 {/* Gruppo Destro: Pagina Successiva + Ultima Pagina */}
                 <div
                   className="d-flex align-items-center"
-                  style={{ gap: "0.25rem" }}
+                  style={{ gap: '0.25rem' }}
                 >
                   <Button
                     variant="outline-primary"
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                     className="d-flex align-items-center justify-content-center"
-                    style={{ width: "2.5rem", height: "2.5rem", padding: 0 }}
+                    style={{ width: '2.5rem', height: '2.5rem', padding: 0 }}
                     aria-label="Pagina Successiva"
                   >
-                    <span style={{ fontSize: "1.5rem" }}>→</span>
+                    <span style={{ fontSize: '1.5rem' }}>→</span>
                   </Button>
                   <Button
                     variant="outline-primary"
                     onClick={() => handlePageChange(totalPages)}
                     disabled={currentPage === totalPages}
                     className="d-flex align-items-center justify-content-center"
-                    style={{ width: "2.5rem", height: "2.5rem", padding: 0 }}
+                    style={{ width: '2.5rem', height: '2.5rem', padding: 0 }}
                     aria-label="Ultima Pagina"
                   >
-                    <span style={{ fontSize: "1.5rem" }}>⇥</span>
+                    <span style={{ fontSize: '1.5rem' }}>⇥</span>
                   </Button>
                 </div>
               </div>
@@ -321,7 +324,7 @@ const Jobs = () => {
       )}
       <Messaggistica />
     </Container>
-  );
-};
+  )
+}
 
-export default Jobs;
+export default Jobs
