@@ -45,15 +45,20 @@ const Homepage = () => {
             <div className="sticky-sidebar">
               <LeftSidebarHome />
             </div>
+            <div className="d-block d-lg-none mt-3">
+              <SidebarHome />
+            </div>
           </Col>
           <Col xs={12} md={8} lg={6}>
             <HomeMain />
           </Col>
           <Col xs={12} lg={3}>
-            <SidebarHome />
+            <div className="d-none d-lg-block">
+              <SidebarHome />
+            </div>
             <Container
               className="mt-4"
-              style={{ position: 'sticky', top: '429px', zIndex: 2 }}
+              style={{ top: '429px', zIndex: 2 }}
             >
               <div
                 className="d-flex justify-content-around small px-5"
