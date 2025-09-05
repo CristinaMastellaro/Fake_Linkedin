@@ -6,12 +6,11 @@ import Messaggistica from "./Messaggistica";
 import { useState, useEffect, useRef } from "react";
 import "../css/footerHome.css";
 import MyFooter from "./MyFooter";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   allTheCommentsAction,
   allTheProfiles,
   setNavigationAction,
-  TOKEN_COMMENTS,
 } from "../redux/actions";
 
 const Homepage = () => {

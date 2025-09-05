@@ -210,8 +210,10 @@ const Posts = () => {
                 </Button>
               </div>
               <span className="text-muted">
-                Pagina {currentPage} di {totalPages}
+                <span className="d-md-none d-lg-inline">Pagina</span>{' '}
+                {currentPage} di {totalPages}
               </span>
+
               <div className="d-flex gap-3">
                 <Button
                   variant="outline-primary"
