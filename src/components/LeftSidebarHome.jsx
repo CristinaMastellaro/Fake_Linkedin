@@ -67,7 +67,7 @@ const LeftSidebarHome = () => {
             </div>
           </div>
           {alert && (
-            <Alert variant="success" className="py-1 mt-2 mb-0">
+            <Alert variant="success" className="py-2 mt-2 mb-0 text-center">
               Esperienza salvata!
             </Alert>
           )}

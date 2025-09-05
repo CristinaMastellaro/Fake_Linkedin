@@ -1,25 +1,10 @@
-import {
-  Card,
-  Row,
-  Col,
-  Button,
-  Modal,
-  Form,
-  Alert,
-  Spinner,
-} from "react-bootstrap";
-import { BiPencil, BiPlus, BiTrash, BiCamera } from "react-icons/bi";
+import { Card, Row, Col, Button, Modal, Alert, Spinner } from "react-bootstrap";
+import { BiPencil, BiPlus, BiTrash } from "react-icons/bi";
 import { FaGem } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  fetchExperiences,
-  createExperience,
-  updateExperience,
-  deleteExperience,
-  uploadExperienceImage,
-} from "../redux/actions";
+import { fetchExperiences, deleteExperience } from "../redux/actions";
 import "../css/services.css";
 import ExperienceForm from "./ExperienceForm";
 
@@ -39,15 +24,6 @@ const Experiences = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [editingExperience, setEditingExperience] = useState(null);
-  // const [formData, setFormData] = useState({
-  //   role: "",
-  //   company: "",
-  //   startDate: "",
-  //   endDate: "",
-  //   description: "",
-  //   area: "",
-  // });
-  // const [imageFile, setImageFile] = useState(null);
   const [alert, setAlert] = useState(null);
   const [singleExperience, setSingleExperience] = useState(null);
 
@@ -60,93 +36,13 @@ const Experiences = () => {
   const handleShowModal = (experience = null) => {
     setSingleExperience(experience);
     setEditingExperience(experience);
-    // if (experience) {
-    //   setEditingExperience(experience);
-    //   setFormData({
-    //     role: experience.role || "",
-    //     company: experience.company || "",
-    //     startDate: experience.startDate
-    //       ? experience.startDate.slice(0, 10)
-    //       : "",
-    //     endDate: experience.endDate ? experience.endDate.slice(0, 10) : "",
-    //     description: experience.description || "",
-    //     area: experience.area || "",
-    //   });
-    // } else {
-    //   setEditingExperience(null);
-    //   setFormData({
-    //     role: "",
-    //     company: "",
-    //     startDate: "",
-    //     endDate: "",
-    //     description: "",
-    //     area: "",
-    //   });
-    // }
-    // setImageFile(null);
-    // setAlert(null);
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
     dispatch(fetchExperiences(userId));
     setShowModal(false);
-    // setEditingExperience(null);
-    // setFormData({
-    //   role: "",
-    //   company: "",
-    //   startDate: "",
-    //   endDate: "",
-    //   description: "",
-    //   area: "",
-    // });
-    // setImageFile(null);
-    // setAlert(null);
   };
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prev) => ({ ...prev, [name]: value }));
-  // };
-
-  // const handleFileChange = (e) => {
-  //   setImageFile(e.target.files[0]);
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!userId) {
-  //     setAlert({ type: "danger", message: "User ID not found." });
-  //     return;
-  //   }
-  //   try {
-  //     if (editingExperience) {
-  //       await dispatch(
-  //         updateExperience(userId, editingExperience._id, formData)
-  //       );
-  //       if (imageFile) {
-  //         await dispatch(
-  //           uploadExperienceImage(userId, editingExperience._id, imageFile)
-  //         );
-  //       }
-  //     } else {
-  //       const action = await dispatch(createExperience(userId, formData));
-  //       if (imageFile && action.payload && action.payload._id) {
-  //         await dispatch(
-  //           uploadExperienceImage(userId, action.payload._id, imageFile)
-  //         );
-  //       }
-  //     }
-  //     setAlert({ type: "success", message: "Experience saved successfully." });
-  //     dispatch(fetchExperiences(userId));
-  //     handleCloseModal();
-  //   } catch (error) {
-  //     setAlert({
-  //       type: "danger",
-  //       message: error.message || "Failed to save experience.",
-  //     });
-  //   }
-  // };
 
   const handleDelete = async (expId) => {
     if (!userId) return;
@@ -251,80 +147,6 @@ const Experiences = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="role">
-              <Form.Label>Ruolo</Form.Label>
-              <Form.Control
-                type="text"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="company">
-              <Form.Label>Azienda</Form.Label>
-              <Form.Control
-                type="text"
-                name="company"
-                value={formData.company}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="startDate">
-              <Form.Label>Data Inizio</Form.Label>
-              <Form.Control
-                type="date"
-                name="startDate"
-                value={formData.startDate}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="endDate">
-              <Form.Label>Data Fine</Form.Label>
-              <Form.Control
-                type="date"
-                name="endDate"
-                value={formData.endDate}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="area">
-              <Form.Label>Area</Form.Label>
-              <Form.Control
-                type="text"
-                name="area"
-                value={formData.area}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="description">
-              <Form.Label>Descrizione</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="imageFile" className="mb-3">
-              <Form.Label>Immagine</Form.Label>
-              <Form.Control type="file" onChange={handleFileChange} />
-            </Form.Group>
-            <Button
-              variant="primary"
-              type="submit"
-              disabled={experiencesLoading}
-            >
-              {experiencesLoading ? "Salvataggio..." : "Salva"}
-            </Button>
-          </Form> */}
           <ExperienceForm
             handleCloseModal={handleCloseModal}
             userId={userId}
