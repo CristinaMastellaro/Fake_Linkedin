@@ -1,19 +1,20 @@
-import { Container, Row, Col } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { Container, Row, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
-import '../css/NotFoundPage.css'
-import { Link } from 'react-router-dom'
+import "../css/NotFoundPage.css";
+import { Link } from "react-router-dom";
+import { setNavigationAction } from "../redux/actions";
 
 const Complete404Page = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'SET_MESSAGGISTICA_VISIBILITY', payload: false })
+    dispatch({ type: "SET_MESSAGGISTICA_VISIBILITY", payload: false });
     return () => {
-      dispatch({ type: 'SET_MESSAGGISTICA_VISIBILITY', payload: true })
-    }
-  }, [dispatch])
+      dispatch({ type: "SET_MESSAGGISTICA_VISIBILITY", payload: true });
+    };
+  }, [dispatch]);
 
   return (
     <div className="page-container">
@@ -23,14 +24,19 @@ const Complete404Page = () => {
             <h1 className="error-title">Pagina non trovata</h1>
             <p className="error-message">
               Non abbiamo trovato la pagina che stai cercando. Prova a tornare
-              alla pagina precedente o visita il nostro{' '}
+              alla pagina precedente o visita il nostro{" "}
               <a href="#" className="help-link">
                 Centro assistenza
-              </a>{' '}
+              </a>{" "}
               per saperne di più.
             </p>
             <a href="/" className="home-button-link">
-              <button className="home-button">Vai al tuo feed</button>
+              <button
+                className="home-button"
+                onClick={() => dispatch(setNavigationAction("/"))}
+              >
+                Vai al tuo feed
+              </button>
             </a>
           </div>
         </div>
@@ -99,7 +105,7 @@ const Complete404Page = () => {
         </Container>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Complete404Page
+export default Complete404Page;

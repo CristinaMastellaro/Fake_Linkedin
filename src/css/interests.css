@@ -1,12 +1,11 @@
 .nav-link {
-  color: black !important;
+  /* color: black !important; */
   font-weight: 600;
 }
 
-.nav-link:focus,
 .nav-link:hover,
-.nav.link.active {
-  color: green !important;
-  border: 0 !important;
-  border-bottom: 2px solid green !important;
+.nav-link.active {
+  color: green;
+  border: 0;
+  border-bottom: 2px solid green;
 }

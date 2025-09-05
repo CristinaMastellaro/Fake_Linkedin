@@ -38,9 +38,14 @@
   flex: column;
 }
 
-.nav-item-hover, .active {
-  color: #000 !important;
-}
+/* .nav-item-hover, */
+/* .active { */
+/* color: #000 !important; */
+/* color: green !important; */
+/* border-bottom: 1px solid black !important; */
+/* font-weight: 800 !important; */
+/* background-color: rgba(128, 128, 128, 0.353) !important; */
+/* } */
 
 .dropdown-menu {
   max-width: 22vw;
@@ -84,6 +89,6 @@
   text-decoration: underline;
   text-decoration-color: #0d6efd;
 }
-.business .dropdown-item span{
+.business .dropdown-item span {
   font-weight: bold;
 }

@@ -44,6 +44,7 @@ import {
   MODIFY_POST_REQUEST,
   MODIFY_POST_SUCCESS,
   MODIFY_POST_FAILURE,
+  SET_NAVIGATION,
   // GET_ONE_POST,
 } from "../actions";
 const initialState = {
@@ -64,8 +65,8 @@ const initialState = {
   experiences: [],
   experiencesLoading: false,
   experiencesError: null,
+  navigationPage: "",
   posts: [],
-  // singlePost: null,
   postsLoading: false,
   postsError: null,
   loading: false,
@@ -379,6 +380,11 @@ const saveProfileMe = (state = initialState, action) => {
       return {
         ...state,
         setPageHome: action.payload,
+      };
+    case SET_NAVIGATION:
+      return {
+        ...state,
+        navigationPage: action.payload,
       };
     default:
       return state;

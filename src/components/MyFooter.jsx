@@ -27,7 +27,7 @@ function MyFooter() {
   const location = useLocation();
 
   return (
-    <Container className='px-4 pb-5'>
+    <Container className='px-4 pb-0 pb-md-5 text-small'>
       {(location.pathname === '/' ||
         location.pathname.startsWith('/details/post/')) && (
         <img
@@ -35,16 +35,17 @@ function MyFooter() {
           width={120}
           alt='LinkedIn Logo'
           style={{ marginLeft: '-10px', marginBottom: '10px' }}
+          className='img-small'
         />
       )}
       <Row>
         {text.map((dati, i) => (
           <Col sm={12} md={6} xl={2} key={i}>
             {dati.map((text, i) => (
-              <div key={i} className='mb-3'>
+              <div key={i} className='mb-1 mb-md-3'>
                 <a
                   href='#'
-                  className='footer-link small'
+                  className='footer-link small '
                   style={{ cursor: 'pointer' }}
                 >
                   {text}
@@ -53,7 +54,7 @@ function MyFooter() {
             ))}
           </Col>
         ))}
-        <Col sm={12} md={6} xl={3}>
+        <Col sm={12} md={6} xl={3} className='d-none d-md-block'>
           <div className='d-flex align-items-start mb-1'>
             <i className='bi bi-question-circle-fill me-2 fs-5'></i>
             <div>
@@ -79,13 +80,15 @@ function MyFooter() {
                 Trasparenza sui contenuti consigliati
               </div>
               <p className='text-secondary small'>
-                Scopri di piÃ¹ sui contenuti consigliati.
+                Scopri di più sui contenuti consigliati.
               </p>
             </div>
           </div>
         </Col>
         <Col sm={12} md={6} xl={3}>
-          <Form.Label className='mb-0 me-2 small'>Seleziona Lingua</Form.Label>
+          <Form.Label className='mb-2 mb-md-0 mt-4 mt-md-0 me-2 small'>
+            Seleziona Lingua
+          </Form.Label>
           <Form.Select size='sm' className='d-block'>
             <option>Italiano (Italiano)</option>
             <option value='1'>English (Inglese)</option>
@@ -95,7 +98,7 @@ function MyFooter() {
           </Form.Select>
         </Col>
       </Row>
-      <Row className='mt-0 text-secondary small'>
+      <Row className='mt-4 text-secondary small mt-xl-0'>
         <p>LinkedIn Corporation &copy; {new Date().getFullYear()}</p>
       </Row>
     </Container>
