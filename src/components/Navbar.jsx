@@ -7,7 +7,7 @@ import {
   Container,
   Row,
   Col,
-} from "react-bootstrap";
+} from 'react-bootstrap'
 import {
   HouseFill,
   PeopleFill,
@@ -18,78 +18,78 @@ import {
   CaretDownFill,
   Grid3x3GapFill,
   StarFill,
-} from "react-bootstrap-icons";
-import { useState, useEffect, useRef } from "react";
-import { useLocation, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import SearchModal from "./SearchModal";
-import "../css/Navbar.css";
-import { setNavigationAction, setPageAction, TOKEN } from "../redux/actions";
+} from 'react-bootstrap-icons'
+import { useState, useEffect, useRef } from 'react'
+import { useLocation, Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import SearchModal from './SearchModal'
+import '../css/Navbar.css'
+import { setNavigationAction, setPageAction, TOKEN } from '../redux/actions'
 
 export default function CustomNavbar() {
-  const [addFlex, setAddFlex] = useState(false);
-  const location = useLocation();
-  const { myProfile } = useSelector((state) => state.saveProfileMe);
+  const [addFlex, setAddFlex] = useState(false)
+  const location = useLocation()
+  const { myProfile } = useSelector((state) => state.saveProfileMe)
 
-  const page = useSelector((state) => state.saveProfileMe.navigationPage);
-  console.log("pageNav", page);
+  const page = useSelector((state) => state.saveProfileMe.navigationPage)
+  console.log('pageNav', page)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   // stati per la ricerca
-  const [searchTerm, setSearchTerm] = useState("");
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const searchRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState('')
+  const [results, setResults] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const searchRef = useRef(null)
 
   useEffect(() => {
     if (searchTerm.trim().length === 0) {
-      setResults([]);
-      setShowModal(false);
-      return;
+      setResults([])
+      setShowModal(false)
+      return
     }
 
     const fetchProfiles = async () => {
-      setLoading(true);
+      setLoading(true)
       try {
         const res = await fetch(
-          "https://striveschool-api.herokuapp.com/api/profile/",
+          'https://striveschool-api.herokuapp.com/api/profile/',
           {
             headers: { Authorization: `Bearer ${TOKEN}` },
           }
-        );
+        )
 
         if (!res.ok) {
-          throw new Error("Errore nella fetch: " + res.status);
+          throw new Error('Errore nella fetch: ' + res.status)
         }
 
-        const data = await res.json();
+        const data = await res.json()
 
         const filtered = data.filter((p) =>
-          (p.name + " " + p.surname)
+          (p.name + ' ' + p.surname)
             .toLowerCase()
             .includes(searchTerm.toLowerCase())
-        );
+        )
 
-        setResults(filtered);
-        setShowModal(true);
+        setResults(filtered)
+        setShowModal(true)
       } catch (err) {
-        console.error("Errore fetch profili:", err);
+        console.error('Errore fetch profili:', err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    const timeout = setTimeout(fetchProfiles, 400);
-    return () => clearTimeout(timeout);
-  }, [searchTerm]);
+    const timeout = setTimeout(fetchProfiles, 400)
+    return () => clearTimeout(timeout)
+  }, [searchTerm])
 
   const handleResetSearch = () => {
-    setSearchTerm("");
-    setResults([]);
-    setShowModal(false);
-  };
+    setSearchTerm('')
+    setResults([])
+    setShowModal(false)
+  }
 
   return (
     <Navbar
@@ -110,9 +110,9 @@ export default function CustomNavbar() {
               alt="icona-linkedin"
               style={{ width: 35, height: 35 }}
               onClick={() => {
-                dispatch(setPageAction(1));
-                window.scrollTo({ top: 0, left: 0 });
-                handleResetSearch();
+                dispatch(setPageAction(1))
+                window.scrollTo({ top: 0, left: 0 })
+                handleResetSearch()
               }}
             />
           </Link>
@@ -122,8 +122,8 @@ export default function CustomNavbar() {
             className="search-form"
             ref={searchRef}
             onSubmit={(e) => {
-              e.preventDefault();
-              handleResetSearch();
+              e.preventDefault()
+              handleResetSearch()
             }}
           >
             <i className="bi bi-search search-icon"></i>
@@ -143,7 +143,7 @@ export default function CustomNavbar() {
             <div
               className="scrollbar-hidden"
               style={{
-                position: "absolute",
+                position: 'absolute',
                 top:
                   searchRef.current.getBoundingClientRect().bottom +
                   window.scrollY,
@@ -152,8 +152,8 @@ export default function CustomNavbar() {
                   window.scrollX,
                 width: searchRef.current.offsetWidth,
                 zIndex: 1050,
-                maxHeight: "70vh",
-                overflowY: "auto",
+                maxHeight: '70vh',
+                overflowY: 'auto',
               }}
             >
               <SearchModal
@@ -172,26 +172,27 @@ export default function CustomNavbar() {
 
         <Navbar.Collapse id="basic-navbar-nav" className="mt-3 mt-md-0">
           {/* Griglia di navigazione */}
-          <Row className="g-3 text-center ms-auto text-center d-flex flex-sm-row align-items-sm-center">
+          <Row className="g-3 text-center ms-auto text-center d-flex flex-sm-row align-items-sm-center py-2 py-md-2 py-lg-0">
             <Col
               xs={4}
-              md="auto"
+              md={2}
+              lg="auto"
               // className={location.pathname === "/" ? " active" : ""}
             >
               <Nav.Link
                 className={
                   // "nav-link" +
-                  (location.pathname === "/" ? " active" : "") +
-                  " d-flex flex-column align-items-center"
+                  (location.pathname === '/' ? ' active' : '') +
+                  ' d-flex flex-column align-items-center'
                 }
                 to="/"
                 as={Link}
                 // id={page === "/" ? " active" : ""}
                 onClick={() => {
-                  dispatch(setPageAction(1));
+                  dispatch(setPageAction(1))
                   // console.log("location.pathname", location.pathname);
-                  window.scrollTo({ top: 0, left: 0 });
-                  dispatch(setNavigationAction("/"));
+                  window.scrollTo({ top: 0, left: 0 })
+                  dispatch(setNavigationAction('/'))
                 }}
                 // style={{ color: "green !important" }}
               >
@@ -200,68 +201,68 @@ export default function CustomNavbar() {
               </Nav.Link>
             </Col>
 
-            <Col xs={4} md="auto">
+            <Col xs={4} md={2} lg="auto">
               <Nav.Link
                 className={
-                  "nav-link" +
+                  'nav-link' +
                   // (location.pathname === "/rete" ? " active" : "") +
-                  (page === "/rete" ? " active" : "") +
-                  " d-flex flex-column align-items-center"
+                  (page === '/rete' ? ' active' : '') +
+                  ' d-flex flex-column align-items-center'
                 }
                 to="/rete"
                 as={Link}
-                onClick={() => dispatch(setNavigationAction("/rete"))}
+                onClick={() => dispatch(setNavigationAction('/rete'))}
               >
                 <PeopleFill size={22} />
                 <span className="small">Rete</span>
               </Nav.Link>
             </Col>
 
-            <Col xs={4} md="auto">
+            <Col xs={4} md={2} lg="auto">
               <Nav.Link
                 className={
-                  "nav-link" +
+                  'nav-link' +
                   // (location.pathname === "/lavoro" ? " active" : "") +
-                  (page === "/lavoro" ? " active" : "") +
-                  " d-flex flex-column align-items-center"
+                  (page === '/lavoro' ? ' active' : '') +
+                  ' d-flex flex-column align-items-center'
                 }
                 to="/lavoro"
                 as={Link}
-                onClick={() => dispatch(setNavigationAction("/lavoro"))}
+                onClick={() => dispatch(setNavigationAction('/lavoro'))}
               >
                 <BriefcaseFill size={22} />
                 <span className="small">Lavoro</span>
               </Nav.Link>
             </Col>
 
-            <Col xs={4} md="auto">
+            <Col xs={4} md={2} lg="auto">
               <Nav.Link
                 className={
-                  "nav-link" +
+                  'nav-link' +
                   // (location.pathname === "/messaggi" ? " active" : "") +
-                  (page === "/messaggi" ? " active" : "") +
-                  " d-flex flex-column align-items-center"
+                  (page === '/messaggi' ? ' active' : '') +
+                  ' d-flex flex-column align-items-center'
                 }
                 to="/messaggi"
                 as={Link}
-                onClick={() => dispatch(setNavigationAction("/messaggi"))}
+                onClick={() => dispatch(setNavigationAction('/messaggi'))}
               >
                 <ChatDotsFill size={22} />
                 <span className="small">Messaggi</span>
               </Nav.Link>
             </Col>
 
-            <Col xs={4} md="auto">
+            <Col xs={4} md={2} lg="auto">
               <Nav.Link
                 className={
-                  "nav-link" +
+                  'nav-link' +
                   // (location.pathname === "/notifiche" ? " active" : "") +
-                  (page === "/notifiche" ? " active" : "") +
-                  " d-flex flex-column align-items-center"
+                  (page === '/notifiche' ? ' active' : '') +
+                  ' d-flex flex-column align-items-center'
                 }
                 to="/notifiche"
                 as={Link}
-                onClick={() => dispatch(setNavigationAction("/notifiche"))}
+                onClick={() => dispatch(setNavigationAction('/notifiche'))}
               >
                 <BellFill size={22} />
                 <span className="small">Notifiche</span>
@@ -269,7 +270,7 @@ export default function CustomNavbar() {
             </Col>
 
             {/* Dropdown "Tu" */}
-            <Col xs={4} md="auto" className="d-none d-lg-block">
+            <Col xs={4} md={2} lg="auto" className="d-none d-lg-block">
               <div className="dropdown">
                 <button
                   className="btn d-flex flex-column align-items-center"
@@ -381,7 +382,7 @@ export default function CustomNavbar() {
             </Col>
 
             {/* Dropdown "Aziende" */}
-            <Col xs={4} md="auto" className="d-none d-lg-block">
+            <Col xs={4} md={2} lg="auto" className="d-none d-lg-block">
               <div className="dropdown">
                 <button
                   className="btn d-flex flex-column align-items-center"
@@ -400,8 +401,8 @@ export default function CustomNavbar() {
                 <ul
                   className={
                     addFlex
-                      ? "dropdown-menu d-flex aziende dropdown-menu-end justify-content-between"
-                      : "dropdown-menu aziende dropdown-menu-end justify-content-between"
+                      ? 'dropdown-menu d-flex aziende dropdown-menu-end justify-content-between'
+                      : 'dropdown-menu aziende dropdown-menu-end justify-content-between'
                   }
                 >
                   <li className="app px-5 py-4">
@@ -443,7 +444,7 @@ export default function CustomNavbar() {
 
                   <li
                     className="border-end border mx-2"
-                    style={{ height: "85vh" }}
+                    style={{ height: '85vh' }}
                   ></li>
 
                   <li className="business px-5 py-4">
@@ -492,7 +493,7 @@ export default function CustomNavbar() {
             </Col>
 
             {/* Premium */}
-            <Col xs={4} md="auto" className="">
+            <Col xs={4} md={2} lg="auto" className="">
               <Nav.Link
                 href="/premium"
                 className="d-flex flex-column align-items-center"
@@ -522,5 +523,5 @@ export default function CustomNavbar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
+  )
 }
