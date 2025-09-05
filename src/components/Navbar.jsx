@@ -32,7 +32,7 @@ export default function CustomNavbar() {
   const { myProfile } = useSelector((state) => state.saveProfileMe);
 
   const page = useSelector((state) => state.saveProfileMe.navigationPage);
-  // console.log("pageNav", page);
+  console.log("pageNav", page);
 
   const dispatch = useDispatch();
 
@@ -113,7 +113,6 @@ export default function CustomNavbar() {
                 dispatch(setPageAction(1));
                 window.scrollTo({ top: 0, left: 0 });
                 handleResetSearch();
-                dispatch(setNavigationAction("/"));
               }}
             />
           </Link>
@@ -174,22 +173,27 @@ export default function CustomNavbar() {
         <Navbar.Collapse id="basic-navbar-nav" className="mt-3 mt-md-0">
           {/* Griglia di navigazione */}
           <Row className="g-3 text-center ms-auto text-center d-flex flex-sm-row align-items-sm-center">
-            <Col xs={4} md="auto">
+            <Col
+              xs={4}
+              md="auto"
+              // className={location.pathname === "/" ? " active" : ""}
+            >
               <Nav.Link
                 className={
-                  "nav-link" +
-                  // (location.pathname === "/" ? " active" : "") +
-                  (page === "/" ? " active" : "") +
+                  // "nav-link" +
+                  (location.pathname === "/" ? " active" : "") +
                   " d-flex flex-column align-items-center"
                 }
                 to="/"
                 as={Link}
+                // id={page === "/" ? " active" : ""}
                 onClick={() => {
                   dispatch(setPageAction(1));
-                  console.log("location.pathname", location.pathname);
+                  // console.log("location.pathname", location.pathname);
                   window.scrollTo({ top: 0, left: 0 });
                   dispatch(setNavigationAction("/"));
                 }}
+                // style={{ color: "green !important" }}
               >
                 <HouseFill size={22} />
                 <span className="small">Home</span>
@@ -206,7 +210,7 @@ export default function CustomNavbar() {
                 }
                 to="/rete"
                 as={Link}
-                onClick={dispatch(setNavigationAction("/rete"))}
+                onClick={() => dispatch(setNavigationAction("/rete"))}
               >
                 <PeopleFill size={22} />
                 <span className="small">Rete</span>
@@ -223,7 +227,7 @@ export default function CustomNavbar() {
                 }
                 to="/lavoro"
                 as={Link}
-                onClick={dispatch(setNavigationAction("/lavoro"))}
+                onClick={() => dispatch(setNavigationAction("/lavoro"))}
               >
                 <BriefcaseFill size={22} />
                 <span className="small">Lavoro</span>
@@ -240,7 +244,7 @@ export default function CustomNavbar() {
                 }
                 to="/messaggi"
                 as={Link}
-                onClick={dispatch(setNavigationAction("/messaggi"))}
+                onClick={() => dispatch(setNavigationAction("/messaggi"))}
               >
                 <ChatDotsFill size={22} />
                 <span className="small">Messaggi</span>
@@ -257,7 +261,7 @@ export default function CustomNavbar() {
                 }
                 to="/notifiche"
                 as={Link}
-                onClick={dispatch(setNavigationAction("/notifiche"))}
+                onClick={() => dispatch(setNavigationAction("/notifiche"))}
               >
                 <BellFill size={22} />
                 <span className="small">Notifiche</span>
@@ -303,10 +307,7 @@ export default function CustomNavbar() {
                     </div>
 
                     <div className="user-actions px-2">
-                      <Link
-                        to="/profile"
-                        onClick={dispatch(setNavigationAction("/profile"))}
-                      >
+                      <Link to="/profile">
                         <button className="btn border border-primary text-primary rounded-pill me-1">
                           Visualizza profilo
                         </button>

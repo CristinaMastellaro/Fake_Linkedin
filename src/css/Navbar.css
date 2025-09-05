@@ -38,11 +38,14 @@
   flex: column;
 }
 
-.nav-item-hover,
-.active {
-  /* color: #000 !important; */
-  color: green !important;
-}
+/* .nav-item-hover, */
+/* .active { */
+/* color: #000 !important; */
+/* color: green !important; */
+/* border-bottom: 1px solid black !important; */
+/* font-weight: 800 !important; */
+/* background-color: rgba(128, 128, 128, 0.353) !important; */
+/* } */
 
 .dropdown-menu {
   max-width: 22vw;
