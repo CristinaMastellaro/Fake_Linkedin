@@ -12,6 +12,7 @@ import {
 
 const Jobs = () => {
   const [allJobs, setAllJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,7 +29,7 @@ const Jobs = () => {
     setError(null);
     try {
       const params = new URLSearchParams();
-      if (query) params.append("query", query);
+
       if (company) params.append("company", company);
       if (category) params.append("category", category);
 
@@ -41,14 +42,29 @@ const Jobs = () => {
       const data = await response.json();
       const jobsData = data.data || data;
       setAllJobs(jobsData);
-      setTotalPages(Math.ceil(jobsData.length / jobsPerPage));
 
-      updatePageJobs(1, jobsData);
+      filterJobs(jobsData);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  const filterJobs = (jobsArray = allJobs) => {
+    let filtered = jobsArray;
+
+    if (query) {
+      const q = query.toLowerCase();
+      filtered = filtered.filter(
+        (job) =>
+          job.title.toLowerCase().includes(q) ||
+          (job.skills && job.skills.toLowerCase().includes(q))
+      );
+    }
+
+    setTotalPages(Math.ceil(filtered.length / jobsPerPage));
+    updatePageJobs(1, filtered);
   };
 
   const updatePageJobs = (page, jobsArray = allJobs) => {
@@ -62,6 +78,16 @@ const Jobs = () => {
   useEffect(() => {
     fetchAllJobs();
   }, []);
+
+  useEffect(() => {
+    fetchAllJobs();
+  }, [company, category]);
+
+  useEffect(() => {
+    if (allJobs.length > 0) {
+      filterJobs();
+    }
+  }, [query]);
 
   const handleSearch = (e) => {
     e.preventDefault();
