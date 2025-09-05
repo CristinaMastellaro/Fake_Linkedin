@@ -9,6 +9,7 @@ import {
   Spinner,
   Alert,
 } from "react-bootstrap";
+import Messaggistica from "./Messaggistica";
 
 const Jobs = () => {
   const [allJobs, setAllJobs] = useState([]);
@@ -318,6 +319,7 @@ const Jobs = () => {
       {!loading && !error && jobs.length === 0 && (
         <Alert variant="info">No jobs found matching your criteria.</Alert>
       )}
+      <Messaggistica />
     </Container>
   );
 };
