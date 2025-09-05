@@ -29,3 +29,12 @@
   position: relative;
   z-index: 1051;
 }
+
+@media screen and (max-width: 768px) {
+  .text-small {
+    font-size: 14px !important;
+  }
+  .img-small {
+    width: 100px;
+  }
+}

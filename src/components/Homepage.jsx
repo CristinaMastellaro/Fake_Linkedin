@@ -1,13 +1,13 @@
-import { Container, Row, Col, Collapse } from "react-bootstrap";
-import HomeMain from "./HomeMain";
-import SidebarHome from "./SidebarHome";
-import LeftSidebarHome from "./LeftSidebarHome";
-import Messaggistica from "./Messaggistica";
-import { useState, useEffect, useRef } from "react";
-import "../css/footerHome.css";
-import MyFooter from "./MyFooter";
-import { useDispatch } from "react-redux";
-import { setNavigationAction } from "../redux/actions";
+import { Container, Row, Col, Collapse } from 'react-bootstrap';
+import HomeMain from './HomeMain';
+import SidebarHome from './SidebarHome';
+import LeftSidebarHome from './LeftSidebarHome';
+import Messaggistica from './Messaggistica';
+import { useState, useEffect, useRef } from 'react';
+import '../css/footerHome.css';
+import MyFooter from './MyFooter';
+import { useDispatch } from 'react-redux';
+import { setNavigationAction } from '../redux/actions';
 
 const Homepage = () => {
   const [showFooter, setShowFooter] = useState(false);
@@ -15,11 +15,12 @@ const Homepage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setNavigationAction("/"));
+    dispatch(setNavigationAction('/'));
     // Reset dello scroll quando il componente viene montato
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 100);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Si attiva solo al mount del componente
 
   // Gestisce il click fuori dal footer per chiuderlo
@@ -32,21 +33,21 @@ const Homepage = () => {
 
     // Aggiunge l'event listener solo se il footer è visibile
     if (showFooter) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }
 
     // Rimuove l'event listener quando il componente viene smontato o il footer viene chiuso
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showFooter]);
 
   return (
     <>
-      <Container className="homepage bg-light min-vh-100 py-4">
-        <Row className="justify-content-center">
+      <Container className='homepage bg-light min-vh-100 py-4'>
+        <Row className='justify-content-center'>
           <Col xs={12} md={4} lg={3}>
-            <div className="sticky-sidebar">
+            <div className='sticky-sidebar'>
               <LeftSidebarHome />
             </div>
           </Col>
@@ -56,16 +57,16 @@ const Homepage = () => {
           <Col xs={12} lg={3}>
             <SidebarHome />
             <Container
-              className="mt-4"
-              style={{ position: "sticky", top: "429px", zIndex: 2 }}
+              className='mt-4'
+              style={{ position: 'sticky', top: '429px', zIndex: 2 }}
             >
               <div
-                className="d-flex justify-content-around small px-5"
-                style={{ cursor: "pointer" }}
+                className='d-flex justify-content-around small px-5'
+                style={{ cursor: 'pointer' }}
               >
                 <p
-                  className="small footer-link"
-                  style={{ cursor: "pointer", color: "#0a66c2" }}
+                  className='small footer-link'
+                  style={{ cursor: 'pointer', color: '#0a66c2' }}
                   onClick={() => {
                     setShowFooter(!showFooter);
                   }}
@@ -73,20 +74,20 @@ const Homepage = () => {
                   Informazioni
                 </p>
                 <p
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={() => setShowFooter(!showFooter)}
-                  className="small footer-link"
+                  className='small footer-link'
                 >
                   Altro
                 </p>
               </div>
-              <div className="d-flex align-items-center px-2 small justify-content-center">
+              <div className='d-flex align-items-center px-2 small justify-content-center'>
                 <img
-                  src="/logo-linkedin-scritto.png"
+                  src='/logo-linkedin-scritto.png'
                   width={65}
-                  alt="LinkedIn Logo"
+                  alt='LinkedIn Logo'
                 />
-                <p className="small mb-0">
+                <p className='small mb-0'>
                   Linkedin Corporation &copy; {new Date().getFullYear()}
                 </p>
               </div>
@@ -95,14 +96,14 @@ const Homepage = () => {
         </Row>
       </Container>
       <Messaggistica />
-      {showFooter && <div className="overlay-footer" />}
+      {showFooter && <div className='overlay-footer' />}
       <Collapse in={showFooter}>
-        <div className="footer-dropup" ref={footerRef}>
+        <div className='footer-dropup' ref={footerRef}>
           <MyFooter />
-          <div className="position-absolute top-0 end-0 me-5 pe-1">
+          <div className='position-absolute top-0 end-0 me-5 pe-1'>
             <button
-              className="close-button fs-1"
-              title="Chiudi"
+              className='close-button fs-1'
+              title='Chiudi'
               onClick={() => setShowFooter(false)}
             >
               &times;
