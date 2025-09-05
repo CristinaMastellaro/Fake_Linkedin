@@ -44,7 +44,7 @@ const Homepage = () => {
 
   return (
     <>
-      <Container className='homepage bg-light min-vh-100 py-4'>
+      <Container className='homepage min-vh-100 py-4'>
         <Row className='justify-content-center'>
           <Col xs={12} md={4} lg={3}>
             <div className='sticky-sidebar'>

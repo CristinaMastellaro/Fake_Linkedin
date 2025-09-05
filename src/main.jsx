@@ -12,6 +12,8 @@ const root = createRoot(rootElement);
 
 root.render(
   <Provider store={store}>
-    <App />
+    <div className="bg-light">
+      <App />
+    </div>
   </Provider>
 );

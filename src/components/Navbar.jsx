@@ -1,24 +1,5 @@
-import {
-  Navbar,
-  NavDropdown,
-  Nav,
-  Form,
-  FormControl,
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
-import {
-  HouseFill,
-  PeopleFill,
-  BriefcaseFill,
-  ChatDotsFill,
-  BellFill,
-  PersonCircle,
-  CaretDownFill,
-  Grid3x3GapFill,
-  StarFill,
-} from "react-bootstrap-icons";
+import { Navbar, NavDropdown, Nav, Form, FormControl, Container, Row, Col } from "react-bootstrap";
+import { HouseFill, PeopleFill, BriefcaseFill, ChatDotsFill, BellFill, PersonCircle, CaretDownFill, Grid3x3GapFill } from "react-bootstrap-icons";
 import { useState, useEffect, useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -53,11 +34,8 @@ export default function CustomNavbar() {
     const fetchProfiles = async () => {
       setLoading(true);
       try {
-        const res = await fetch(
-          "https://striveschool-api.herokuapp.com/api/profile/",
-          {
-            headers: { Authorization: `Bearer ${TOKEN}` },
-          }
+        const res = await fetch( "https://striveschool-api.herokuapp.com/api/profile/",
+          { headers: { Authorization: `Bearer ${TOKEN}` }, }
         );
 
         if (!res.ok) {
@@ -490,7 +468,7 @@ export default function CustomNavbar() {
                 href="/premium"
                 className="d-flex flex-column align-items-center"
               >
-                <StarFill size={22} />
+                <span className='orange-square fs-4'></span>
                 <span className="small">Premium</span>
               </Nav.Link>
             </Col>

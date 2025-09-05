@@ -192,43 +192,33 @@ const Posts = () => {
             ))}
 
           {!postsLoading && posts.length > postsPerPage && (
-            <div className="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
-              <div className="d-flex gap-2">
+            <div className="d-flex justify-content-between align-items-center mt-3 pt-3 px-5 border-top">
+              <div className="d-flex gap-3">
                 <Button
                   variant="outline-primary"
-                  size="sm"
                   onClick={handleFirstPage}
                   disabled={currentPage === 1}
-                >
-                  Prima
-                </Button>
+                >⇤</Button>
                 <Button
                   variant="outline-primary"
                   onClick={handlePrevPage}
                   disabled={currentPage === 1}
-                >
-                  Precedente
-                </Button>
+                >←</Button>
               </div>
               <span className="text-muted">
                 Pagina {currentPage} di {totalPages}
               </span>
-              <div className="d-flex gap-2">
+              <div className="d-flex gap-3">
                 <Button
                   variant="outline-primary"
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
-                >
-                  Successivo
-                </Button>
+                >→</Button>
                 <Button
                   variant="outline-primary"
-                  size="sm"
                   onClick={handleLastPage}
                   disabled={currentPage === totalPages}
-                >
-                  Ultima
-                </Button>
+                >⇥</Button>
               </div>
             </div>
           )}
