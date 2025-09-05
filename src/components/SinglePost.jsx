@@ -143,25 +143,24 @@ const SinglePost = ({ post, setCurrentPage }) => {
         </div>
 
         <div className="d-flex justify-content-around mt-2 pt-2 border-top">
-          <button
-            className="btn btn-light flex-fill me-1"
-            onClick={handleLikeClick}
-          >
+          <button className="btn btn-light me-1" onClick={handleLikeClick}>
             <i
-              className={`bi bi-hand-thumbs-up-fill me-2 ${
-                isLiked ? 'text-primary' : ''
+              className={`bi bi-hand-thumbs-up-fill d-none d-xl-inline me-2 ${
+                isLiked ? 'd-xl-inline text-primary' : 'd-inline'
               }`}
             ></i>
             <span className={isLiked ? 'text-primary' : ''}>Mi piace</span>
           </button>
-          <button className="btn btn-light flex-fill me-1">
-            <i className="bi bi-chat-square-text-fill me-2"></i>Commenta
+          <button className="btn btn-light me-1">
+            <i className="bi bi-chat-square-text-fill me-2 d-none d-xl-inline"></i>
+            Commenta
           </button>
-          <button className="btn btn-light flex-fill me-1">
-            <i className="bi bi-arrow-repeat me-2"></i>Condividi
+          <button className="btn btn-light  me-1">
+            <i className="bi bi-arrow-repeat me-2 d-none d-xl-inline"></i>
+            Condividi
           </button>
-          <button className="btn btn-light flex-fill">
-            <i className="bi bi-send me-2"></i>Invia
+          <button class="btn btn-light">
+            <i class="bi bi-send me-2 d-none d-xl-inline"></i>Invia
           </button>
         </div>
         <div className="d-flex align-items-center mt-2 pt-2 ">

@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const SidebarProfilo = () => {
-  const [isEditingLanguage, setIsEditingLanguage] = useState(false);
-  const [isEditingUrl, setIsEditingUrl] = useState(false);
-  const [language, setLanguage] = useState('Italiano');
-  const [showAllProfiles, setShowAllProfiles] = useState(false);
+  const [isEditingLanguage, setIsEditingLanguage] = useState(false)
+  const [isEditingUrl, setIsEditingUrl] = useState(false)
+  const [language, setLanguage] = useState('Italiano')
+  const [showAllProfiles, setShowAllProfiles] = useState(false)
 
-  const { id } = useParams();
+  const { id } = useParams()
   const { myProfile, otherProfile } = useSelector(
     (state) => state.saveProfileMe
-  );
+  )
 
-  const profileData = id ? otherProfile : myProfile;
+  const profileData = id ? otherProfile : myProfile
 
   const [profileUrl, setProfileUrl] = useState(
     profileData
@@ -21,9 +21,9 @@ const SidebarProfilo = () => {
           -6
         )}`
       : 'www.linkedin.com/in/profile'
-  );
+  )
 
-  const languages = ['Italiano', 'English', 'Français', 'Deutsch', 'Español'];
+  const languages = ['Italiano', 'English', 'Français', 'Deutsch', 'Español']
 
   const additionalProfiles = [
     {
@@ -58,37 +58,37 @@ const SidebarProfilo = () => {
       color: '#fd7e14',
       image: 'https://avatar.iran.liara.run/public/girl',
     },
-  ];
+  ]
 
   const handleLanguageSubmit = (e) => {
-    e.preventDefault();
-    setIsEditingLanguage(false);
-  };
+    e.preventDefault()
+    setIsEditingLanguage(false)
+  }
 
   const handleUrlSubmit = (e) => {
-    e.preventDefault();
-    setIsEditingUrl(false);
-  };
+    e.preventDefault()
+    setIsEditingUrl(false)
+  }
 
   const handleLanguageCancel = () => {
-    setIsEditingLanguage(false);
-  };
+    setIsEditingLanguage(false)
+  }
 
   const handleUrlCancel = () => {
-    setIsEditingUrl(false);
-  };
+    setIsEditingUrl(false)
+  }
 
   return (
-    <div className='mt-4'>
-      <div className='card mb-3 shadow'>
-        <div className='card-body'>
-          <div className='d-flex justify-content-between align-items-center mb-3'>
-            <div className='flex-grow-1'>
-              <h6 className='mb-0 fw-bold'>Lingua del profilo</h6>
+    <div className="mt-4">
+      <div className="card mb-3 shadow">
+        <div className="card-body">
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <div className="flex-grow-1">
+              <h6 className="mb-0 fw-bold">Lingua del profilo</h6>
               {isEditingLanguage ? (
-                <div className='mt-2'>
+                <div className="mt-2">
                   <select
-                    className='form-select form-select-sm'
+                    className="form-select form-select-sm"
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
                     autoFocus
@@ -99,17 +99,17 @@ const SidebarProfilo = () => {
                       </option>
                     ))}
                   </select>
-                  <div className='mt-2'>
+                  <div className="mt-2">
                     <button
-                      type='button'
-                      className='btn btn-primary btn-sm me-2'
+                      type="button"
+                      className="btn btn-primary btn-sm me-2"
                       onClick={handleLanguageSubmit}
                     >
                       Salva
                     </button>
                     <button
-                      type='button'
-                      className='btn btn-secondary btn-sm'
+                      type="button"
+                      className="btn btn-secondary btn-sm"
                       onClick={handleLanguageCancel}
                     >
                       Annulla
@@ -117,44 +117,44 @@ const SidebarProfilo = () => {
                   </div>
                 </div>
               ) : (
-                <small className='text-muted'>{language}</small>
+                <small className="text-muted">{language}</small>
               )}
             </div>
             {!isEditingLanguage && (
               <i
-                className='bi bi-pencil'
+                className="bi bi-pencil"
                 style={{ cursor: 'pointer' }}
                 onClick={() => setIsEditingLanguage(true)}
               ></i>
             )}
           </div>
 
-          <hr className='my-3' />
+          <hr className="my-3" />
 
-          <div className='d-flex justify-content-between align-items-start mb-3'>
-            <div className='flex-grow-1'>
-              <h6 className='mb-0 fw-bold'>Profilo pubblico e URL</h6>
+          <div className="d-flex justify-content-between align-items-start mb-3">
+            <div className="flex-grow-1">
+              <h6 className="mb-0 fw-bold">Profilo pubblico e URL</h6>
               {isEditingUrl ? (
-                <div className='mt-2'>
+                <div className="mt-2">
                   <input
-                    type='text'
-                    className='form-control form-control-sm'
+                    type="text"
+                    className="form-control form-control-sm"
                     value={profileUrl}
                     onChange={(e) => setProfileUrl(e.target.value)}
-                    placeholder='Inserisci URL del profilo'
+                    placeholder="Inserisci URL del profilo"
                     autoFocus
                   />
-                  <div className='mt-2'>
+                  <div className="mt-2">
                     <button
-                      type='button'
-                      className='btn btn-primary btn-sm me-2'
+                      type="button"
+                      className="btn btn-primary btn-sm me-2"
                       onClick={handleUrlSubmit}
                     >
                       Salva
                     </button>
                     <button
-                      type='button'
-                      className='btn btn-secondary btn-sm'
+                      type="button"
+                      className="btn btn-secondary btn-sm"
                       onClick={handleUrlCancel}
                     >
                       Annulla
@@ -162,21 +162,21 @@ const SidebarProfilo = () => {
                   </div>
                 </div>
               ) : (
-                <small className='text-muted text-break'>{profileUrl}</small>
+                <small className="text-muted text-break">{profileUrl}</small>
               )}
             </div>
             {!id && !isEditingUrl && (
               <i
-                className='bi bi-pencil ms-2'
+                className="bi bi-pencil ms-2"
                 style={{ cursor: 'pointer' }}
                 onClick={() => setIsEditingUrl(true)}
               ></i>
             )}
           </div>
 
-          <div className='text-end'>
-            <button className='btn btn-link text-muted p-0'>
-              Annuncio <i className='bi bi-three-dots'></i>
+          <div className="text-end">
+            <button className="btn btn-link text-muted p-0">
+              Annuncio <i className="bi bi-three-dots"></i>
             </button>
           </div>
         </div>
@@ -190,7 +190,7 @@ const SidebarProfilo = () => {
                 <img
                   src="/linkedin-icon.jpg"
                   alt="icona-linkedin"
-                  style={{ width: "8rem" }}
+                  style={{ width: '4rem' }}
                 />
               </div>
             </div>
@@ -204,55 +204,55 @@ const SidebarProfilo = () => {
         </div>
       )}
 
-      <div className='card my-3 shadow'>
-        <div className='card-header bg-white border-0 pb-0'>
-          <h6 className='my-1 fw-bold text-dark'>Altri profili consultati</h6>
-          <small className='text-muted'>
-            <i className='bi bi-eye-fill'></i> Solo per te
+      <div className="card my-3 shadow">
+        <div className="card-header bg-white border-0 pb-0">
+          <h6 className="my-1 fw-bold text-dark">Altri profili consultati</h6>
+          <small className="text-muted">
+            <i className="bi bi-eye-fill"></i> Solo per te
           </small>
         </div>
-        <div className='card-body'>
-          <div className='d-flex mb-3'>
-            <div className='d-flex mb-2'>
+        <div className="card-body">
+          <div className="d-flex mb-3">
+            <div className="d-flex mb-2">
               {/* <div
                 className='rounded-circle me-3 bg-secondary flex-shrink-0'
                 style={{ width: '50px', height: '50px' }}
               > */}
               <img
-                src='https://as2.ftcdn.net/v2/jpg/05/80/60/33/1000_F_580603305_ysEbDBvHCKM9TyzEINHyW614NWLdTe0b.jpg'
+                src="https://as2.ftcdn.net/v2/jpg/05/80/60/33/1000_F_580603305_ysEbDBvHCKM9TyzEINHyW614NWLdTe0b.jpg"
                 style={{ width: '50px', height: '50px' }}
-                className='rounded-circle me-3 blur-img border'
+                className="rounded-circle me-3 blur-img border"
               />
               {/* </div> */}
               <div>
-                <h6 className='mb-0 fw-semibold'>Qualcuno presso</h6>
-                <small className='text-muted'>Università degli Studi...</small>
-                <button className='btn btn-outline-primary btn-sm rounded-pill mt-2'>
+                <h6 className="mb-0 fw-semibold">Qualcuno presso</h6>
+                <small className="text-muted">Università degli Studi...</small>
+                <button className="btn btn-outline-primary btn-sm rounded-pill mt-2">
                   Visualizza
                 </button>
               </div>
             </div>
           </div>
 
-          <hr className='my-3' />
+          <hr className="my-3" />
 
-          <div className='d-flex mb-3'>
-            <div className='d-flex mb-2'>
+          <div className="d-flex mb-3">
+            <div className="d-flex mb-2">
               {/* <div
                 className='rounded-circle me-3 bg-secondary flex-shrink-0'
                 style={{ width: '50px', height: '50px' }}
               > */}
               <img
-                src='https://as2.ftcdn.net/v2/jpg/06/49/71/91/1000_F_649719174_3W1xTqSMFvoykIMkCami0sBYyoh1SUWO.jpg'
+                src="https://as2.ftcdn.net/v2/jpg/06/49/71/91/1000_F_649719174_3W1xTqSMFvoykIMkCami0sBYyoh1SUWO.jpg"
                 style={{ width: '50px', height: '50px' }}
-                className='rounded-circle me-3 blur-img'
+                className="rounded-circle me-3 blur-img"
               />
               {/* </div> */}
               <div>
-                <h6 className='mb-0 fw-semibold'>
+                <h6 className="mb-0 fw-semibold">
                   Consulente informatico presso...
                 </h6>
-                <button className='btn btn-outline-primary btn-sm rounded-pill mt-2'>
+                <button className="btn btn-outline-primary btn-sm rounded-pill mt-2">
                   Visualizza
                 </button>
               </div>
@@ -261,105 +261,105 @@ const SidebarProfilo = () => {
         </div>
       </div>
 
-      <div className='card mb-3 shadow'>
-        <div className='card-header bg-white border-0 pb-0'>
-          <h6 className='my-1 fw-bold text-dark'>
+      <div className="card mb-3 shadow">
+        <div className="card-header bg-white border-0 pb-0">
+          <h6 className="my-1 fw-bold text-dark">
             Persone che potresti conoscere
           </h6>
-          <small className='text-muted'>Dalla tua scuola o università</small>
+          <small className="text-muted">Dalla tua scuola o università</small>
         </div>
-        <div className='card-body'>
-          <div className='d-flex align-items-center mb-3'>
+        <div className="card-body">
+          <div className="d-flex align-items-center mb-3">
             <img
-              src='https://avatar.iran.liara.run/public/boy'
-              alt='Leonardo Genesin'
-              className='rounded-circle me-3'
+              src="https://avatar.iran.liara.run/public/boy"
+              alt="Leonardo Genesin"
+              className="rounded-circle me-3"
               style={{ width: '50px', height: '50px' }}
             />
-            <div className='flex-grow-1'>
-              <h6 className='mb-0 fw-semibold'>Leonardo Genesin</h6>
-              <small className='text-muted'>
+            <div className="flex-grow-1">
+              <h6 className="mb-0 fw-semibold">Leonardo Genesin</h6>
+              <small className="text-muted">
                 PhD Student in Statistical Sciences presso Università de...
               </small>
-              <div className='mt-2'>
-                <button className='btn btn-outline-secondary btn-sm rounded-pill'>
-                  <i className='bi bi-person-plus-fill'></i> Collegati
+              <div className="mt-2">
+                <button className="btn btn-outline-secondary btn-sm rounded-pill">
+                  <i className="bi bi-person-plus-fill"></i> Collegati
                 </button>
               </div>
             </div>
           </div>
 
-          <hr className='my-3' />
+          <hr className="my-3" />
 
-          <div className='d-flex align-items-center mb-3'>
+          <div className="d-flex align-items-center mb-3">
             <img
-              src='https://avatar.iran.liara.run/public/girl'
-              alt='Marta Ferrari'
-              className='rounded-circle me-3'
+              src="https://avatar.iran.liara.run/public/girl"
+              alt="Marta Ferrari"
+              className="rounded-circle me-3"
               style={{ width: '50px', height: '50px' }}
             />
-            <div className='flex-grow-1'>
-              <h6 className='mb-0 fw-semibold'>Marta Ferrari</h6>
-              <small className='text-muted'>
+            <div className="flex-grow-1">
+              <h6 className="mb-0 fw-semibold">Marta Ferrari</h6>
+              <small className="text-muted">
                 Hanno frequentato Università degli Studi di Padova
               </small>
-              <div className='mt-2'>
-                <button className='btn btn-outline-secondary btn-sm rounded-pill'>
-                  <i className='bi bi-person-plus-fill'></i> Collegati
+              <div className="mt-2">
+                <button className="btn btn-outline-secondary btn-sm rounded-pill">
+                  <i className="bi bi-person-plus-fill"></i> Collegati
                 </button>
               </div>
             </div>
           </div>
 
-          <hr className='my-3' />
+          <hr className="my-3" />
 
-          <div className='d-flex align-items-center mb-3'>
+          <div className="d-flex align-items-center mb-3">
             <img
-              src='https://avatar.iran.liara.run/public/girl'
-              alt='Chiara Baldan'
-              className='rounded-circle me-3'
+              src="https://avatar.iran.liara.run/public/girl"
+              alt="Chiara Baldan"
+              className="rounded-circle me-3"
               style={{ width: '50px', height: '50px' }}
             />
-            <div className='flex-grow-1'>
-              <h6 className='mb-0 fw-semibold'>
+            <div className="flex-grow-1">
+              <h6 className="mb-0 fw-semibold">
                 Chiara Baldan
                 <i
-                  className='fas fa-check-circle text-primary ms-1'
+                  className="fas fa-check-circle text-primary ms-1"
                   style={{ fontSize: '12px' }}
                 ></i>
               </h6>
-              <small className='text-muted'>Research Fellow</small>
-              <div className='mt-2'>
-                <button className='btn btn-outline-secondary btn-sm rounded-pill'>
-                  <i className='bi bi-person-plus-fill'></i> Collegati
+              <small className="text-muted">Research Fellow</small>
+              <div className="mt-2">
+                <button className="btn btn-outline-secondary btn-sm rounded-pill">
+                  <i className="bi bi-person-plus-fill"></i> Collegati
                 </button>
               </div>
             </div>
           </div>
 
-          <hr className='my-3' />
+          <hr className="my-3" />
 
-          <div className='d-flex align-items-center mb-3'>
+          <div className="d-flex align-items-center mb-3">
             <img
-              src='https://avatar.iran.liara.run/public/boy'
-              alt='Diego Redi'
-              className='rounded-circle me-3'
+              src="https://avatar.iran.liara.run/public/boy"
+              alt="Diego Redi"
+              className="rounded-circle me-3"
               style={{ width: '50px', height: '50px' }}
             />
-            <div className='flex-grow-1'>
-              <h6 className='mb-0 fw-semibold'>
+            <div className="flex-grow-1">
+              <h6 className="mb-0 fw-semibold">
                 Diego Redi
                 <i
-                  className='fas fa-check-circle text-primary ms-1'
+                  className="fas fa-check-circle text-primary ms-1"
                   style={{ fontSize: '12px' }}
                 ></i>
               </h6>
-              <small className='text-muted'>
+              <small className="text-muted">
                 Junior Business Analyst presso ARD Raccanello
               </small>
-              <div className='mt-2'>
-                <button className='btn btn-outline-secondary btn-sm rounded-pill'>
-                  <i className='bi bi-person-plus-fill'></i> Collegati
+              <div className="mt-2">
+                <button className="btn btn-outline-secondary btn-sm rounded-pill">
+                  <i className="bi bi-person-plus-fill"></i> Collegati
                 </button>
               </div>
             </div>
@@ -369,20 +369,20 @@ const SidebarProfilo = () => {
             <>
               {additionalProfiles.map((profile) => (
                 <div key={profile.id}>
-                  <hr className='my-3' />
-                  <div className='d-flex align-items-center mb-3'>
+                  <hr className="my-3" />
+                  <div className="d-flex align-items-center mb-3">
                     <img
                       src={profile.image}
                       alt={profile.name}
-                      className='rounded-circle me-3'
+                      className="rounded-circle me-3"
                       style={{ width: '50px', height: '50px' }}
                     />
-                    <div className='flex-grow-1'>
-                      <h6 className='mb-0 fw-semibold'>{profile.name}</h6>
-                      <small className='text-muted'>{profile.role}</small>
-                      <div className='mt-2'>
-                        <button className='btn btn-outline-secondary btn-sm rounded-pill'>
-                          <i className='bi bi-person-plus-fill'></i> Collegati
+                    <div className="flex-grow-1">
+                      <h6 className="mb-0 fw-semibold">{profile.name}</h6>
+                      <small className="text-muted">{profile.role}</small>
+                      <div className="mt-2">
+                        <button className="btn btn-outline-secondary btn-sm rounded-pill">
+                          <i className="bi bi-person-plus-fill"></i> Collegati
                         </button>
                       </div>
                     </div>
@@ -392,10 +392,10 @@ const SidebarProfilo = () => {
             </>
           )}
 
-          <hr className='my-3' />
-          <div className='text-center'>
+          <hr className="my-3" />
+          <div className="text-center">
             <p
-              className='text-primary mb-0 fw-semibold'
+              className="text-primary mb-0 fw-semibold"
               style={{ cursor: 'pointer' }}
               onClick={() => setShowAllProfiles(!showAllProfiles)}
             >
@@ -405,7 +405,7 @@ const SidebarProfilo = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SidebarProfilo;
+export default SidebarProfilo

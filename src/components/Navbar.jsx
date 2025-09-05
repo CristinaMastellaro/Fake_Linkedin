@@ -250,7 +250,7 @@ export default function CustomNavbar() {
             </Col>
 
             {/* Dropdown "Tu" */}
-            <Col xs={4} md="auto" className="d-none d-md-block">
+            <Col xs={4} md="auto" className="d-none d-lg-block">
               <div className="dropdown">
                 <button
                   className="btn d-flex flex-column align-items-center"
@@ -265,9 +265,9 @@ export default function CustomNavbar() {
                   </div>
                 </button>
 
-                <ul className="dropdown-menu dropdown-menu-end">
+                <ul className="dropdown-menu dropdown-menu-end px-2">
                   <li>
-                    <div className="user d-flex align-items-center py-2 px-2">
+                    <div className="user d-flex align-items-center py-3 px-2">
                       {myProfile.image ? (
                         <img
                           src={myProfile.image}
@@ -287,25 +287,27 @@ export default function CustomNavbar() {
                       </div>
                     </div>
 
-                    <div className="user-actions px-2">
+                    <div className="user-actions px-2 pb-1">
                       <Link to="/profile">
-                        <button className="btn border border-primary text-primary rounded-pill me-1">
+                        <button className="btn border border-primary text-primary rounded-pill me-2">
                           Visualizza profilo
                         </button>
                       </Link>
-                      <button
-                        className="btn bg-primary text-light rounded-pill"
-                        title="Not available"
-                      >
-                        Verifica
-                      </button>
+                      <Link to="/verifica">
+                        <button
+                          className="btn bg-primary text-light rounded-pill"
+                          title="Not available"
+                        >
+                          Verifica
+                        </button>
+                      </Link>
                     </div>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <h6 className="dropdown-header">Account</h6>
+                    <h6 className="dropdownHeader">Account</h6>
                   </li>
                   <li>
                     <a
@@ -335,7 +337,7 @@ export default function CustomNavbar() {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <h6 className="dropdown-header">Gestisci</h6>
+                    <h6 className="dropdownHeader">Gestisci</h6>
                   </li>
                   <li>
                     <a className="dropdown-item" href="#" title="Not available">
@@ -344,7 +346,7 @@ export default function CustomNavbar() {
                   </li>
                   <li>
                     <a className="dropdown-item" href="#" title="Not available">
-                      Account per la pubblicazione di off...
+                      Account per la pubblicazione di offerte
                     </a>
                   </li>
                   <li>
@@ -360,7 +362,7 @@ export default function CustomNavbar() {
             </Col>
 
             {/* Dropdown "Aziende" */}
-            <Col xs={4} md="auto" className="d-none d-md-block">
+            <Col xs={4} md="auto" className="d-none d-lg-block">
               <div className="dropdown">
                 <button
                   className="btn d-flex flex-column align-items-center"
@@ -457,8 +459,13 @@ export default function CustomNavbar() {
                       <span>Centro per amministratori</span>
                       <br /> Gestisci i dettagli di fatturazione e account
                     </a>
-                    <a className="dropdown-item" href="#" title="Not available">
+                    <a
+                      className="dropdown-item mt-3 fw-bold"
+                      href="#"
+                      title="Not available"
+                    >
                       Crea una pagina aziendale
+                      <i className="bi bi-plus ms-2 "></i>
                     </a>
                   </li>
                 </ul>
@@ -466,7 +473,7 @@ export default function CustomNavbar() {
             </Col>
 
             {/* Premium */}
-            <Col xs={4} md="auto" className="d-none d-md-block">
+            <Col xs={4} md="auto" className="">
               <Nav.Link
                 href="/premium"
                 className="d-flex flex-column align-items-center"
