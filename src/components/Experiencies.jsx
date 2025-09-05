@@ -21,6 +21,7 @@ import {
   uploadExperienceImage,
 } from "../redux/actions";
 import "../css/services.css";
+import ExperienceForm from "./ExperienceForm";
 
 const Experiences = () => {
   const { id } = useParams();
@@ -38,16 +39,16 @@ const Experiences = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [editingExperience, setEditingExperience] = useState(null);
-  const [formData, setFormData] = useState({
-    role: "",
-    company: "",
-    startDate: "",
-    endDate: "",
-    description: "",
-    area: "",
-  });
-  const [imageFile, setImageFile] = useState(null);
-  const [alert, setAlert] = useState(null);
+  // const [formData, setFormData] = useState({
+  //   role: "",
+  //   company: "",
+  //   startDate: "",
+  //   endDate: "",
+  //   description: "",
+  //   area: "",
+  // });
+  // const [imageFile, setImageFile] = useState(null);
+  // const [alert, setAlert] = useState(null);
 
   useEffect(() => {
     if (userId) {
@@ -99,49 +100,49 @@ const Experiences = () => {
     setAlert(null);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({ ...prev, [name]: value }));
+  // };
 
-  const handleFileChange = (e) => {
-    setImageFile(e.target.files[0]);
-  };
+  // const handleFileChange = (e) => {
+  //   setImageFile(e.target.files[0]);
+  // };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!userId) {
-      setAlert({ type: "danger", message: "User ID not found." });
-      return;
-    }
-    try {
-      if (editingExperience) {
-        await dispatch(
-          updateExperience(userId, editingExperience._id, formData)
-        );
-        if (imageFile) {
-          await dispatch(
-            uploadExperienceImage(userId, editingExperience._id, imageFile)
-          );
-        }
-      } else {
-        const action = await dispatch(createExperience(userId, formData));
-        if (imageFile && action.payload && action.payload._id) {
-          await dispatch(
-            uploadExperienceImage(userId, action.payload._id, imageFile)
-          );
-        }
-      }
-      setAlert({ type: "success", message: "Experience saved successfully." });
-      dispatch(fetchExperiences(userId));
-      handleCloseModal();
-    } catch (error) {
-      setAlert({
-        type: "danger",
-        message: error.message || "Failed to save experience.",
-      });
-    }
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!userId) {
+  //     setAlert({ type: "danger", message: "User ID not found." });
+  //     return;
+  //   }
+  //   try {
+  //     if (editingExperience) {
+  //       await dispatch(
+  //         updateExperience(userId, editingExperience._id, formData)
+  //       );
+  //       if (imageFile) {
+  //         await dispatch(
+  //           uploadExperienceImage(userId, editingExperience._id, imageFile)
+  //         );
+  //       }
+  //     } else {
+  //       const action = await dispatch(createExperience(userId, formData));
+  //       if (imageFile && action.payload && action.payload._id) {
+  //         await dispatch(
+  //           uploadExperienceImage(userId, action.payload._id, imageFile)
+  //         );
+  //       }
+  //     }
+  //     setAlert({ type: "success", message: "Experience saved successfully." });
+  //     dispatch(fetchExperiences(userId));
+  //     handleCloseModal();
+  //   } catch (error) {
+  //     setAlert({
+  //       type: "danger",
+  //       message: error.message || "Failed to save experience.",
+  //     });
+  //   }
+  // };
 
   const handleDelete = async (expId) => {
     if (!userId) return;
@@ -239,6 +240,8 @@ const Experiences = () => {
         </Card.Body>
       </Card>
 
+      <ExperienceForm />
+
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -246,7 +249,7 @@ const Experiences = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
+          {/* {alert && <Alert variant={alert.type}>{alert.message}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="role">
               <Form.Label>Ruolo</Form.Label>
@@ -319,7 +322,8 @@ const Experiences = () => {
             >
               {experiencesLoading ? "Salvataggio..." : "Salva"}
             </Button>
-          </Form>
+          </Form> */}
+          <ExperienceForm handleCloseModal={handleCloseModal} userId={userId} />
         </Modal.Body>
       </Modal>
     </>

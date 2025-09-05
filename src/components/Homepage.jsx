@@ -45,12 +45,12 @@ const Homepage = () => {
     <>
       <Container className="homepage bg-light min-vh-100 py-4">
         <Row className="justify-content-center">
-          <Col xs={12} md={4} lg={3}>
+          <Col xs={12} lg={3}>
             <div className="sticky-sidebar">
               <LeftSidebarHome />
             </div>
           </Col>
-          <Col xs={12} md={8} lg={6}>
+          <Col xs={12} lg={6}>
             <HomeMain />
           </Col>
           <Col xs={12} lg={3}>
