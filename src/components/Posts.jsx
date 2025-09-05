@@ -198,27 +198,37 @@ const Posts = () => {
                   variant="outline-primary"
                   onClick={handleFirstPage}
                   disabled={currentPage === 1}
-                >⇤</Button>
+                >
+                  ⇤
+                </Button>
                 <Button
                   variant="outline-primary"
                   onClick={handlePrevPage}
                   disabled={currentPage === 1}
-                >←</Button>
+                >
+                  ←
+                </Button>
               </div>
               <span className="text-muted">
-                Pagina {currentPage} di {totalPages}
+                <span className="d-md-none d-lg-inline">Pagina</span>{' '}
+                {currentPage} di {totalPages}
               </span>
+
               <div className="d-flex gap-3">
                 <Button
                   variant="outline-primary"
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
-                >→</Button>
+                >
+                  →
+                </Button>
                 <Button
                   variant="outline-primary"
                   onClick={handleLastPage}
                   disabled={currentPage === totalPages}
-                >⇥</Button>
+                >
+                  ⇥
+                </Button>
               </div>
             </div>
           )}

@@ -1,82 +1,82 @@
-import { Container, Row, Col, Collapse } from "react-bootstrap";
-import HomeMain from "./HomeMain";
-import SidebarHome from "./SidebarHome";
-import LeftSidebarHome from "./LeftSidebarHome";
-import Messaggistica from "./Messaggistica";
-import { useState, useEffect, useRef } from "react";
-import "../css/footerHome.css";
-import MyFooter from "./MyFooter";
-import { useDispatch } from "react-redux";
-import { setNavigationAction } from "../redux/actions";
+import { Container, Row, Col, Collapse } from 'react-bootstrap'
+import HomeMain from './HomeMain'
+import SidebarHome from './SidebarHome'
+import LeftSidebarHome from './LeftSidebarHome'
+import Messaggistica from './Messaggistica'
+import { useState, useEffect, useRef } from 'react'
+import '../css/footerHome.css'
+import MyFooter from './MyFooter'
+import { useDispatch } from 'react-redux'
+import { setNavigationAction } from '../redux/actions'
 
 const Homepage = () => {
-  const [showFooter, setShowFooter] = useState(false);
-  const footerRef = useRef(null);
-  const dispatch = useDispatch();
+  const [showFooter, setShowFooter] = useState(false)
+  const footerRef = useRef(null)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(setNavigationAction("/"));
+    dispatch(setNavigationAction('/'))
     // Reset dello scroll quando il componente viene montato
     setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 100);
+      window.scrollTo(0, 0)
+    }, 100)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Si attiva solo al mount del componente
+  }, []) // Si attiva solo al mount del componente
 
   // Gestisce il click fuori dal footer per chiuderlo
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (footerRef.current && !footerRef.current.contains(event.target)) {
-        setShowFooter(false);
+        setShowFooter(false)
       }
-    };
+    }
 
     // Aggiunge l'event listener solo se il footer è visibile
     if (showFooter) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside)
     }
 
     // Rimuove l'event listener quando il componente viene smontato o il footer viene chiuso
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showFooter]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [showFooter])
 
   return (
     <>
-      <Container className='homepage min-vh-100 py-4'>
-        <Row className='justify-content-center'>
+      <Container className="homepage min-vh-100 py-4">
+        <Row className="justify-content-center">
           <Col xs={12} md={4} lg={3}>
-            <div className='sticky-sidebar'>
+            <div className="sticky-sidebar">
               <LeftSidebarHome />
             </div>
             <div className="d-block d-lg-none mt-3">
               <SidebarHome />
             </div>
           </Col>
-          <Col xs={12} lg={6}>
+          <Col xs={12} md={8} lg={6}>
             <HomeMain />
           </Col>
           <Col xs={12} lg={3}>
             <div className="d-none d-lg-block">
               <SidebarHome />
             </div>
-            <Container className="mt-4" style={{ top: "429px", zIndex: 2 }}>
+            <Container className="mt-4" style={{ top: '429px', zIndex: 2 }}>
               <div
                 className="d-flex justify-content-around small px-5"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               >
                 <p
                   className="small footer-link"
-                  style={{ cursor: "pointer", color: "#0a66c2" }}
+                  style={{ cursor: 'pointer', color: '#0a66c2' }}
                   onClick={() => {
-                    setShowFooter(!showFooter);
+                    setShowFooter(!showFooter)
                   }}
                 >
                   Informazioni
                 </p>
                 <p
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={() => setShowFooter(!showFooter)}
                   className="small footer-link"
                 >
@@ -114,7 +114,7 @@ const Homepage = () => {
         </div>
       </Collapse>
     </>
-  );
-};
+  )
+}
 
-export default Homepage;
+export default Homepage
