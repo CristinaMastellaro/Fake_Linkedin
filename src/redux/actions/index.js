@@ -1,9 +1,9 @@
 export const SAVE_ME_INFO = "SAVE_ME_INFO";
 export const SAVE_OTHER_INFO = "SAVE_OTHER_INFO";
 export const TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGI1YTFkOTE2MjdjNjAwMTVmOGM1NmMiLCJpYXQiOjE3NTY3MzM5MTMsImV4cCI6MTc1Nzk0MzUxM30.SOLseepU4Ysb0KnFQYR3yWP1jikhGc89-HCynCKAhuY";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OThjNjM3MjU0NmZiMDAwMTU5NmY0NzMiLCJpYXQiOjE3NzA4MDgxNzgsImV4cCI6MTc3MjAxNzc3OH0.zbJKhX6VvaPYWSY_D0tTbK0bRUBdPTb88kHZz_RPTYE";
 export const TOKEN_COMMENTS =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGJhZDJlNDkxMjgyMTAwMTU0NGRiNzUiLCJpYXQiOjE3NTcwNzQxNDgsImV4cCI6MTc1ODI4Mzc0OH0.X04nV6sR3sJ2S_PcslJhS9cshS9uGPMo11oajA49VFo";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OThjNjRhMDU0NmZiMDAwMTU5NmY0NzgiLCJpYXQiOjE3NzA4MDg0ODAsImV4cCI6MTc3MjAxODA4MH0.7hzlWrGQvlC9tRv6NZSSGRS5e6Ghw8JMrFdgLOywOiM";
 
 export const saveMeInfoAction = (data) => {
   return {
@@ -47,7 +47,7 @@ export const fetchProfile = () => {
           headers: {
             Authorization: `Bearer ${TOKEN}`,
           },
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to fetch profile");
@@ -72,7 +72,7 @@ export const fetchOtherProfile = (profileId) => {
           headers: {
             Authorization: `Bearer ${TOKEN}`,
           },
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to fetch profile");
@@ -190,7 +190,7 @@ export const fetchExperiences = (userId) => {
           headers: {
             Authorization: `Bearer ${TOKEN}`,
           },
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to fetch experiences");
@@ -216,7 +216,7 @@ export const createExperience = (userId, experienceData) => {
             Authorization: `Bearer ${TOKEN}`,
           },
           body: JSON.stringify(experienceData),
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to create experience");
@@ -242,7 +242,7 @@ export const updateExperience = (userId, expId, experienceData) => {
             Authorization: `Bearer ${TOKEN}`,
           },
           body: JSON.stringify(experienceData),
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to update experience");
@@ -266,7 +266,7 @@ export const deleteExperience = (userId, expId) => {
           headers: {
             Authorization: `Bearer ${TOKEN}`,
           },
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to delete experience");
@@ -293,7 +293,7 @@ export const uploadExperienceImage = (userId, expId, imageFile) => {
             Authorization: `Bearer ${TOKEN}`,
           },
           body: formData,
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to upload experience image");
@@ -339,7 +339,7 @@ export const uploadProfileImage = (userId, imageFile) => {
             Authorization: `Bearer ${TOKEN}`,
           },
           body: formData,
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to upload profile image");
@@ -420,7 +420,7 @@ export const fetchPosts = () => {
           headers: {
             Authorization: `Bearer ${TOKEN}`,
           },
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to fetch posts");
@@ -447,7 +447,7 @@ export const createPost = (postData, imageFile) => {
             Authorization: `Bearer ${TOKEN}`,
           },
           body: JSON.stringify(postData),
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to create post");
@@ -478,7 +478,7 @@ export const uploadPostImage = (postId, imageFile) => {
             Authorization: `Bearer ${TOKEN}`,
           },
           body: formData,
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to upload post image");
@@ -616,7 +616,7 @@ export const updateProfile = (profileData) => {
             Authorization: `Bearer ${TOKEN}`,
           },
           body: JSON.stringify(profileData),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -731,7 +731,7 @@ export const allTheProfiles = () => {
           headers: {
             Authorization: `Bearer ${TOKEN}`,
           },
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Failed to fetch posts");
